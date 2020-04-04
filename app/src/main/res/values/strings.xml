@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Corona</string>
+    <string name="image_capture_failed">Image capture failed</string>
+
+</resources>

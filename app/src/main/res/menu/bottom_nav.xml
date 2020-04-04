@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_map"
+        android:title="الخريطة"/>
+
+    <item
+        android:id="@+id/postFragment"
+        android:icon="@drawable/ic_post"
+        android:title="المقالات"/>
+    <item
+        android:id="@+id/reportFragment"
+        android:icon="@drawable/ic_report"
+        android:title="تبليغ"/>
+    <item
+        android:id="@+id/videoFragment"
+        android:icon="@drawable/ic_video"
+        android:title="مقاطع"/>
+
+    <item
+        android:id="@+id/viewFragment"
+        android:icon="@drawable/ic_display"
+        android:title="منوعات"/>
+
+
+</menu>
