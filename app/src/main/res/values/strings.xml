@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Corona</string>
+    <string name="image_capture_failed">Image capture failed</string>
+    <string name="facebook_app_id">2819307854855632</string>
+
+
+    <string name="fb_login_protocol_scheme">fb2819307854855632</string>
+    <string name="ee">الدخوا عن طريق جوجل</string>
+    <string name="send">ارسال</string>
+    <string name="toolbar_msg">الابلاغ عن حالة مرض</string>
+
+
+</resources>

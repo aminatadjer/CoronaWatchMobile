@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.corona.ui.report.login"
+
+        tools:layout="@layout/login_fragment"
+
+        >
+        <action
+            android:id="@+id/reportAction"
+            app:destination="@id/reportFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.corona.ui.map.map"
+
+        tools:layout="@layout/map_fragment"
+
+    />
+
+    <fragment
+        android:id="@+id/galery"
+        android:name="com.example.corona.ui.report.galery"
+
+
+        />
+    <fragment
+        android:id="@+id/takenvideo"
+        android:name="com.example.corona.ui.report.takenvideo"
+
+
+        />
+
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.corona.ui.post.post"
+
+        tools:layout="@layout/post_fragment"
+
+        />
+
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.corona.ui.report.report"
+
+        tools:layout="@layout/report_fragment"
+
+        >
+        <action
+            android:id="@+id/galleryAction"
+            app:destination="@id/galery" />
+        <action
+            android:id="@+id/takenVideoAction"
+            app:destination="@id/takenvideo" />
+        <action
+            android:id="@+id/takenImageAction"
+            app:destination="@id/takenImage" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/takenImage"
+        android:name="com.example.corona.ui.report.takenimage"
+
+        tools:layout="@layout/takenimage_fragment"
+
+        />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.example.corona.ui.video.video"
+
+        tools:layout="@layout/video_fragment"
+
+        />
+
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.example.corona.ui.view.view"
+
+        tools:layout="@layout/view_fragment"
+
+        />
+
+
+
+
+
+</navigation>
