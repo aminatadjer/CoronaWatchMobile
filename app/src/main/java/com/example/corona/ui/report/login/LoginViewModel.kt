@@ -1,4 +1,4 @@
-package com.example.corona.ui.report
+package com.example.corona.ui.report.login
 
 import androidx.lifecycle.ViewModel
 

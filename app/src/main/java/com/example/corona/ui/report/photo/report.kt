@@ -1,4 +1,4 @@
-package com.example.corona.ui.report
+package com.example.corona.ui.report.photo
 
 
 import android.Manifest
@@ -12,8 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.activity.OnBackPressedCallback
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,13 +20,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.corona.R
+
 import com.google.android.gms.tasks.TaskCompletionSource
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.report_fragment.*
 import java.io.File
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-import kotlin.concurrent.thread
 
 
 class report : Fragment() {
@@ -112,6 +110,7 @@ class report : Fragment() {
         end.visibility=View.GONE
 
         start.visibility=View.VISIBLE
+        previewView.visibility=View.VISIBLE
 
 
 
@@ -133,7 +132,8 @@ class report : Fragment() {
 
         img_pick_btn.setOnClickListener {
 
-            val galleryAction = reportDirections.galleryAction()
+            val galleryAction =
+                reportDirections.galleryAction()
             Navigation.findNavController(it).navigate(galleryAction)
             //dispatchGalleryPictureIntent()
 
@@ -145,6 +145,7 @@ class report : Fragment() {
             end.visibility=View.GONE
 
             start.visibility=View.VISIBLE
+            previewView.visibility=View.VISIBLE
             try {
                 setClickListeners()
                 requestPermissions()
@@ -156,7 +157,8 @@ class report : Fragment() {
         }
 
         img_video_btn.setOnClickListener {
-            val takenvideoAction = reportDirections.takenVideoAction()
+            val takenvideoAction =
+                reportDirections.takenVideoAction()
             Navigation.findNavController(it).navigate(takenvideoAction)
 
             //dispatchTakeVideoIntent()
@@ -187,7 +189,8 @@ class report : Fragment() {
 
             previewView.post { startCamera() }
         } else {
-            ActivityCompat.requestPermissions(activity!!, REQUIRED_PERMISSIONS,
+            ActivityCompat.requestPermissions(activity!!,
+                REQUIRED_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
 
@@ -235,7 +238,7 @@ class report : Fragment() {
 
                     activity!!.runOnUiThread {
 
-                        
+
 
                         d=FileProvider.getUriForFile(context!!,
                             "com.example.corona.ui.post",
@@ -265,7 +268,7 @@ class report : Fragment() {
 
 
         start.visibility=View.GONE
-
+        previewView.visibility=View.GONE
         end.visibility=View.VISIBLE
 
     }

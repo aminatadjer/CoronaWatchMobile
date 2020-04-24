@@ -1,14 +1,14 @@
-package com.example.corona.ui.report
+package com.example.corona.ui.report.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.corona.R
+
 import kotlinx.android.synthetic.main.login_fragment.*
 
 
@@ -38,7 +38,8 @@ class login : Fragment() {
 
 
                 if(login){
-                    val reportAction = loginDirections.reportAction()
+                    val reportAction =
+                        loginDirections.reportAction()
                     Navigation.findNavController(it).navigate(reportAction)
                 }
 
@@ -49,7 +50,8 @@ class login : Fragment() {
 
 
                 if(login){
-                    val reportAction = loginDirections.reportAction()
+                    val reportAction =
+                        loginDirections.reportAction()
                     Navigation.findNavController(it).navigate(reportAction)
                 }
 

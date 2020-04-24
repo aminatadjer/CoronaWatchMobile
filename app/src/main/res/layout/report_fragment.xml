@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.report.report"
+    tools:context=".ui.report.photo.report"
     android:id="@+id/reportFragment">
 
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            app:constraint_referenced_ids="previewView,toggleCameraLens,takePhoto"
+            app:constraint_referenced_ids="toggleCameraLens,takePhoto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,37 +97,66 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextureView
-            android:id="@+id/previewView"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_gravity="center"
 
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            app:layout_constraintHorizontal_bias="0.0"
+            <TextureView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+                />
 
-        <ImageView
-            android:id="@+id/takePhoto"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
 
+                <Button
+                    android:id="@+id/img_pick_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="الالبوم"
+                    android:textColor="@color/dark"
+                    android:textSize="30sp" />
 
-            android:src="@drawable/ic_take_photo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+                <Button
+                    android:id="@+id/img_photo_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="صورة"
+                    android:textColor="@color/dark"
 
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.84" />
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/img_video_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="فيديو"
+                    android:textColor="@color/dark"
+                    android:textSize="30sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/toggleCameraLens"
@@ -139,62 +168,28 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
+            app:layout_constraintHorizontal_bias="0.948"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <ImageView
+            android:id="@+id/takePhoto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+
+            android:src="@drawable/ic_take_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.500" />
+            app:layout_constraintVertical_bias="0.84" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="bottom">
-
-
-
-
-        <Button
-            android:id="@+id/img_pick_btn"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="8dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="الالبوم"
-            android:textColor="@color/dark"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/img_photo_btn"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="8dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="صورة"
-            android:textSize="30sp"
-
-            android:textColor="@color/dark" />
-
-        <Button
-            android:id="@+id/img_video_btn"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-
-            android:layout_width="8dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="فيديو"
-            android:textSize="30sp"
-            android:textColor="@color/dark"
-            />
-
-
-    </LinearLayout>
-
 
 
 </FrameLayout>

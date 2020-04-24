@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.corona.ui.report.login"
+        android:name="com.example.corona.ui.report.login.login"
 
         tools:layout="@layout/login_fragment"
 
@@ -27,13 +27,13 @@
 
     <fragment
         android:id="@+id/galery"
-        android:name="com.example.corona.ui.report.galery"
+        android:name="com.example.corona.ui.report.gallery.galery"
 
 
         />
     <fragment
         android:id="@+id/takenvideo"
-        android:name="com.example.corona.ui.report.takenvideo"
+        android:name="com.example.corona.ui.report.video.takenvideo"
 
 
         />
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.example.corona.ui.report.report"
+        android:name="com.example.corona.ui.report.photo.report"
 
         tools:layout="@layout/report_fragment"
 

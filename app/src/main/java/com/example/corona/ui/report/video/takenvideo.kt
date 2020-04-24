@@ -1,7 +1,8 @@
-package com.example.corona.ui.report
+package com.example.corona.ui.report.video
 
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -50,14 +51,35 @@ class takenvideo : Fragment(){
             Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
         }
 
+        sendVideo.setOnClickListener {
+            if(videoDuriationSecond<11)
+            {
+                //allowe ipload
+            }
+            else{
+                Toast.makeText(context!!,"يجب الا تتجاوز مدة الفيديو 15 ثانية اعد المحاولة",Toast.LENGTH_LONG).show()
+            }
+        }
+
 
     }
     var  videoUri: Uri? =null
+    var videoDuriationSecond:Long=0
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
 
             try {
                 videoUri= data!!.data
+
+                val retriever=MediaMetadataRetriever()
+                retriever.setDataSource(context,videoUri)
+
+                val time=retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                 videoDuriationSecond=time.toLong()/1000
+                retriever.release()
+                //Toast.makeText(context!!,videoDuriationSecond.toString(),Toast.LENGTH_LONG).show()
+
 
                 video_view.setVideoURI(videoUri)
 
@@ -66,6 +88,7 @@ class takenvideo : Fragment(){
                 video_view.setMediaController(mediactrl)
                 mediactrl.setAnchorView(video_view)
                 video_view!!.start()
+
                 textFieldVideo.visibility=View.VISIBLE
                 sendVideo.visibility=View.VISIBLE
             }catch (e:ConcurrentModificationException)

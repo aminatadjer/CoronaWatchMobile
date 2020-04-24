@@ -1,9 +1,7 @@
-package com.example.corona.ui.report
+package com.example.corona.ui.report.gallery
 
-import android.R.attr
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,7 +13,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.corona.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.galery_fragment.*
 
 
@@ -64,11 +61,16 @@ class galery : Fragment() {
 
             //val con=data!!.data
 
+
             selctedImage=data?.data
+
+
+
+
            // val r: String? =con!!.path
 
 
-            //Toast.makeText(context,con!!.path,Toast.LENGTH_LONG).show()
+            //
             takenImage.setImageURI(selctedImage) // handle chosen image
 
 
@@ -79,6 +81,7 @@ class galery : Fragment() {
         }
 
     }
+
 
     fun dispatchGalleryPictureIntent() {
         val galleryIntent = Intent(
