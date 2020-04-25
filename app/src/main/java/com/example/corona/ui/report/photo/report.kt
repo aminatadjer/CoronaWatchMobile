@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.Surface
 import android.view.View
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.corona.R
+import com.example.corona.ui.upload.UploadImage
 
 import com.google.android.gms.tasks.TaskCompletionSource
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,9 +33,7 @@ import java.util.concurrent.Executors
 
 class report : Fragment() {
 
-
-
-
+    lateinit var uploader: UploadImage
     companion object {
         fun newInstance() = report()
 
@@ -216,8 +216,17 @@ class report : Fragment() {
 
         tcs.task.addOnSuccessListener {
               if (d != null){
+                  uploader=UploadImage(activity!!)
                   imageView.setImageURI(d)
-                  //Toast.makeText(context,d!!.path,Toast.LENGTH_LONG).show()
+                  Toast.makeText(context,d!!.path.toString() , Toast.LENGTH_SHORT).show()
+                  sendImage.setOnClickListener{
+                      var a:String=textFieldImageReport.editText?.text.toString()
+                      Toast.makeText(context, Environment.getExternalStorageDirectory().toString() +
+                              File.separator , Toast.LENGTH_SHORT).show()
+                      d!!.path?.let { it1 -> uploader.uploadImage(
+                          Environment.getExternalStorageDirectory().toString() +
+                              File.separator +it1,a)}
+                  }
 
               }
 

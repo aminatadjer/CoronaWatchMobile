@@ -43,16 +43,15 @@ class FileUtilsImpl : FileUtils {
 
   override fun createDirectoryIfNotExist() {
     val folder = File(Environment.getExternalStorageDirectory().toString() +
-        File.separator + Environment.DIRECTORY_PICTURES + File.separator + FOLDER_NAME
-    )
+            File.separator + Environment.DIRECTORY_PICTURES + File.separator + FOLDER_NAME)
     if (!folder.exists()) {
       folder.mkdirs()
     }
   }
 
   override fun createFile() = File(
-      Environment.getExternalStorageDirectory().toString() +
-          File.separator + Environment.DIRECTORY_PICTURES + File.separator +
-              FOLDER_NAME + File.separator + IMAGE_PREFIX + System.currentTimeMillis() + JPG_SUFFIX
+    Environment.getExternalStorageDirectory().toString() +
+            File.separator + Environment.DIRECTORY_PICTURES + File.separator +
+            FOLDER_NAME + File.separator + IMAGE_PREFIX + System.currentTimeMillis() + JPG_SUFFIX
   )
 }

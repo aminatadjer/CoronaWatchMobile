@@ -13,16 +13,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.corona.R
+import com.example.corona.ui.upload.UploadImage
 import kotlinx.android.synthetic.main.galery_fragment.*
+import kotlinx.android.synthetic.main.takenvideo_fragment.*
+import java.io.IOException
 
 
 class galery : Fragment() {
 
     companion object {
         fun newInstance() = galery()
+        val IMAGE_DIRECTORY = "/coronawatch"
     }
     val REQUEST_GALLERY_CAPTURE = 2
-
+    lateinit var uploader: UploadImage
     private var selctedImage:Uri?=null
 
     private lateinit var viewModel: GaleryViewModel
@@ -46,37 +50,41 @@ class galery : Fragment() {
         mtitel.text= getString(R.string.toolbar_msg)
         textFieldImageGallery.visibility=View.GONE
         sendImage.visibility=View.GONE
+
         dispatchGalleryPictureIntent()
 
-        sendImage.setOnClickListener {
-            Toast.makeText(context,textFieldImageGallery.editText?.text.toString(),Toast.LENGTH_LONG).show()
-        }
-        activity!!.applicationContext
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_GALLERY_CAPTURE){
 
-
-            //val con=data!!.data
-
-
             selctedImage=data?.data
-
-
-
-
-           // val r: String? =con!!.path
-
-
-            //
             takenImage.setImageURI(selctedImage) // handle chosen image
-
-
-
             textFieldImageGallery.visibility=View.VISIBLE
             sendImage.visibility=View.VISIBLE
+            sendImage.setOnClickListener{
+                if (data != null)
+                {   uploader=UploadImage(activity!!)
+                    val contentURI = data!!.data
+                    val commentaire:String=textFieldImageGallery.editText?.text.toString()
+                    val path: String? = contentURI?.let { it1 -> uploader.getRealPathFromURI(it1) }
+                    try
+                    {
+                        if (contentURI != null) {
+                            Toast.makeText(activity!!.applicationContext, path.toString(), Toast.LENGTH_SHORT).show()
+                            uploader.uploadImage(path.toString(),commentaire)
+                        }
+                    }
+                    catch (e: IOException) {
+                        e.printStackTrace()
+                        Toast.makeText(activity!!.applicationContext, "Failed!", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+
+            }
 
         }
 
