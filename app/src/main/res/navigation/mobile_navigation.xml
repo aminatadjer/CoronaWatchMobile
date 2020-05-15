@@ -25,6 +25,7 @@
 
     />
 
+
     <fragment
         android:id="@+id/galery"
         android:name="com.example.corona.ui.report.gallery.galery"
@@ -44,7 +45,11 @@
 
         tools:layout="@layout/post_fragment"
 
-        />
+        >
+        <action
+            android:id="@+id/action_postFragment_to_articlePageFragment"
+            app:destination="@id/articlePageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/reportFragment"
@@ -59,19 +64,10 @@
         <action
             android:id="@+id/takenVideoAction"
             app:destination="@id/takenvideo" />
-        <action
-            android:id="@+id/takenImageAction"
-            app:destination="@id/takenImage" />
     </fragment>
 
 
-    <fragment
-        android:id="@+id/takenImage"
-        android:name="com.example.corona.ui.report.takenimage"
 
-        tools:layout="@layout/takenimage_fragment"
-
-        />
     <fragment
         android:id="@+id/videoFragment"
         android:name="com.example.corona.ui.video.video"
@@ -88,6 +84,21 @@
 
         />
 
+    <fragment
+        android:id="@+id/articlePageFragment"
+        android:name="com.example.corona.ui.post.ArticlePage"
+
+        tools:layout="@layout/article_page_fragment"
+
+        >
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_articlePageFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
 
 
 

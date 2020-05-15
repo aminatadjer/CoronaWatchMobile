@@ -5,7 +5,51 @@
     android:id="@+id/postFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.post.post">
+    tools:context=".ui.post.post"
+    android:background="@color/post_layout">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="96dp"
+        tools:listitem="@layout/post_item" />
+
+    <LinearLayout
+        android:id="@+id/disconected_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/disconnected"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="انقطع الاتصال"
+            android:textColor="@color/holo_red_dark"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="اعد الاتصال بالانترنت الخاص بك للوصول إلى هذا الجزء من التطبيق"
+
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

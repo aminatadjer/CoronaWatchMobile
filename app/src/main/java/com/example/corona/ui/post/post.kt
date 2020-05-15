@@ -1,11 +1,14 @@
 package com.example.corona.ui.post
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.os.Bundle
@@ -37,10 +40,13 @@ import androidx.camera.extensions.BokehImageCaptureExtender
 import androidx.camera.extensions.HdrImageCaptureExtender
 import androidx.camera.extensions.ImageCaptureExtender
 import androidx.camera.extensions.NightImageCaptureExtender
+import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 class post : Fragment()/*,FacebookListener*/ {
-
 
 
     companion object {
@@ -58,19 +64,72 @@ class post : Fragment()/*,FacebookListener*/ {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        activity!!.bottom_nav.visibility = View.GONE
 
         return inflater.inflate(R.layout.post_fragment, container, false)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
 
 
+        val networkConnection=NetworkConnection(context!!)
+        networkConnection.observe(this, Observer {isConnected->
+            if (isConnected){
+                recycler_view.visibility=View.VISIBLE
+                disconected_view.visibility=View.GONE
+                postFragment.setBackgroundColor(Color.parseColor("#59CFCCCC"))
+
+                val recyclerView: RecyclerView = recycler_view as RecyclerView
+                recyclerView.layoutManager = LinearLayoutManager(activity)
+                recyclerView.setHasFixedSize(true)
+
+                val adapter = ArticleAdapter()
+                recyclerView.adapter = adapter
 
 
-       /* FacebookSdk.setApplicationId(resources.getString(R.string.facebook_app_id))
+                var ll: MutableList<Article> = ArrayList()
+                ll.add(Article("https://www.bbc.com/arabic/world-52665698",
+                    "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
+                    "المصدر: دبي - العربية.نت",
+                    146,
+                    85))
+
+                ll.add(Article("https://www.bbc.com/arabic/world-52665698",
+                    "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
+                    "المصدر: دبي - العربية.نت",
+                    146,
+                    85))
+
+                ll.add(Article("https://www.bbc.com/arabic/world-52665698",
+                    "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
+                    "المصدر: دبي - العربية.نت",
+                    146,
+                    85))
+
+
+
+                adapter.setArticle(ll)
+
+                adapter.SetOnItemClickListner(object : ArticleAdapter.OnItemClickListner {
+                    override fun onItemClick(article: Article) {
+
+                        val nextAction=postDirections.actionPostFragmentToArticlePageFragment()
+                        nextAction.setUrl(article.url)
+                        Navigation.findNavController(view!!).navigate(nextAction)
+                    }
+
+                })
+            }else{
+                recycler_view.visibility=View.GONE
+                disconected_view.visibility=View.VISIBLE
+                postFragment.setBackgroundColor(Color.WHITE)
+            }
+
+        })
+        /* FacebookSdk.setApplicationId(resources.getString(R.string.facebook_app_id))
         FacebookSdk.sdkInitialize(context)
         mFacebook=FacebookHelper(this)
 
@@ -79,15 +138,10 @@ class post : Fragment()/*,FacebookListener*/ {
         }*/
         // TODO: Use the ViewModel
 
-        val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= ""
+
 
     }
-
-
-
-   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         mFacebook.onActivityResult(requestCode,resultCode,data)
     }
@@ -105,5 +159,6 @@ class post : Fragment()/*,FacebookListener*/ {
         Toast.makeText(context,""+ errorMsg,Toast.LENGTH_SHORT).show()
     }
 */
+
 
 }
