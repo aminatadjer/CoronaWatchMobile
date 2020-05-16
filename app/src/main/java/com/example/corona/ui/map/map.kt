@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.corona.R
+import com.example.corona.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class map : Fragment() {
@@ -23,8 +25,8 @@ class map : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity!!.bottom_nav.visibility = View.VISIBLE
-        activity!!.toolbar.visibility = View.VISIBLE
+        //activity!!.bottom_bar.visibility = View.VISIBLE
+        //activity!!.toolbar.visibility = View.VISIBLE
         return inflater.inflate(R.layout.map_fragment, container, false)
     }
 
@@ -36,5 +38,6 @@ class map : Fragment() {
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= ""
     }
+
 
 }

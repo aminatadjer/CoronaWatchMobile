@@ -44,6 +44,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
+import kotlinx.android.synthetic.main.post_item.*
 
 
 class post : Fragment()/*,FacebookListener*/ {
@@ -64,7 +66,7 @@ class post : Fragment()/*,FacebookListener*/ {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity!!.bottom_nav.visibility = View.GONE
+        //activity!!.bottom_bar.visibility = View.GONE
 
         return inflater.inflate(R.layout.post_fragment, container, false)
     }
@@ -74,6 +76,9 @@ class post : Fragment()/*,FacebookListener*/ {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
 
+        val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= getString(R.string.postTitle)
 
         val networkConnection=NetworkConnection(context!!)
         networkConnection.observe(this, Observer {isConnected->
@@ -91,7 +96,7 @@ class post : Fragment()/*,FacebookListener*/ {
 
 
                 var ll: MutableList<Article> = ArrayList()
-                ll.add(Article("https://www.bbc.com/arabic/world-52665698",
+                ll.add(Article("https://www.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-landscape-407021107",
                     "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
                     "المصدر: دبي - العربية.نت",
                     146,

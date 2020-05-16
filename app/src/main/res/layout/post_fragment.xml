@@ -21,33 +21,17 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/disconnected"/>
+        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="انقطع الاتصال"
-            android:textColor="@color/holo_red_dark"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_rawRes="@raw/disconnection"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:gravity="center"
-            android:text="اعد الاتصال بالانترنت الخاص بك للوصول إلى هذا الجزء من التطبيق"
 
-            android:textSize="18sp"
-            />
     </LinearLayout>
 
 

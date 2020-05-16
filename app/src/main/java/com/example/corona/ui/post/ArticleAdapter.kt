@@ -13,6 +13,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.corona.R
 import kotlinx.android.synthetic.main.post_item.view.*
 
@@ -31,7 +32,7 @@ class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
         internal val  subTitle: TextView =itemView.findViewById(R.id.subTitle)
         internal val  coment: TextView =itemView.findViewById(R.id.coment)
         internal val  like: TextView =itemView.findViewById(R.id.like)
-        internal val progressBar_loading:ProgressBar=itemView.findViewById(R.id.progressBar_loading)
+        internal val progressBar_loading: LottieAnimationView =itemView.findViewById(R.id.progressBar_loading)
         //internal val  read: Button =itemView.findViewById(R.id.read_btn)
 
         init {
@@ -83,6 +84,7 @@ class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
                 holder.progressBar_loading.visibility=View.GONE
             }
         }
+
 
         holder.title.text=currentArticle.title
         holder.subTitle.text=currentArticle.subTitle

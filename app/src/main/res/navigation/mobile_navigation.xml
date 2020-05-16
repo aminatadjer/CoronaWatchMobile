@@ -21,6 +21,7 @@
         android:id="@+id/mapFragment"
         android:name="com.example.corona.ui.map.map"
 
+        android:label="map"
         tools:layout="@layout/map_fragment"
 
     />
@@ -31,18 +32,26 @@
         android:name="com.example.corona.ui.report.gallery.galery"
 
 
-        />
+        >
+        <action
+            android:id="@+id/action_galery_to_reportFragment"
+            app:destination="@id/reportFragment" />
+    </fragment>
     <fragment
         android:id="@+id/takenvideo"
         android:name="com.example.corona.ui.report.video.takenvideo"
 
 
-        />
+        >
+        <action
+            android:id="@+id/action_takenvideo_to_reportFragment"
+            app:destination="@id/reportFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/postFragment"
         android:name="com.example.corona.ui.post.post"
-
+        android:label="post"
         tools:layout="@layout/post_fragment"
 
         >
@@ -55,6 +64,7 @@
         android:id="@+id/reportFragment"
         android:name="com.example.corona.ui.report.photo.report"
 
+        android:label="report"
         tools:layout="@layout/report_fragment"
 
         >
@@ -72,6 +82,7 @@
         android:id="@+id/videoFragment"
         android:name="com.example.corona.ui.video.video"
 
+        android:label="video"
         tools:layout="@layout/video_fragment"
 
         />
@@ -101,6 +112,18 @@
     </fragment>
 
 
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.example.corona.ui.SplashActivity"
+        android:label="SplashActivity"
+        tools:layout="@layout/activity_splash"
+
+        />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.corona.ui.MainActivity"
+        android:label="MainActivity"
+        tools:layout="@layout/activity_main"/>
 
 
 </navigation>

@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/mapFragment"
         android:icon="@drawable/ic_map"
-        android:title="الخريطة"/>
+        android:title=""
+
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/postFragment"
-        android:icon="@drawable/ic_post"
-        android:title="المقالات"/>
+        android:icon="@drawable/ic_public"
+        android:title=""
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_report"
-        android:title="تبليغ"/>
+        android:icon="@drawable/ic_warning"
+        android:title=""
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/videoFragment"
         android:icon="@drawable/ic_video"
-        android:title="مقاطع"/>
+        android:title=""
+        app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/viewFragment"
-        android:icon="@drawable/ic_display"
-        android:title="منوعات"/>
 
 
 </menu>

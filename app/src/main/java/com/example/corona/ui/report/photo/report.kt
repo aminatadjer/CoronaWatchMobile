@@ -70,7 +70,7 @@ class report : Fragment() {
 
 
 
-            activity!!.bottom_nav.visibility = View.GONE
+           // activity!!.bottom_bar.visibility = View.GONE
 
 
 
@@ -308,12 +308,19 @@ class report : Fragment() {
 
         preview.setOnPreviewOutputUpdateListener {
 
-            val parent = previewView.parent as ViewGroup
-            parent.removeView(previewView)
-            parent.addView(previewView, 0)
 
-            previewView.surfaceTexture = it.surfaceTexture
-            updateTransform()
+            try {
+                val parent = previewView.parent as ViewGroup
+                parent.removeView(previewView)
+                parent.addView(previewView, 0)
+                previewView.surfaceTexture = it.surfaceTexture
+                updateTransform()
+            }catch (e:Exception){
+
+            }
+
+
+
         }
 
         imageCapture = createCaptureUseCase()

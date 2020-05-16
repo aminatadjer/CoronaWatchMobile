@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -13,7 +14,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.corona.R
+
 import com.example.corona.ui.upload.UploadImage
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.galery_fragment.*
 import kotlinx.android.synthetic.main.takenvideo_fragment.*
 import java.io.IOException
@@ -98,5 +101,7 @@ class galery : Fragment() {
 
         startActivityForResult(galleryIntent, REQUEST_GALLERY_CAPTURE)
     }
+
+
 
 }

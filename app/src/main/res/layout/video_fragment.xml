@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.video.video"
-    android:id="@+id/videoFragment">
+    android:id="@+id/videoFragment"
+    >
 
     <TextView
         android:layout_width="match_parent"

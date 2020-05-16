@@ -4,11 +4,14 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 
 import com.example.corona.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class video : Fragment() {
 
@@ -32,6 +35,8 @@ class video : Fragment() {
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= ""
+
     }
+
 
 }
