@@ -1,11 +1,13 @@
 package com.example.corona.ui.map
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.example.corona.R
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -51,9 +53,23 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
 
 
     fun createMarkerList(){
+        var danger=0
+        val radius=13000.0
         for (key in LatLang.latLangAlgeria.keys){
-            DrawCircle(googleMap,
-                LatLang.latLangAlgeria[key]!!.lat, LatLang.latLangAlgeria[key]!!.lang,"#80FF0000",30000.0)
+            when(danger){
+                0->DrawCircle(googleMap,
+                    LatLang.latLangAlgeria[key]!!.lat, LatLang.latLangAlgeria[key]!!.lang,
+                    ContextCompat.getColor(context, R.color.danger_lvl1),radius)
+
+                1->DrawCircle(googleMap,
+                    LatLang.latLangAlgeria[key]!!.lat, LatLang.latLangAlgeria[key]!!.lang,
+                    ContextCompat.getColor(context, R.color.danger_lvl2),radius)
+
+                2->DrawCircle(googleMap,
+                    LatLang.latLangAlgeria[key]!!.lat, LatLang.latLangAlgeria[key]!!.lang,
+                    ContextCompat.getColor(context, R.color.danger_lvl3),radius)
+            }
+
             markerList.add(
                 googleMap.addMarker(
                     MarkerOptions()
@@ -62,11 +78,18 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
                         .title(key)
                         //.icon(BitmapDescriptorFactory.fromBitmap(getBitmap(latLangAlgeria[key]!!.lat, latLangAlgeria[key]!!.lang,googleMap)))
                         .alpha(0.0f)))
+
+            danger+=1
+            if (danger==3)
+            {
+                danger=0
+            }
         }
+
         kmlPolylineLayer.addLayerToMap()
     }
 
-    fun DrawCircle( gMap:GoogleMap,lat:Double,lng:Double,color:String,radius:Double)
+    fun DrawCircle( gMap:GoogleMap,lat:Double,lng:Double,color:Int,radius:Double)
     {
 
         var circleMaker: CircleOptions =  CircleOptions();
@@ -74,8 +97,8 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
         circleMaker.center(latlong)
         circleMaker.radius(radius)
         circleMaker.strokeWidth(3.0f)
-        circleMaker.strokeColor(Color.parseColor(color))
-        circleMaker.fillColor(Color.parseColor(color))
+        circleMaker.strokeColor(color)
+        circleMaker.fillColor(color)
         val camera= CameraUpdateFactory.newLatLngZoom(latlong, 15.0f)
 
         val circle = gMap.addCircle(circleMaker)
