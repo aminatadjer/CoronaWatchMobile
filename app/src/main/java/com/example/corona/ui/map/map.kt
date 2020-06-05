@@ -3,12 +3,14 @@ package com.example.corona.ui.map
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.*
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
@@ -59,67 +61,36 @@ class map : Fragment(),OnMapReadyCallback {
     companion object {
         fun newInstance() = map()
     }
+    lateinit var bottomSheetBehaivior: BottomSheetBehavior<LinearLayout>
 
-
-     //var markerList=ArrayList<Marker>()
-
-    lateinit var markerManager :MarkerManager
-    lateinit var groundOverlayManager : GroundOverlayManager
-    lateinit var polygonManager :  PolygonManager
-    lateinit var polylineManager :  PolylineManager
-
-    lateinit var kmlPolylineLayer :  KmlLayer
-
-    lateinit var bottomSheetBehaivior:BottomSheetBehavior<LinearLayout>
     private lateinit var viewModel: MapViewModel
+
+    private lateinit var mapView:MapView
+    private lateinit var mtitel:TextView
 
     private val PERMISSIONS_REQUEST_ENABLE_GPS=10
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION=11
-    private var mLocationPermissionGranted=false
-    private lateinit var mapView:MapView
-    private lateinit var mtitel:TextView
+    var mLocationPermissionGranted=false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //activity!!.bottom_bar.visibility = View.VISIBLE
-        //activity!!.toolbar.visibility = View.VISIBLE
         return inflater.inflate(R.layout.map_fragment, container, false)
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
-        // TODO: Use the ViewModel
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
          mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= ""
 
 
-        val linearLayout= activity!!.findViewById<LinearLayout>(R.id.bottom_sheet)
-         bottomSheetBehaivior=BottomSheetBehavior.from(linearLayout)
-        bottomSheetBehaivior.setPeekHeight(150)
-        bottomSheetBehaivior.setState(BottomSheetBehavior.STATE_EXPANDED)
-
-        bottomSheetBehaivior.setBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if(newState==BottomSheetBehavior.STATE_EXPANDED){
-                    bottomSheet.requestLayout();
-
-                    /*or
-                     recyclerView.scrollToPosition(0);
-                     recyclerView.requestLayout();*/
-
-                }
-            }
-        });
-
+        SetBottomSheetBehaivior()
         bottom_sheet.visibility=View.GONE
 
         var mapViewBundle:Bundle?=null
@@ -129,9 +100,24 @@ class map : Fragment(),OnMapReadyCallback {
         mapView=activity!!.findViewById(R.id.map) as MapView
         mapView.onCreate(mapViewBundle)
         mapView.getMapAsync(this)
+    }
 
 
+    fun SetBottomSheetBehaivior(){
+        val linearLayout= activity!!.findViewById<LinearLayout>(R.id.bottom_sheet)
+        bottomSheetBehaivior=BottomSheetBehavior.from(linearLayout)
+        bottomSheetBehaivior.setPeekHeight(150)
+        bottomSheetBehaivior.setState(BottomSheetBehavior.STATE_EXPANDED)
+        bottomSheetBehaivior.setBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
+            }
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if(newState==BottomSheetBehavior.STATE_EXPANDED){
+                    bottomSheet.requestLayout()
+                }
+            }
+        })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -147,9 +133,9 @@ class map : Fragment(),OnMapReadyCallback {
 
 
 
-    override fun onMapReady(googleMap: GoogleMap?) {
-        var enter=false
 
+    override fun onMapReady(googleMap: GoogleMap?) {
+         val mapAnimation=MapAnimation(googleMap!!,context!!,activity!!)
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -166,97 +152,15 @@ class map : Fragment(),OnMapReadyCallback {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-
         googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom( LatLng(28.0339, 1.6596), 5.0f))
 
-
-       /*for (key in latLangAlgeria.keys){
-           markerList.add(
-               googleMap.addMarker(MarkerOptions()
-                   .position(LatLng(latLangAlgeria[key]!!.lat, latLangAlgeria[key]!!.lang))
-                   .flat(true)
-                   .title(key)
-                   //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic1))
-                   .alpha(0.0f)))
-
-        }*/
-
-
-        markerManager =  MarkerManager(googleMap)
-        groundOverlayManager =  GroundOverlayManager(googleMap)
-        polygonManager =  PolygonManager(googleMap)
-        polylineManager =  PolylineManager(googleMap)
-        kmlPolylineLayer =  KmlLayer(
-            googleMap,
-            R.raw.dza1,
-            context,
-            markerManager,
-            polygonManager,
-            polylineManager,
-            groundOverlayManager,
-            null)
-
-        kmlPolylineLayer.addLayerToMap()
-
-        //set marker on click listner and animate the map
-        /*googleMap.setOnMapLoadedCallback {
-            googleMap.setOnMarkerClickListener {
-                enter=mapAnimation(enter,googleMap,it.title)
-                bottom_sheet.visibility=View.VISIBLE
-                setInfoWindow(latLangAlgeria[it.title]!!.ArabicName,
-                    "danger",
-                    "100",
-                    "101",
-                    "102",
-                    "103",
-                    "104")
-                true
-            }
-        }*/
-        //set KML's map partition  on click listner and animate the map
-        kmlPolylineLayer.setOnFeatureClickListener(object :Layer.OnFeatureClickListener{
-            override fun onFeatureClick(feature: Feature?) {
-                enter=mapAnimation(enter,googleMap,feature!!.getProperty("name"))
-                bottom_sheet.visibility=View.VISIBLE
-
-                //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
-                setInfoWindow(latLangAlgeria[feature!!.getProperty("name")]!!.ArabicName,
-                    "خطير",
-                    "100",
-                    "101",
-                    "102",
-                    "103",
-                    "104")
-
-            } })
-    }
-
-    fun setInfoWindow(region_:String,
-                      state_:String,
-                      nb_cases_:String,
-                      nb_holder_:String,
-                      nb_doubtful_:String,
-                      nb_deaths_:String,
-                      nb_recovred_:String){
-        region.text=region_
-        state.text=state_
-        nb_cases.text=nb_cases_
-        nb_holder.text=nb_holder_
-        nb_doubtful.text=nb_doubtful_
-        nb_deaths.text=nb_deaths_
-        nb_recovred.text=nb_recovred_
+        mapAnimation.createMarkerList()
+        mapAnimation.SetMarkerOnClickListner()
+        mapAnimation.SetRegionOnClickListner()
 
     }
 
-    fun mapAnimation(enter:Boolean,googleMap: GoogleMap,Property:String):Boolean{
-        var enterr=enter
-        //markerList[latLangAlgeria.keys.indexOf(Property)].showInfoWindow()
-        if(enter){ kmlPolylineLayer.removeLayerFromMap()
-        }else{ enterr=true}
-        kmlPolylineLayer=KmlLayer(googleMap,latLangAlgeria[Property]!!.kmlResource, context, markerManager, polygonManager, polylineManager, groundOverlayManager, null)
-        kmlPolylineLayer.addLayerToMap()
-        return enterr
-    }
+
 
     override fun onPause() {
         mapView.onPause()
@@ -277,17 +181,19 @@ class map : Fragment(),OnMapReadyCallback {
     }
     override fun onResume() {
         super.onResume()
+
         if(checkMapServices()){
             if(mLocationPermissionGranted){
 
                 mapView.onResume()
             }
             else{
-                    getLocationPermission()}
+                getLocationPermission()}
         }
     }
 
-    private fun checkMapServices(): Boolean {
+
+    fun checkMapServices(): Boolean {
         if (isServicesOK()) {
             if (isMapsEnabled()) {
                 return true
@@ -319,7 +225,7 @@ class map : Fragment(),OnMapReadyCallback {
         return true
     }
 
-    private fun getLocationPermission() { /*
+    fun getLocationPermission() { /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
@@ -341,14 +247,14 @@ class map : Fragment(),OnMapReadyCallback {
     }
 
     fun isServicesOK(): Boolean {
-        Log.d(TAG, "isServicesOK: checking google services version")
+        Log.d(ContentValues.TAG, "isServicesOK: checking google services version")
         val available =
             GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity)
         if (available == ConnectionResult.SUCCESS) { //everything is fine and the user can make map requests
-            Log.d(TAG, "isServicesOK: Google Play Services is working")
+            Log.d(ContentValues.TAG, "isServicesOK: Google Play Services is working")
             return true
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) { //an error occured but we can resolve it
-            Log.d(TAG, "isServicesOK: an error occured but we can fix it")
+            Log.d(ContentValues.TAG, "isServicesOK: an error occured but we can fix it")
             val dialog: Dialog = GoogleApiAvailability.getInstance()
                 .getErrorDialog(activity, available, 1)
             dialog.show()
@@ -376,13 +282,13 @@ class map : Fragment(),OnMapReadyCallback {
         }
     }
 
-     override fun onActivityResult(
+    override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(TAG, "onActivityResult: called.")
+        Log.d(ContentValues.TAG, "onActivityResult: called.")
         when (requestCode) {
             PERMISSIONS_REQUEST_ENABLE_GPS -> {
                 if (mLocationPermissionGranted) {
@@ -393,6 +299,5 @@ class map : Fragment(),OnMapReadyCallback {
             }
         }
     }
-
 
 }
