@@ -50,7 +50,7 @@ class galery : Fragment() {
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.toolbar_msg)
+        mtitel.text= getString(R.string.reportTitle)
         textFieldImageGallery.visibility=View.GONE
         sendImage.visibility=View.GONE
 

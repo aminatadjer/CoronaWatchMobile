@@ -3,9 +3,11 @@ package com.example.corona.ui.map
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -26,7 +28,11 @@ import com.google.maps.android.data.Layer
 import com.google.maps.android.data.kml.KmlLayer
 import kotlinx.android.synthetic.main.bottom_sheet.*
 
-class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: FragmentActivity) {
+class MapAnimation(
+    var googleMap: GoogleMap,
+    val context:Context,
+    val activity: FragmentActivity) {
+
     //KML RESOURCE
      var markerManager : MarkerManager=  MarkerManager(googleMap)
      var groundOverlayManager : GroundOverlayManager=  GroundOverlayManager(googleMap)
@@ -51,7 +57,7 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
     var nb_recovred:TextView=activity.findViewById(R.id.nb_recovred)
 
 
-
+    //create Markers and draw circle around it for each wilaya
     fun createMarkerList(){
         var danger=0
         val radius=13000.0
@@ -85,13 +91,11 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
                 danger=0
             }
         }
-
         kmlPolylineLayer.addLayerToMap()
     }
 
     fun DrawCircle( gMap:GoogleMap,lat:Double,lng:Double,color:Int,radius:Double)
     {
-
         var circleMaker: CircleOptions =  CircleOptions();
         var latlong =  LatLng(lat, lng); //Location
         circleMaker.center(latlong)
@@ -100,7 +104,6 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
         circleMaker.strokeColor(color)
         circleMaker.fillColor(color)
         val camera= CameraUpdateFactory.newLatLngZoom(latlong, 15.0f)
-
         val circle = gMap.addCircle(circleMaker)
     }
 
@@ -125,6 +128,7 @@ class MapAnimation(var googleMap: GoogleMap,val context:Context,val activity: Fr
     fun SetRegionOnClickListner(){
         kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
             override fun onFeatureClick(feature: Feature?) {
+                Log.d("ii",feature!!.getProperty("name"))
                 mapAnimation(feature!!.getProperty("name"))
                 bottom_sheet.visibility=View.VISIBLE
 

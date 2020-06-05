@@ -32,10 +32,7 @@ import com.example.corona.ui.map.LatLang.latLangAlgeria
 
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.clustering.ClusterManager
@@ -56,11 +53,12 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
-class map : Fragment(),OnMapReadyCallback {
+class map : Fragment(),OnMapReadyCallback{
 
     companion object {
         fun newInstance() = map()
     }
+
     lateinit var bottomSheetBehaivior: BottomSheetBehavior<LinearLayout>
 
     private lateinit var viewModel: MapViewModel
@@ -71,6 +69,9 @@ class map : Fragment(),OnMapReadyCallback {
     private val PERMISSIONS_REQUEST_ENABLE_GPS=10
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION=11
     var mLocationPermissionGranted=false
+
+    lateinit var mapViewModel: MapViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,10 +85,11 @@ class map : Fragment(),OnMapReadyCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
+        mapViewModel=MapViewModel()
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= ""
+        mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= getString(R.string.mapTitle)
 
 
         SetBottomSheetBehaivior()
@@ -95,7 +97,7 @@ class map : Fragment(),OnMapReadyCallback {
 
         var mapViewBundle:Bundle?=null
         if(savedInstanceState!=null){
-            mapViewBundle=savedInstanceState.getBundle("MapViewBundleKey")
+            mapViewBundle=savedInstanceState.getBundle(getString(R.string.MapViewBundleKey))
         }
         mapView=activity!!.findViewById(R.id.map) as MapView
         mapView.onCreate(mapViewBundle)
@@ -110,7 +112,6 @@ class map : Fragment(),OnMapReadyCallback {
         bottomSheetBehaivior.setState(BottomSheetBehavior.STATE_EXPANDED)
         bottomSheetBehaivior.setBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
             }
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if(newState==BottomSheetBehavior.STATE_EXPANDED){
@@ -120,43 +121,37 @@ class map : Fragment(),OnMapReadyCallback {
         })
     }
 
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        var mapViewBundle=outState.getBundle("MapViewBundleKey")
+        var mapViewBundle=outState.getBundle(getString(R.string.MapViewBundleKey))
         if(mapViewBundle==null){
             mapViewBundle= Bundle()
-            outState.putBundle("MapViewBundleKey",mapViewBundle)
+            outState.putBundle(getString(R.string.MapViewBundleKey),mapViewBundle)
         }
-
         mapView.onSaveInstanceState(mapViewBundle)
     }
 
 
 
-
     override fun onMapReady(googleMap: GoogleMap?) {
-         val mapAnimation=MapAnimation(googleMap!!,context!!,activity!!)
+
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
              val success = googleMap!!.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
-                        activity, R.raw.map));
-
+                        activity, R.raw.map))
             if (!success) {
-
-                Log.e(TAG, "Style parsing failed.");
+                Log.e(TAG, "Style parsing failed.")
             }
-
         }catch ( e:Resources.NotFoundException) {
-            Log.e(TAG, "Can't find style. Error: ", e);
+            Log.e(TAG, "Can't find style. Error: ", e)
         }
 
         googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom( LatLng(28.0339, 1.6596), 5.0f))
 
-        mapAnimation.createMarkerList()
-        mapAnimation.SetMarkerOnClickListner()
-        mapAnimation.SetRegionOnClickListner()
+        mapViewModel.setMap(googleMap,context!!,activity!!)
 
     }
 
@@ -204,9 +199,9 @@ class map : Fragment(),OnMapReadyCallback {
 
     private fun buildAlertMessageNoGps() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setMessage("This application requires GPS to work properly, do you want to enable it?")
+            builder.setMessage(getString(R.string.gpsPermissionMsg))
             .setCancelable(false)
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+            .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                 val enableGpsIntent =
                     Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivityForResult(enableGpsIntent, PERMISSIONS_REQUEST_ENABLE_GPS)
@@ -217,7 +212,6 @@ class map : Fragment(),OnMapReadyCallback {
 
     fun isMapsEnabled(): Boolean {
         val manager =activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps()
             return false
@@ -247,19 +241,19 @@ class map : Fragment(),OnMapReadyCallback {
     }
 
     fun isServicesOK(): Boolean {
-        Log.d(ContentValues.TAG, "isServicesOK: checking google services version")
+        Log.d(ContentValues.TAG, getString(R.string.checkGoogleServiceVersion))
         val available =
             GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity)
         if (available == ConnectionResult.SUCCESS) { //everything is fine and the user can make map requests
-            Log.d(ContentValues.TAG, "isServicesOK: Google Play Services is working")
+            Log.d(ContentValues.TAG, getString(R.string.checkGoogleServiceWorking))
             return true
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) { //an error occured but we can resolve it
-            Log.d(ContentValues.TAG, "isServicesOK: an error occured but we can fix it")
+            Log.d(ContentValues.TAG, getString(R.string.checkGoogleServiceError))
             val dialog: Dialog = GoogleApiAvailability.getInstance()
                 .getErrorDialog(activity, available, 1)
             dialog.show()
         } else {
-            Toast.makeText(activity, "You can't make map requests", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.errorMapRequest), Toast.LENGTH_SHORT).show()
         }
         return false
     }
@@ -299,5 +293,7 @@ class map : Fragment(),OnMapReadyCallback {
             }
         }
     }
+
+
 
 }
