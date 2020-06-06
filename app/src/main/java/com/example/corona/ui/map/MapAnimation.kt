@@ -1,6 +1,7 @@
 package com.example.corona.ui.map
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.content.res.Resources
 import android.graphics.Color
 import android.util.Log
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.corona.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,6 +30,7 @@ import com.google.maps.android.data.Feature
 import com.google.maps.android.data.Layer
 import com.google.maps.android.data.kml.KmlLayer
 import kotlinx.android.synthetic.main.bottom_sheet.*
+import java.lang.reflect.Field
 
 class MapAnimation(
     var googleMap: GoogleMap,
@@ -112,6 +116,15 @@ class MapAnimation(
             googleMap.setOnMarkerClickListener {
                 mapAnimation(it.title)
                 bottom_sheet.visibility= View.VISIBLE
+
+                val hospitals:MutableList<Hospital> = ArrayList()
+                hospitals.add(Hospital("jj","oo","pp"))
+                hospitals.add(Hospital("jj","oo","pp"))
+                hospitals.add(Hospital("jj","oo","pp"))
+                hospitals.add(Hospital("jj","oo","pp"))
+
+
+
                 setInfoWindow(
                     LatLang.latLangAlgeria[it.title]!!.ArabicName,
                     "danger",
@@ -119,7 +132,8 @@ class MapAnimation(
                     "101",
                     "102",
                     "103",
-                    "104")
+                    "104",
+                    hospitals)
                 true
             }
         }
@@ -128,9 +142,17 @@ class MapAnimation(
     fun SetRegionOnClickListner(){
         kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
             override fun onFeatureClick(feature: Feature?) {
-                Log.d("ii",feature!!.getProperty("name"))
+
                 mapAnimation(feature!!.getProperty("name"))
                 bottom_sheet.visibility=View.VISIBLE
+
+                
+                val hospitals:MutableList<Hospital> = ArrayList()
+                hospitals.add(Hospital("jj","oo","pp"))
+                hospitals.add(Hospital("jj","oo","pp"))
+                hospitals.add(Hospital("jj","oo","pp"))
+                hospitals.add(Hospital("jj","oo","pp"))
+
 
                 //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
                 setInfoWindow(
@@ -140,7 +162,8 @@ class MapAnimation(
                     "101",
                     "102",
                     "103",
-                    "104")
+                    "104",
+                    hospitals)
 
             } })
     }
@@ -151,7 +174,9 @@ class MapAnimation(
                       nb_holder_:String,
                       nb_doubtful_:String,
                       nb_deaths_:String,
-                      nb_recovred_:String){
+                      nb_recovred_:String,
+                      hospitals:MutableList<Hospital>){
+        val recycler_view:RecyclerView=activity.findViewById(R.id.recycler_view)
         region.text=region_
         state.text=state_
         nb_cases.text=nb_cases_
@@ -160,7 +185,19 @@ class MapAnimation(
         nb_deaths.text=nb_deaths_
         nb_recovred.text=nb_recovred_
 
+
+
+        val recyclerView: RecyclerView = recycler_view
+        recyclerView.layoutManager= LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+
+
+
+        val adapter= HospitalAdapter()
+        recyclerView.adapter=adapter
+        adapter.setHospital(hospitals)
     }
+
 
     fun mapAnimation(Property:String){
         //markerList[latLangAlgeria.keys.indexOf(Property)].showInfoWindow()

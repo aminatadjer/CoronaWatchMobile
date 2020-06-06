@@ -91,6 +91,11 @@ class map : Fragment(),OnMapReadyCallback{
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.mapTitle)
 
+        /*val id =  ArrayList<Int>();
+        for ( i in 1..10) {
+            id.add(resources.getIdentifier("d"+i, "raw", activity!!.packageName))
+        }
+        */
 
         SetBottomSheetBehaivior()
         bottom_sheet.visibility=View.GONE

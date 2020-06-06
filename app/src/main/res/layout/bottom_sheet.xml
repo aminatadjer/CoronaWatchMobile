@@ -188,4 +188,24 @@
             android:textColor="@color/dark"
             android:textSize="@dimen/_14sdp" />
     </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="مصالح استشفائية"
+        android:layout_weight="0"
+        android:paddingTop="10dp"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/_14sdp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:listitem="@layout/hospital_item" />
+
+
 </LinearLayout>
