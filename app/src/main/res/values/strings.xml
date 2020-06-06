@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Corona</string>
+    <string name="image_capture_failed">Image capture failed</string>
+    <string name="facebook_app_id">2819307854855632</string>
+
+
+    <string name="fb_login_protocol_scheme">fb2819307854855632</string>
+    <string name="ee">الدخوا عن طريق جوجل</string>
+    <string name="send">ارسال</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="gooogle_api_key">AIzaSyBkUC4wQsBe_cLAqUZxk9ekjQuQjhIKGcE</string>
+
+
+    <string name="postTitle">اخر الاخبار</string>
+    <string name="mapTitle">الخريطة</string>
+    <string name="reportTitle">الابلاغ عن حالة مرض</string>
+
+    <string name="MapViewBundleKey">MapViewBundleKey</string>
+
+    <string name="gpsPermissionMsg">يتطلب هذا التطبيق GPS للعمل بشكل صحيح ، هل تريد تمكينه؟</string>
+    <string name="yes">نعم</string>
+
+    <string name="checkGoogleServiceVersion">isServicesOK: checking google services version</string>
+    <string name="checkGoogleServiceWorking">isServicesOK: Google Play Services is working</string>
+    <string name="checkGoogleServiceError">isServicesOK: an error occured but we can fix it</string>
+    <string name="errorMapRequest">You can\'t make map requests</string>
+
+</resources>

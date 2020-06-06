@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_map"
+        android:title=""
+
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/postFragment"
+        android:icon="@drawable/ic_public"
+        android:title=""
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/loginFragment"
+        android:icon="@drawable/ic_warning"
+        android:title=""
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/videoFragment"
+        android:icon="@drawable/ic_video"
+        android:title=""
+        app:showAsAction="ifRoom"/>
+
+
+
+</menu>
