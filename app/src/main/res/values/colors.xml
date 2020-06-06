@@ -15,7 +15,7 @@
 
 
     <!-- map area -->
-    <color name="danger_lvl1">#8048E81C</color>
-    <color name="danger_lvl2">#80F36608</color>
-    <color name="danger_lvl3">#80FF0000</color>
+    <color name="danger_lvl1">#289F4E</color>
+    <color name="danger_lvl2">#FA8501</color>
+    <color name="danger_lvl3">#FA1401</color>
 </resources>

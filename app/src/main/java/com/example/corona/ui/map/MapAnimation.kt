@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.corona.R
+import com.example.corona.ui.Util
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CircleOptions
@@ -68,7 +69,6 @@ class MapAnimation(
 
     //create Markers and draw circle around it for each wilaya
     fun createMarkerList(){
-        var danger=0
         val radius=13000.0
         for (key in LatLang.latLangAlgeria.keys){
             when(LatLang.latLangAlgeria[key]!!.degre){
@@ -94,11 +94,6 @@ class MapAnimation(
                         //.icon(BitmapDescriptorFactory.fromBitmap(getBitmap(latLangAlgeria[key]!!.lat, latLangAlgeria[key]!!.lang,googleMap)))
                         .alpha(0.0f)))
 
-            danger+=1
-            if (danger==3)
-            {
-                danger=0
-            }
         }
         kmlPolylineLayer.addLayerToMap()
     }
@@ -138,9 +133,10 @@ class MapAnimation(
             }
         }
     }
+
     fun getCentreByRegion(idregion:Int){
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.9:8000/api/")
+            .baseUrl(Util.getProperty("baseUrl", context!!))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create<Service>(Service::class.java)
@@ -159,33 +155,26 @@ class MapAnimation(
 
             }
         })
-
-
-
-
     }
 
     fun SetRegionOnClickListner(){
         kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
             override fun onFeatureClick(feature: Feature?) {
-
-                mapAnimation(feature!!.getProperty("name"))
+                val property="name"
+                mapAnimation(feature!!.getProperty(property))
                 bottom_sheet.visibility=View.VISIBLE
 
-                getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.id)
-
-
-
+                getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.id)
 
                 //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
                 setInfoWindow(
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.ArabicName,
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.degre,
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.confirme.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.critique.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.suspect.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.mort.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty("name")]!!.guerie.toString(),
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.ArabicName,
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.degre,
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.confirme.toString(),
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.critique.toString(),
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.suspect.toString(),
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.mort.toString(),
+                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.guerie.toString(),
                     hospitals)
 
             } })
@@ -203,14 +192,14 @@ class MapAnimation(
         var etat:String=""
         region.text=region_
         when(state_){
-            0->{etat="لا يوجد خطر"
-                state.setTextColor(Color.parseColor("#289F4E"))
+            0->{etat=context.getString(R.string.danger_lvl1)
+                state.setTextColor(Color.parseColor(Util.getProperty("dangerLvl1Color", context!!)))
             }
-            1->{etat="خطر متوسط"
-                state.setTextColor(Color.parseColor("#FA8501"))
+            1->{etat=context.getString(R.string.danger_lvl2)
+                state.setTextColor(Color.parseColor(Util.getProperty("dangerLvl2Color", context!!)))
             }
-            2->{etat="خطير جدا"
-                state.setTextColor(Color.parseColor("#FA1401"));
+            2->{etat=context.getString(R.string.danger_lvl3)
+                state.setTextColor(Color.parseColor(Util.getProperty("dangerLvl3Color", context!!)));
             }
         }
         state.text=etat

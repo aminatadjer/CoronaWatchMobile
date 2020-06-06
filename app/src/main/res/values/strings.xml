@@ -30,4 +30,10 @@
     <string name="checkGoogleServiceError">isServicesOK: an error occured but we can fix it</string>
     <string name="errorMapRequest">You can\'t make map requests</string>
 
+    <string name="danger_lvl1">لا يوجد خطر</string>
+    <string name="danger_lvl2">خطر متوسط</string>
+    <string name="danger_lvl3">خطير جدا</string>
+
+
+
 </resources>

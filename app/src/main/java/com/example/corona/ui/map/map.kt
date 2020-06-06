@@ -1,5 +1,6 @@
 package com.example.corona.ui.map
 
+import com.example.corona.ui.Util
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
@@ -122,7 +123,7 @@ class map : Fragment(),OnMapReadyCallback{
 
         var regionList: ArrayList<Region> = arrayListOf()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.9:8000/api/")
+            .baseUrl(Util.getProperty("baseUrl", context!!))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create<Service>(Service::class.java)
@@ -187,17 +188,19 @@ class map : Fragment(),OnMapReadyCallback{
                     MapStyleOptions.loadRawResourceStyle(
                         activity, R.raw.map))
             if (!success) {
-                Log.e(TAG, "Style parsing failed.")
+                Log.e(TAG, Util.getProperty("StyleParsingMsg", context!!))
             }
         }catch ( e:Resources.NotFoundException) {
-            Log.e(TAG, "Can't find style. Error: ", e)
+            Log.e(TAG, Util.getProperty("StyleNotFound", context!!), e)
         }
 
         googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom( LatLng(28.0339, 1.6596), 5.0f))
 
-        mapViewModel.setMap(googleMap,context!!,activity!!)
-
-
+        Thread{
+            activity!!.runOnUiThread {
+                mapViewModel.setMap(googleMap!!,context!!,activity!!)
+            }
+        }.start()
 
     }
 
@@ -301,19 +304,19 @@ class map : Fragment(),OnMapReadyCallback{
     }
 
     fun isServicesOK(): Boolean {
-        Log.d(ContentValues.TAG, getString(R.string.checkGoogleServiceVersion))
+        Log.d(ContentValues.TAG, Util.getProperty("checkGoogleServiceVersion", context!!))
         val available =
             GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity)
         if (available == ConnectionResult.SUCCESS) { //everything is fine and the user can make map requests
-            Log.d(ContentValues.TAG, getString(R.string.checkGoogleServiceWorking))
+            Log.d(ContentValues.TAG, Util.getProperty("checkGoogleServiceWorking", context!!))
             return true
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) { //an error occured but we can resolve it
-            Log.d(ContentValues.TAG, getString(R.string.checkGoogleServiceError))
+            Log.d(ContentValues.TAG, Util.getProperty("checkGoogleServiceError", context!!))
             val dialog: Dialog = GoogleApiAvailability.getInstance()
                 .getErrorDialog(activity, available, 1)
             dialog.show()
         } else {
-            Toast.makeText(activity, getString(R.string.errorMapRequest), Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, Util.getProperty("errorMapRequest", context!!), Toast.LENGTH_SHORT).show()
         }
         return false
     }
