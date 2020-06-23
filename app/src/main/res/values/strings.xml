@@ -19,6 +19,8 @@
     <string name="postTitle">اخر الاخبار</string>
     <string name="mapTitle">الخريطة</string>
     <string name="reportTitle">الابلاغ عن حالة مرض</string>
+    <string name="videoTitle">فيديوهات</string>
+    <string name="viewtTitle">الحالة الصحية</string>
 
     <string name="MapViewBundleKey">MapViewBundleKey</string>
 
