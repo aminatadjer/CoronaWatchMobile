@@ -105,8 +105,8 @@ class report : Fragment() {
 
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.reportTitle)
+        //val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        //mtitel.text= getString(R.string.reportTitle)
         end.visibility=View.GONE
 
         start.visibility=View.VISIBLE

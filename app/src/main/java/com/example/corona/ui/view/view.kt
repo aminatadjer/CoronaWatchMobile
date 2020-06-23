@@ -30,8 +30,8 @@ class view : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ViewViewModel::class.java)
         // TODO: Use the ViewModel
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= "الحالة الصحية"
+        //val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        //mtitel.text= "الحالة الصحية"
     }
 
 }
