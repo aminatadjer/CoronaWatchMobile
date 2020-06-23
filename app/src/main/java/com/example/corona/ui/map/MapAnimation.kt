@@ -1,15 +1,11 @@
 package com.example.corona.ui.map
 
 import android.content.Context
-import android.content.res.AssetManager
-import android.content.res.Resources
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,20 +18,19 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.collections.GroundOverlayManager
 import com.google.maps.android.collections.MarkerManager
 import com.google.maps.android.collections.PolygonManager
 import com.google.maps.android.collections.PolylineManager
 import com.google.maps.android.data.Feature
 import com.google.maps.android.data.Layer
+import com.google.maps.android.data.geojson.GeoJsonLayer
+import com.google.maps.android.data.geojson.GeoJsonPolygonStyle
 import com.google.maps.android.data.kml.KmlLayer
-import kotlinx.android.synthetic.main.bottom_sheet.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.reflect.Field
 
 class MapAnimation(
     var googleMap: GoogleMap,
@@ -49,8 +44,12 @@ class MapAnimation(
      var polygonManager : PolygonManager=PolygonManager(googleMap)
      var polylineManager : PolylineManager=PolylineManager(googleMap)
      var kmlPolylineLayer : KmlLayer=KmlLayer(googleMap,R.raw.dza1, context, markerManager, polygonManager, polylineManager, groundOverlayManager, null)
+
+    var layerGeoJson: GeoJsonLayer =  GeoJsonLayer(googleMap, R.raw.world,context,markerManager,polygonManager,polylineManager, groundOverlayManager)
+
     //First show
-    var enter:Boolean=false
+    var enterKml:Boolean=false
+    var enterGeoJson=false
 
     //Marker list
     var markerList=ArrayList<Marker>()
@@ -95,7 +94,17 @@ class MapAnimation(
                         .alpha(0.0f)))
 
         }
+
+        kmlPolylineLayer.groundOverlays
         kmlPolylineLayer.addLayerToMap()
+
+        val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
+            //style.setFillColor(Color.MAGENTA)
+            style.setStrokeColor(Color.argb(90,60,40,120))
+            style.setStrokeWidth(4F)
+
+        layerGeoJson.addLayerToMap()
+
     }
 
     fun DrawCircle( gMap:GoogleMap,lat:Double,lng:Double,color:Int,radius:Double)
@@ -115,7 +124,7 @@ class MapAnimation(
     fun SetMarkerOnClickListner(){
         googleMap.setOnMapLoadedCallback {
             googleMap.setOnMarkerClickListener {
-                mapAnimation(it.title)
+                kmlMapAnimation(it.title)
                 bottom_sheet.visibility= View.VISIBLE
 
                 getCentreByRegion(  LatLang.latLangAlgeria[it.title]!!.id)
@@ -158,10 +167,11 @@ class MapAnimation(
     }
 
     fun SetRegionOnClickListner(){
+
         kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
             override fun onFeatureClick(feature: Feature?) {
                 val property="name"
-                mapAnimation(feature!!.getProperty(property))
+                kmlMapAnimation(feature!!.getProperty(property))
                 bottom_sheet.visibility=View.VISIBLE
 
                 getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.id)
@@ -178,6 +188,28 @@ class MapAnimation(
                     hospitals)
 
             } })
+
+        layerGeoJson.setOnFeatureClickListener(object: GeoJsonLayer.GeoJsonOnFeatureClickListener {
+            override fun onFeatureClick(feature: Feature?) {
+
+                val property=feature!!.id
+                GeoJsonMapAnimation(property)
+                bottom_sheet.visibility=View.VISIBLE
+
+                /*getCentreByRegion(LatLang.latLangAlgeria[property]!!.id)
+
+                //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
+                setInfoWindow(
+                    LatLang.latLangAlgeria[property]!!.ArabicName,
+                    LatLang.latLangAlgeria[property]!!.degre,
+                    LatLang.latLangAlgeria[property]!!.confirme.toString(),
+                    LatLang.latLangAlgeria[property]!!.critique.toString(),
+                    LatLang.latLangAlgeria[property]!!.suspect.toString(),
+                    LatLang.latLangAlgeria[property]!!.mort.toString(),
+                    LatLang.latLangAlgeria[property]!!.guerie.toString(),
+                    hospitals)*/
+            }
+        })
     }
 
     fun setInfoWindow(region_:String,
@@ -223,13 +255,25 @@ class MapAnimation(
     }
 
 
-    fun mapAnimation(Property:String){
+    fun kmlMapAnimation(Property:String){
         //markerList[latLangAlgeria.keys.indexOf(Property)].showInfoWindow()
-        if(enter){ kmlPolylineLayer.removeLayerFromMap()
-        }else{ enter=true}
+        if(enterKml){ kmlPolylineLayer.removeLayerFromMap()
+        }else{ enterKml=true}
         kmlPolylineLayer=KmlLayer(googleMap,
             LatLang.latLangAlgeria[Property]!!.kmlResource, context, markerManager, polygonManager, polylineManager, groundOverlayManager, null)
         kmlPolylineLayer.addLayerToMap()
+
+    }
+
+    fun GeoJsonMapAnimation(Property:String){
+        //markerList[latLangAlgeria.keys.indexOf(Property)].showInfoWindow()
+        if(enterGeoJson){ layerGeoJson.removeLayerFromMap()
+        }else{ enterGeoJson=true}
+        layerGeoJson= GeoJsonLayer(googleMap, LatLang.latLangAlgeria[Property]!!.kmlResource,context,markerManager,polygonManager,polylineManager, groundOverlayManager)
+        val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
+        style.setStrokeColor(Color.argb(130,60,40,120))
+        style.setStrokeWidth(9F)
+        layerGeoJson.addLayerToMap()
 
     }
 

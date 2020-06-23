@@ -194,6 +194,7 @@ class map : Fragment(),OnMapReadyCallback{
             Log.e(TAG, Util.getProperty("StyleNotFound", context!!), e)
         }
 
+
         googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom( LatLng(28.0339, 1.6596), 5.0f))
 
         Thread{
