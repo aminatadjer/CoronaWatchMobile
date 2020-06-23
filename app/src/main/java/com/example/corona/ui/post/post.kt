@@ -77,8 +77,8 @@ class post : Fragment()/*,FacebookListener*/ {
         viewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.postTitle)
+        //val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        //mtitel.text= getString(R.string.postTitle)
 
         val networkConnection=NetworkConnection(context!!)
         networkConnection.observe(this, Observer {isConnected->

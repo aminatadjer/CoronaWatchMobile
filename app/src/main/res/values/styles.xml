@@ -16,11 +16,18 @@
         <item name="android:textColorPrimary">@color/grey</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
     </style>
-<!--
-    <style name="facebook" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="colorPrimary">@color/wallet_holo_blue_light</item>
-        <item name="colorAccent">@color/wallet_holo_blue_light</item>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
--->
+
+    <!--
+        <style name="facebook" parent="ThemeOverlay.MaterialComponents.Light">
+            <item name="colorPrimary">@color/wallet_holo_blue_light</item>
+            <item name="colorAccent">@color/wallet_holo_blue_light</item>
+        </style>
+
+    -->
 
 </resources>

@@ -33,8 +33,8 @@ class video : Fragment() {
         viewModel = ViewModelProviders.of(this).get(VideoViewModel::class.java)
         // TODO: Use the ViewModel
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= ""
+        //val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        //mtitel.text= "فيديوهات"
 
     }
 

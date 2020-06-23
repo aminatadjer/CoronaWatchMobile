@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_map"
+            android:title="الخريطة"/>
+        <item
+            android:id="@+id/nav_public"
+            android:icon="@drawable/ic_warning"
+            android:title="الابلاغ"/>
+        <item
+            android:id="@+id/nav_warnings"
+            android:icon="@drawable/ic_public"
+            android:title="الاخبار"/>
+
+        <item
+            android:id="@+id/nav_video"
+            android:icon="@drawable/ic_video"
+            android:title="الفيديوهات"/>
+        <item
+            android:id="@+id/nav_view"
+            android:icon="@drawable/ic_today"
+            android:title="الحالة الصحية"/>
+    </group>
+
+
+
+</menu>
