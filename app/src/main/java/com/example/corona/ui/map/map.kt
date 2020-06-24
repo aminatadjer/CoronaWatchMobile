@@ -94,8 +94,8 @@ class map : Fragment(),OnMapReadyCallback{
         mapViewModel=MapViewModel()
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        //mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        //mtitel.text= getString(R.string.mapTitle)
+        mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= getString(R.string.mapTitle)
 
         /*val id =  ArrayList<Int>();
         for ( i in 1..10) {

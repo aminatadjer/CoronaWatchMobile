@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.viewpager.widget.ViewPager
 
 import com.example.corona.R
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class video : Fragment() {
@@ -20,6 +22,10 @@ class video : Fragment() {
     }
 
     private lateinit var viewModel: VideoViewModel
+
+    private lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
+    
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +39,9 @@ class video : Fragment() {
         viewModel = ViewModelProviders.of(this).get(VideoViewModel::class.java)
         // TODO: Use the ViewModel
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        //val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        //mtitel.text= "فيديوهات"
+        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= "فيديوهات"
+
 
     }
 

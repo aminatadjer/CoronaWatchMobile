@@ -124,6 +124,16 @@
         android:name="com.example.corona.ui.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main"/>
+    <fragment
+        android:id="@+id/userVideoFragment"
+        android:name="com.example.corona.ui.video.UserVideo"
+        android:label="fragment_user_video"
+        tools:layout="@layout/fragment_user_video" />
+    <fragment
+        android:id="@+id/spiderVideoFragment"
+        android:name="com.example.corona.ui.video.SpiderVideo"
+        android:label="fragment_spider_video"
+        tools:layout="@layout/fragment_spider_video" />
 
 
 </navigation>

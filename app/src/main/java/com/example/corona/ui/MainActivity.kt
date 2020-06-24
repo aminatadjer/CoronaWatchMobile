@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
 
 
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId==android.R.id.home){
             navController.addOnDestinationChangedListener { controller, destination, arguments ->
                 when(destination.label){
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             //Toast.makeText(this,navController.,Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
-    }*/
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController,null)
