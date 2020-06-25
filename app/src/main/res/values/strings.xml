@@ -3,10 +3,15 @@
     <string name="image_capture_failed">Image capture failed</string>
     <string name="facebook_app_id">2819307854855632</string>
 
-
+    <string name="body_temperature">درجة الحرارة</string>
     <string name="fb_login_protocol_scheme">fb2819307854855632</string>
     <string name="ee">الدخوا عن طريق جوجل</string>
     <string name="send">ارسال</string>
+    <string name="heart_beat">ضربات القلب</string>
+    <string name="weight">وزن</string>
+    <string name="diagnose_button">إرسال</string>
+    <string name="date_button">تحديد اليوم</string>
+    <string name="date">تاريخ اليوم</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
