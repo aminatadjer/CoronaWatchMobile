@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/diagnose_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.DiagnoseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/shadow_layout"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/temperature_value_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/temperature_seek_bar"
+                android:text="30"
+                android:textSize="10sp" />
+
+            <SeekBar
+                android:id="@+id/temperature_seek_bar"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@id/temperature_text_view"
+                android:layoutDirection="rtl"
+                android:progress="1" />
+
+            <TextView
+                android:id="@+id/temperature_text_view"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:text="@string/body_temperature"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/heart_beat_value_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/temperature_seek_bar"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/heart_beat_seek_bar"
+                android:text="40"
+                android:textSize="10sp" />
+
+            <SeekBar
+                android:id="@+id/heart_beat_seek_bar"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/temperature_text_view"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@id/heart_beat_text_view"
+                android:layoutDirection="rtl"
+                android:progress="1" />
+
+            <TextView
+                android:id="@+id/heart_beat_text_view"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/temperature_text_view"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="32dp"
+                android:text="@string/heart_beat"
+                android:textSize="20sp" />
+
+            <NumberPicker
+                android:id="@+id/weight_number_piker"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_below="@id/heart_beat_text_view"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="64dp"
+                android:layout_toStartOf="@id/weight_text_view" />
+
+            <TextView
+                android:id="@+id/dateTv"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/weight_number_piker"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_toStartOf="@+id/pickDateBtn"
+                android:text="@string/date"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/weight_text_view"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/heart_beat_text_view"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="32dp"
+                android:text="@string/weight"
+                android:textSize="20sp" />
+
+
+            <Button
+                android:id="@+id/diagnose_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dateTv"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="75dp"
+                android:layout_marginEnd="154dp"
+
+                android:text="@string/diagnose_button" />
+
+            <Button
+                android:id="@+id/pickDateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/weight_number_piker"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="40dp"
+
+                android:text="@string/date_button" />
+
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+
