@@ -22,6 +22,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+
     <!--
         <style name="facebook" parent="ThemeOverlay.MaterialComponents.Light">
             <item name="colorPrimary">@color/wallet_holo_blue_light</item>
