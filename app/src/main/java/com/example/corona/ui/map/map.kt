@@ -136,6 +136,7 @@ class map : Fragment(),OnMapReadyCallback{
                         regionList.addAll(listBody)
                     }
 
+
                     for (region in regionList){
                         val resId = context!!.resources.getIdentifier("raw/"+region.nom, null, context.packageName)
                         region.kmlResource=resId

@@ -85,7 +85,11 @@
         android:label="video"
         tools:layout="@layout/video_fragment"
 
-        />
+        >
+        <action
+            android:id="@+id/action_videoFragment_to_spiderPageFragment"
+            app:destination="@id/spiderPageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/viewFragment"
@@ -134,6 +138,18 @@
         android:name="com.example.corona.ui.video.SpiderVideo"
         android:label="fragment_spider_video"
         tools:layout="@layout/fragment_spider_video" />
+    <fragment
+        android:id="@+id/spiderPageFragment"
+        android:name="com.example.corona.ui.video.SpiderPage"
+        tools:layout="@layout/spider_page_fragment">
+        <argument
+            android:name="url"
+            android:defaultValue="null"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_spiderPage_to_spiderVideoFragment"
+            app:destination="@id/spiderVideoFragment" />
+    </fragment>
 
 
 </navigation>

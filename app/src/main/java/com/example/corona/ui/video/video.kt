@@ -25,7 +25,9 @@ class video : Fragment() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
-    
+
+    private lateinit var fragmentSpiderVideo: SpiderVideo
+    private lateinit var fragmentUserVideo: UserVideo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,21 @@ class video : Fragment() {
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= "فيديوهات"
+        tolb.visibility=View.GONE
+
+        viewPager=activity!!.findViewById(R.id.view_pager)
+        tabLayout=activity!!.findViewById(R.id.tab_layout)
+
+        fragmentSpiderVideo= SpiderVideo()
+        fragmentUserVideo= UserVideo()
+
+        tabLayout.setupWithViewPager(viewPager)
+
+        val viewPagerAdapter=ViewPagerAdapter(childFragmentManager,0)
+        viewPagerAdapter.addFragment(fragmentSpiderVideo,"مستجدات")
+        viewPagerAdapter.addFragment(fragmentUserVideo,"User")
+        viewPager.adapter=viewPagerAdapter
+
 
 
     }
