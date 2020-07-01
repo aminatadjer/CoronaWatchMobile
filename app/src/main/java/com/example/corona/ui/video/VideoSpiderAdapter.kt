@@ -1,12 +1,16 @@
 package com.example.corona.ui.video
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -29,6 +33,7 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
         internal val  subTitle_spider: TextView =itemView.findViewById(R.id.subTitle_spider)
         internal val progressBar_loading_spider: LottieAnimationView =itemView.findViewById(R.id.progressBar_loading_spider)
         internal val  source_item: ImageView =itemView.findViewById(R.id.source_item)
+        internal val layout:LinearLayout=itemView.findViewById(R.id.layout)
         init {
 
             itemView.setOnClickListener(View.OnClickListener {
@@ -70,6 +75,7 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
     }
 
    // @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: VideoSpiderAdapter.VideoSpiderHolder, position: Int) {
         val currentSpiderItemList: SpiderItem = spiderItemList.get(position)
 
@@ -94,14 +100,30 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
                    holder.progressBar_loading_spider.visibility=View.GONE
                }
            }
+           val map :Map<String,String> = mapOf(Pair("text/html","utf-8"))
+           holder.web_view.loadUrl(currentSpiderItemList.url,map)
        }else{
            holder.progressBar_loading_spider.visibility=View.GONE
            holder.source_item.setImageResource(R.drawable.ic_twitter)
+
+           //holder.layout.removeView(holder.web_view)
+           //holder.layout.addView(holder.web_view,LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+
+           holder.web_view.setOnTouchListener(object :View.OnTouchListener{
+               override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                   return true
+               }
+           })
+
+           holder.web_view.loadDataWithBaseURL("https://twitter.com","<blockquote class=\"twitter-tweet\">\n" +
+                   "   <p lang=\"en\" dir=\"ltr\"> <a href=\"https://t.co/sAcZtUUtB8\"></a></p>\n" +
+                   " <a href=\""+currentSpiderItemList.url+"\"></a>\n" +
+                   "</blockquote>\n" +
+                   "<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>","text/html","utf-8","")
        }
 
 
-        val map :Map<String,String> = mapOf(Pair("text/html","utf-8"))
-        holder.web_view.loadUrl(currentSpiderItemList.url,map)
+
        holder.title_spider.text=currentSpiderItemList.title
        holder.subTitle_spider.text=currentSpiderItemList.description
     }

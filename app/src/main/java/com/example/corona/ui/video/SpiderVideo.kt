@@ -61,7 +61,7 @@ class SpiderVideo : Fragment() {
                 )
 
                 ll.add(
-                    SpiderItem(setUrl("https://www.bbc.com/arabic/world-52665698"),"فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟","المصدر: دبي - العربية.نت")
+                    SpiderItem(setUrl("https://twitter.com/marcomh20/status/1275547023865831424?ref_src=twsrc%5Etfw"),"فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟","المصدر: دبي - العربية.نت")
                 )
                 ll.add(
                     SpiderItem(setUrl("https://www.youtube.com/watch?v=svdq1BWl4r8"),"فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟","المصدر: دبي - العربية.نت")

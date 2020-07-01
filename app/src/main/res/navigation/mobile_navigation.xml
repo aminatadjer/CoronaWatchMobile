@@ -152,4 +152,11 @@
     </fragment>
 
 
+    <fragment
+        android:id="@+id/diagnose_fragment"
+        android:name="com.example.corona.ui.view.DiagnoseFragment"
+        tools:layout="@layout/diagnose_fragment">
+
+    </fragment>
+
 </navigation>
