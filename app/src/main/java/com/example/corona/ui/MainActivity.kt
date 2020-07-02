@@ -42,6 +42,8 @@ import android.app.*
 //import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 //import android.os.Build
 //import android.support.v7.app.AppCompatActivity
 //import android.os.Bundle
@@ -78,6 +80,68 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     private val channelId = "com.example.corona.ui"
     private val description = "Test notification"
 
+    fun xyz(){
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var mutableList = mutableListOf(mutableListOf(36.49,2.85),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
+        var x = 36.49
+        var y = 2.85
+
+        for(item in mutableList) {
+            if (distance(item[0],item[1],locationNetwork!!.latitude,locationNetwork!!.longitude)<1.0) {
+
+                val intent = Intent(this, MainActivity::class.java)
+                val pendingIntent =
+                    PendingIntent.getActivity(
+                        this,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+
+                val contentView = RemoteViews(packageName, R.layout.notification_layout)
+                contentView.setTextViewText(R.id.tv_title, "coronawatch notification")
+                contentView.setTextViewText(R.id.tv_content, "zone de risque")
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = NotificationChannel(
+                        channelId,
+                        description,
+                        NotificationManager.IMPORTANCE_HIGH
+                    )
+                    notificationChannel.enableLights(true)
+                    notificationChannel.lightColor = Color.GREEN
+                    notificationChannel.enableVibration(false)
+                    notificationManager.createNotificationChannel(notificationChannel)
+
+                    builder = Notification.Builder(this, channelId)
+                        .setContent(contentView)
+                        .setSmallIcon(R.drawable.ic_launcher_round)
+                        .setLargeIcon(
+                            BitmapFactory.decodeResource(
+                                this.resources,
+                                R.drawable.ic_launcher
+                            )
+                        )
+                        .setContentIntent(pendingIntent)
+                } else {
+
+                    builder = Notification.Builder(this)
+                        .setContent(contentView)
+                        .setSmallIcon(R.drawable.ic_launcher_round)
+                        .setLargeIcon(
+                            BitmapFactory.decodeResource(
+                                this.resources,
+                                R.drawable.ic_launcher
+                            )
+                        )
+                        .setContentIntent(pendingIntent)
+                }
+                notificationManager.notify(1234, builder.build())
+            }
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -93,63 +157,15 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             enableView()
         }
 
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        var mutableList = mutableListOf(mutableListOf(36.49,2.85),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
-        var x = 36.49
-        var y = 2.85
-            for(item in mutableList) {
-                if (distance(item[0],item[1],locationNetwork!!.latitude,locationNetwork!!.longitude)<1.0) {
+        val mainHandler = Handler(Looper.getMainLooper())
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    val pendingIntent =
-                        PendingIntent.getActivity(
-                            this,
-                            0,
-                            intent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                        )
-
-                    val contentView = RemoteViews(packageName, R.layout.notification_layout)
-                    contentView.setTextViewText(R.id.tv_title, "coronawatch notification")
-                    contentView.setTextViewText(R.id.tv_content, "zone de risque")
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        notificationChannel = NotificationChannel(
-                            channelId,
-                            description,
-                            NotificationManager.IMPORTANCE_HIGH
-                        )
-                        notificationChannel.enableLights(true)
-                        notificationChannel.lightColor = Color.GREEN
-                        notificationChannel.enableVibration(false)
-                        notificationManager.createNotificationChannel(notificationChannel)
-
-                        builder = Notification.Builder(this, channelId)
-                            .setContent(contentView)
-                            .setSmallIcon(R.drawable.ic_launcher_round)
-                            .setLargeIcon(
-                                BitmapFactory.decodeResource(
-                                    this.resources,
-                                    R.drawable.ic_launcher
-                                )
-                            )
-                            .setContentIntent(pendingIntent)
-                    } else {
-
-                        builder = Notification.Builder(this)
-                            .setContent(contentView)
-                            .setSmallIcon(R.drawable.ic_launcher_round)
-                            .setLargeIcon(
-                                BitmapFactory.decodeResource(
-                                    this.resources,
-                                    R.drawable.ic_launcher
-                                )
-                            )
-                            .setContentIntent(pendingIntent)
-                    }
-                    notificationManager.notify(1234, builder.build())
-                }
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                xyz()
+                mainHandler.postDelayed(this, 60000)
             }
+        })
+
 
 
         toolbar = findViewById(R.id.toolbar)
