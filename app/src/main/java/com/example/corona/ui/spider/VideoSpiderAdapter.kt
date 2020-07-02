@@ -1,4 +1,4 @@
-package com.example.corona.ui.video
+package com.example.corona.ui.spider
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,22 +8,19 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.corona.R
-import com.example.corona.ui.post.Article
-import com.example.corona.ui.post.ArticleAdapter
 
 
 class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHolder>() {
 
     companion object{
         private var spiderItemList:List<SpiderItem> =ArrayList()
-        lateinit var listner: VideoSpiderAdapter.OnItemClickListner
+        lateinit var listner: OnItemClickListner
     }
 
 
@@ -40,7 +37,8 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
                 val position=adapterPosition
                 if(position!= RecyclerView.NO_POSITION){
 
-                    listner.onItemClick(spiderItemList.get(position))
+                    listner.onItemClick(
+                        spiderItemList.get(position))
                 }
             })
 
@@ -57,11 +55,13 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): VideoSpiderAdapter.VideoSpiderHolder {
+    ): VideoSpiderHolder {
         val itemView: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.video_spider_item,parent,false)
 
-        return VideoSpiderHolder(itemView)
+        return VideoSpiderHolder(
+            itemView
+        )
     }
 
     override fun getItemCount(): Int {
@@ -70,13 +70,13 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
 
     fun setVideoSpider(spiderItemListt:List<SpiderItem>)
     {
-        spiderItemList=spiderItemListt
+        spiderItemList =spiderItemListt
         notifyDataSetChanged()
     }
 
    // @SuppressLint("SetJavaScriptEnabled")
     @SuppressLint("ClickableViewAccessibility")
-    override fun onBindViewHolder(holder: VideoSpiderAdapter.VideoSpiderHolder, position: Int) {
+    override fun onBindViewHolder(holder: VideoSpiderHolder, position: Int) {
         val currentSpiderItemList: SpiderItem = spiderItemList.get(position)
 
        if(!currentSpiderItemList.url.contains("twitter.com")){
@@ -133,8 +133,8 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
         fun onItemClick(spiderItem: SpiderItem)
     }
 
-    fun SetOnItemClickListner(listnerr:OnItemClickListner){
-        VideoSpiderAdapter.listner =listnerr
+    fun SetOnItemClickListner(listnerr: OnItemClickListner){
+        listner =listnerr
     }
 
 

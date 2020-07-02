@@ -39,12 +39,12 @@ class VideoPlayerRecyclerView: RecyclerView {
     }
 
     // ui
-    private lateinit var thumbnail: ImageView   // ui
-    private lateinit var volumeControl: ImageView
+    private  var thumbnail: ImageView ?=null  // ui
+    private  var volumeControl: ImageView?=null
     private  var progressBar: ProgressBar?=null
     private  var viewHolderParent: View?=null
-    private lateinit var frameLayout: FrameLayout
-    private lateinit var videoSurfaceView: PlayerView
+    private  lateinit var frameLayout: FrameLayout
+    private  var videoSurfaceView: PlayerView?=null
     private  var videoPlayer: SimpleExoPlayer?=null
 
     // vars
@@ -235,12 +235,12 @@ class VideoPlayerRecyclerView: RecyclerView {
             return
         }
         // remove any old surface views from previously playing videos
-        videoSurfaceView.setVisibility(View.INVISIBLE)
-        removeVideoView(videoSurfaceView)
+        videoSurfaceView!!.setVisibility(View.INVISIBLE)
+        removeVideoView(videoSurfaceView!!)
         val currentPosition =
             targetPosition - (layoutManager as LinearLayoutManager?)!!.findFirstVisibleItemPosition()
         val child = getChildAt(currentPosition) ?: return
-        val holder = child.tag as VideoPlayerViewHolder
+        val holder:VideoPlayerViewHolder? = child.tag as VideoPlayerViewHolder
         if (holder == null) {
             playPosition = -1
             return
@@ -251,7 +251,7 @@ class VideoPlayerRecyclerView: RecyclerView {
         viewHolderParent = holder.itemView
         requestManager = holder.requestManager
         frameLayout = holder.itemView.findViewById(R.id.media_container)
-        videoSurfaceView.setPlayer(videoPlayer)
+        videoSurfaceView!!.setPlayer(videoPlayer)
         viewHolderParent!!.setOnClickListener(videoViewClickListener)
         val dataSourceFactory: DataSource.Factory = DefaultDataSourceFactory(
             context, Util.getUserAgent(context, "RecyclerView VideoPlayer")
@@ -296,7 +296,7 @@ class VideoPlayerRecyclerView: RecyclerView {
 
      // Remove the old player
     fun removeVideoView( videoView:PlayerView) {
-        val parent =  videoView.getParent() as ViewGroup
+        val parent:ViewGroup? =  videoView.parent as ViewGroup?
         if (parent == null) {
             return
         }
@@ -311,20 +311,20 @@ class VideoPlayerRecyclerView: RecyclerView {
     }
 
     fun addVideoView(){
-        frameLayout.addView(videoSurfaceView);
+        frameLayout!!.addView(videoSurfaceView);
         isVideoViewAdded = true;
-        videoSurfaceView.requestFocus();
-        videoSurfaceView.setVisibility(VISIBLE);
-        videoSurfaceView.setAlpha(1F);
-        thumbnail.setVisibility(GONE);
+        videoSurfaceView!!.requestFocus();
+        videoSurfaceView!!.setVisibility(VISIBLE);
+        videoSurfaceView!!.setAlpha(1F);
+        thumbnail!!.setVisibility(GONE);
     }
 
     fun resetVideoView(){
         if(isVideoViewAdded){
-            removeVideoView(videoSurfaceView);
+            removeVideoView(videoSurfaceView!!);
             playPosition = -1;
-            videoSurfaceView.setVisibility(INVISIBLE);
-            thumbnail.setVisibility(VISIBLE);
+            videoSurfaceView!!.setVisibility(INVISIBLE);
+            thumbnail!!.setVisibility(VISIBLE);
         }
     }
 
@@ -366,20 +366,20 @@ class VideoPlayerRecyclerView: RecyclerView {
 
     fun animateVolumeControl(){
         if(volumeControl != null){
-            volumeControl.bringToFront();
+            volumeControl!!.bringToFront();
             if(volumeState == VolumeState.OFF){
                 requestManager!!.load(R.drawable.ic_volume_off_grey_24dp)
-                    .into(volumeControl);
+                    .into(volumeControl!!);
             }
             else if(volumeState == VolumeState.ON){
                 requestManager!!.load(R.drawable.ic_volume_up_grey_24dp)
-                    .into(volumeControl);
+                    .into(volumeControl!!);
             }
-            volumeControl.animate().cancel();
+            volumeControl!!.animate().cancel();
 
-            volumeControl.setAlpha(1f);
+            volumeControl!!.setAlpha(1f);
 
-            volumeControl.animate()
+            volumeControl!!.animate()
                 .alpha(0f)
                 .setDuration(600).setStartDelay(1000);
         }

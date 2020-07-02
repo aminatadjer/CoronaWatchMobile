@@ -78,18 +78,7 @@
 
 
 
-    <fragment
-        android:id="@+id/videoFragment"
-        android:name="com.example.corona.ui.video.video"
 
-        android:label="video"
-        tools:layout="@layout/video_fragment"
-
-        >
-        <action
-            android:id="@+id/action_videoFragment_to_spiderPageFragment"
-            app:destination="@id/spiderPageFragment" />
-    </fragment>
 
     <fragment
         android:id="@+id/viewFragment"
@@ -135,12 +124,16 @@
         tools:layout="@layout/fragment_user_video" />
     <fragment
         android:id="@+id/spiderVideoFragment"
-        android:name="com.example.corona.ui.video.SpiderVideo"
+        android:name="com.example.corona.ui.spider.SpiderVideo"
         android:label="fragment_spider_video"
-        tools:layout="@layout/fragment_spider_video" />
+        tools:layout="@layout/fragment_spider_video" >
+        <action
+            android:id="@+id/action_spiderVideoFragment_to_spiderPageFragment"
+            app:destination="@id/spiderPageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/spiderPageFragment"
-        android:name="com.example.corona.ui.video.SpiderPage"
+        android:name="com.example.corona.ui.spider.SpiderPage"
         tools:layout="@layout/spider_page_fragment">
         <argument
             android:name="url"
