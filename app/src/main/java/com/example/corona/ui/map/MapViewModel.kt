@@ -9,11 +9,18 @@ class MapViewModel : ViewModel() {
 
 
 
-    fun setMap(googleMap: GoogleMap,context: Context,activity: FragmentActivity){
+    fun setLocalMap(googleMap: GoogleMap,context: Context,activity: FragmentActivity){
         val mapAnimation=MapAnimation(googleMap,context,activity)
-        mapAnimation.createMarkerList()
+        mapAnimation.createMarkerList("local")
         mapAnimation.SetMarkerOnClickListner()
-        mapAnimation.SetRegionOnClickListner()
+        mapAnimation.SetRegionOnClickListner( "local")
+    }
+
+    fun setGlobalMap(googleMap: GoogleMap,context: Context,activity: FragmentActivity){
+        val mapAnimation=MapAnimation(googleMap,context,activity)
+        mapAnimation.createMarkerList("global")
+        mapAnimation.SetMarkerOnClickListner()
+        mapAnimation.SetRegionOnClickListner( "global")
     }
 
 }

@@ -388,6 +388,8 @@ class VideoPlayerRecyclerView: RecyclerView {
     fun setMediaObjects( mediaObjects:ArrayList<MediaObject>){
         this.mediaObjects = mediaObjects;
     }
+
+
 }
 
 

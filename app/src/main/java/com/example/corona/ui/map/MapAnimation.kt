@@ -67,7 +67,7 @@ class MapAnimation(
 
 
     //create Markers and draw circle around it for each wilaya
-    fun createMarkerList(){
+    fun createMarkerList(locGlo:String){
         val radius=13000.0
         for (key in LatLang.latLangAlgeria.keys){
             when(LatLang.latLangAlgeria[key]!!.degre){
@@ -96,14 +96,21 @@ class MapAnimation(
         }
 
         kmlPolylineLayer.groundOverlays
-        kmlPolylineLayer.addLayerToMap()
 
-        val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
-            //style.setFillColor(Color.MAGENTA)
-            style.setStrokeColor(Color.argb(90,60,40,120))
-            style.setStrokeWidth(4F)
+        when(locGlo){
+            "local"->{
+                kmlPolylineLayer.addLayerToMap()
+            }
+            "global"->{
+                val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
+                //style.setFillColor(Color.MAGENTA)
+                style.setStrokeColor(Color.argb(90,60,40,120))
+                style.setStrokeWidth(4F)
 
-        layerGeoJson.addLayerToMap()
+                layerGeoJson.addLayerToMap()
+            }
+        }
+
 
     }
 
@@ -166,50 +173,59 @@ class MapAnimation(
         })
     }
 
-    fun SetRegionOnClickListner(){
+    fun SetRegionOnClickListner(locGlo:String){
 
-        kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
-            override fun onFeatureClick(feature: Feature?) {
-                val property="name"
-                kmlMapAnimation(feature!!.getProperty(property))
-                bottom_sheet.visibility=View.VISIBLE
+        when(locGlo){
+            "local"->{
+                kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
+                    override fun onFeatureClick(feature: Feature?) {
 
-                getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.id)
+                        val property="name"
+                        kmlMapAnimation(feature!!.getProperty(property))
+                        bottom_sheet.visibility=View.VISIBLE
 
-                //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
-                setInfoWindow(
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.ArabicName,
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.degre,
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.confirme.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.critique.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.suspect.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.mort.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.guerie.toString(),
-                    hospitals)
+                        getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.id)
 
-            } })
+                        //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
+                        setInfoWindow(
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.ArabicName,
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.degre,
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.confirme.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.critique.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.suspect.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.mort.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.guerie.toString(),
+                            hospitals)
 
-        layerGeoJson.setOnFeatureClickListener(object: GeoJsonLayer.GeoJsonOnFeatureClickListener {
-            override fun onFeatureClick(feature: Feature?) {
-
-                val property=feature!!.id
-                GeoJsonMapAnimation(property)
-                bottom_sheet.visibility=View.VISIBLE
-
-                /*getCentreByRegion(LatLang.latLangAlgeria[property]!!.id)
-
-                //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
-                setInfoWindow(
-                    LatLang.latLangAlgeria[property]!!.ArabicName,
-                    LatLang.latLangAlgeria[property]!!.degre,
-                    LatLang.latLangAlgeria[property]!!.confirme.toString(),
-                    LatLang.latLangAlgeria[property]!!.critique.toString(),
-                    LatLang.latLangAlgeria[property]!!.suspect.toString(),
-                    LatLang.latLangAlgeria[property]!!.mort.toString(),
-                    LatLang.latLangAlgeria[property]!!.guerie.toString(),
-                    hospitals)*/
+                    } })
             }
-        })
+            "global"->{
+                layerGeoJson.setOnFeatureClickListener(object: GeoJsonLayer.GeoJsonOnFeatureClickListener {
+                    override fun onFeatureClick(feature: Feature?) {
+
+                        val property=feature!!.id
+                        GeoJsonMapAnimation(property)
+                        bottom_sheet.visibility=View.VISIBLE
+
+                        /*getCentreByRegion(LatLang.latLangAlgeria[property]!!.id)
+
+                        //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
+                        setInfoWindow(
+                            LatLang.latLangAlgeria[property]!!.ArabicName,
+                            LatLang.latLangAlgeria[property]!!.degre,
+                            LatLang.latLangAlgeria[property]!!.confirme.toString(),
+                            LatLang.latLangAlgeria[property]!!.critique.toString(),
+                            LatLang.latLangAlgeria[property]!!.suspect.toString(),
+                            LatLang.latLangAlgeria[property]!!.mort.toString(),
+                            LatLang.latLangAlgeria[property]!!.guerie.toString(),
+                            hospitals)*/
+                    }
+                })
+            }
+        }
+
+
+
     }
 
     fun setInfoWindow(region_:String,

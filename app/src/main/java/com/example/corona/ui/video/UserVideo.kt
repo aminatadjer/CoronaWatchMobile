@@ -18,7 +18,7 @@ import kotlin.collections.ArrayList
 
 class UserVideo : Fragment() {
 
-    lateinit var  mRecyclerView:VideoPlayerRecyclerView
+     var  mRecyclerView:VideoPlayerRecyclerView?=null
     private lateinit var mtitel: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,18 +45,18 @@ class UserVideo : Fragment() {
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(context)
-        mRecyclerView.layoutManager = layoutManager
+        mRecyclerView!!.layoutManager = layoutManager
         val itemDecorator = VerticalSpacingItemDecorator(10)
-        mRecyclerView.addItemDecoration(itemDecorator)
+        mRecyclerView!!.addItemDecoration(itemDecorator)
         val mediaObjects: ArrayList<MediaObject> = arrayListOf()
         for(item in Resources.MEDIA_OBJECTS){
             mediaObjects.add(item)
         }
 
-        mRecyclerView.setMediaObjects(mediaObjects)
+        mRecyclerView!!.setMediaObjects(mediaObjects)
         val adapter =
             VideoPlayerRecyclerAdapter(mediaObjects, initGlide()!!)
-        mRecyclerView.adapter = adapter
+        mRecyclerView!!.adapter = adapter
     }
 
     private fun initGlide(): RequestManager? {
@@ -68,7 +68,8 @@ class UserVideo : Fragment() {
     }
 
      override fun onDestroy() {
-        if (mRecyclerView != null) mRecyclerView.releasePlayer()
+        if (mRecyclerView != null) mRecyclerView!!.releasePlayer()
         super.onDestroy()
+
     }
 }

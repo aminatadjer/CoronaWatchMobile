@@ -63,36 +63,68 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
         bottom_bar.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {
+
                 when(pos){
-                    0->navController.navigate(R.id.mapFragment)
-                    1->navController.navigate(R.id.reportFragment)
-                    2->navController.navigate(R.id.postFragment)
-                    3->navController.navigate(R.id.spiderVideoFragment)
-                    4->navController.navigate(R.id.userVideoFragment)
+                    0->{
+
+                        navController.navigate(R.id.mapFragment)
+
+
+                    }
+                    1->{
+
+                        navController.navigate(R.id.reportFragment)
+
+                    }
+                    2->{
+
+                        navController.navigate(R.id.postFragment)
+
+                    }
+                    3->{
+
+                        navController.navigate(R.id.spiderVideoFragment)
+
+                    }
+                    4->{
+
+                        navController.navigate(R.id.userVideoFragment)
+
+                    }
                     else -> "Number too high"
                 }
+                Runtime.getRuntime().gc()
             }
         })
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mapFragment -> {
+
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
+
             }
             R.id.postFragment -> {
+
                 navController.navigate(R.id.reportFragment)
                 bottom_bar.setActiveItem(1)
+
             }
             R.id.loginFragment -> {
+
                 navController.navigate(R.id.postFragment)
                 bottom_bar.setActiveItem(2)
+
             }
             R.id.spiderVideoFragment -> {
+
                 navController.navigate(R.id.spiderVideoFragment)
                 bottom_bar.setActiveItem(3)
+
             }
             R.id.userVideoFragment -> {
+
                 navController.navigate(R.id.userVideoFragment)
                 bottom_bar.setActiveItem(4)
 
@@ -100,6 +132,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)
+        Runtime.getRuntime().gc()
         return true
     }
 
@@ -114,12 +147,16 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     "fragment_spider_video"->bottom_bar.setActiveItem(3)
                     "post"->bottom_bar.setActiveItem(2)
                     "report"->bottom_bar.setActiveItem(1)
-                    "map"->bottom_bar.setActiveItem(0)
+                    "map"->{
+
+                        bottom_bar.setActiveItem(0)
+                    }
                 }
+                Runtime.getRuntime().gc()
 
             }
 
-            //Toast.makeText(this,navController.,Toast.LENGTH_LONG).show()
+            //Toast.makeText(this,"here",Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
     }
