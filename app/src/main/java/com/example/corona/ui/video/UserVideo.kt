@@ -1,16 +1,24 @@
 package com.example.corona.ui.video
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.corona.R
+import com.example.corona.ui.report.photo.reportDirections
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 import kotlin.collections.ArrayList
@@ -19,6 +27,8 @@ import kotlin.collections.ArrayList
 class UserVideo : Fragment() {
 
      var  mRecyclerView:VideoPlayerRecyclerView?=null
+
+
     private lateinit var mtitel: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +49,17 @@ class UserVideo : Fragment() {
 
         initRecyclerView()
 
+        val add_video=activity!!.findViewById<FloatingActionButton>(R.id.add_video)
 
+        add_video.setOnClickListener {
+
+            val takenvideoAction =UserVideoDirections.actionUserVideoFragmentToGalleryVideo()
+            Navigation.findNavController(it).navigate(takenvideoAction)
+        }
     }
+
+
+
 
 
     private fun initRecyclerView() {

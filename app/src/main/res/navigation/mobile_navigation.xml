@@ -121,7 +121,11 @@
         android:id="@+id/userVideoFragment"
         android:name="com.example.corona.ui.video.UserVideo"
         android:label="fragment_user_video"
-        tools:layout="@layout/fragment_user_video" />
+        tools:layout="@layout/fragment_user_video" >
+        <action
+            android:id="@+id/action_userVideoFragment_to_galleryVideo"
+            app:destination="@id/galleryVideo" />
+    </fragment>
     <fragment
         android:id="@+id/spiderVideoFragment"
         android:name="com.example.corona.ui.spider.SpiderVideo"
@@ -151,6 +155,15 @@
         android:name="com.example.corona.ui.view.DiagnoseFragment"
         tools:layout="@layout/diagnose_fragment">
 
+    </fragment>
+    <fragment
+        android:id="@+id/galleryVideo"
+        android:name="com.example.corona.ui.video.GalleryVideo"
+        android:label="fragment_gallery_video"
+        tools:layout="@layout/fragment_gallery_video" >
+        <action
+            android:id="@+id/action_galleryVideo_to_userVideoFragment"
+            app:destination="@id/userVideoFragment" />
     </fragment>
 
 </navigation>

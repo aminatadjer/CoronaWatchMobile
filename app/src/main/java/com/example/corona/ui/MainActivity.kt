@@ -195,6 +195,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         bottom_bar=this.findViewById(R.id.bottom_bar)
         bottom_bar.setActiveItem(2)
 
+
         bottom_bar.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {
 

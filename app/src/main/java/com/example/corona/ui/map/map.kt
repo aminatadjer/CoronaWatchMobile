@@ -60,6 +60,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
+@Suppress("CAST_NEVER_SUCCEEDS")
 class map : Fragment(){
 
     companion object {
@@ -72,6 +73,7 @@ class map : Fragment(){
 
     private lateinit var fragment_global_map: GlobalMap
     private lateinit var fragment_local_map: LocalMap
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,5 +109,7 @@ class map : Fragment(){
 
 
     }
+
+
 
 }
