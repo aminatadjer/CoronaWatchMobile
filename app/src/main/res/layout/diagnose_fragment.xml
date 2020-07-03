@@ -29,10 +29,11 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@id/temperature_seek_bar"
-                android:text="30"
+                android:text="35"
                 android:textSize="10sp" />
 
             <SeekBar
+                android:thumbTint="@color/colorPrimary"
                 android:id="@+id/temperature_seek_bar"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
@@ -61,10 +62,11 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@id/heart_beat_seek_bar"
-                android:text="40"
+                android:text="45"
                 android:textSize="10sp" />
 
             <SeekBar
+                android:thumbTint="@color/colorPrimary"
                 android:id="@+id/heart_beat_seek_bar"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
@@ -86,6 +88,7 @@
                 android:textSize="20sp" />
 
             <NumberPicker
+                android:background="@drawable/drawablenp"
                 android:id="@+id/weight_number_piker"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
@@ -125,7 +128,8 @@
                 android:layout_marginTop="75dp"
                 android:layout_marginEnd="154dp"
 
-                android:text="@string/diagnose_button" />
+                android:text="@string/diagnose_button"
+                app:backgroundTint="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/pickDateBtn"
@@ -135,7 +139,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="40dp"
 
-                android:text="@string/date_button" />
+                android:text="@string/date_button"
+                app:backgroundTint="@color/colorPrimary" />
 
 
 

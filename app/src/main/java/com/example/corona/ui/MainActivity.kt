@@ -147,6 +147,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_main)
 
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
                 enableView()
@@ -157,6 +158,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             enableView()
         }
 
+/*
         val mainHandler = Handler(Looper.getMainLooper())
 
         mainHandler.post(object : Runnable {
@@ -165,6 +167,14 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                 mainHandler.postDelayed(this, 60000)
             }
         })
+
+ */
+
+
+
+
+
+
 
 
 
@@ -229,9 +239,9 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     override fun onLocationChanged(location: Location?) {
                         if (location != null) {
                             locationGps = location
-                            tv_result.append("\nGPS ")
-                            tv_result.append("\nLatitude : " + locationGps!!.latitude)
-                            tv_result.append("\nLongitude : " + locationGps!!.longitude)
+                            //tv_result.append("\nGPS ")
+                            //tv_result.append("\nLatitude : " + locationGps!!.latitude)
+                            //tv_result.append("\nLongitude : " + locationGps!!.longitude)
                             Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
                             Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
                         }
@@ -261,9 +271,9 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     override fun onLocationChanged(location: Location?) {
                         if (location != null) {
                             locationNetwork = location
-                            tv_result.append("\nNetwork ")
-                            tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
-                            tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
+                            //tv_result.append("\nNetwork ")
+                            //tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
+                            //tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
                             Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
                             Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
                         }
@@ -290,15 +300,15 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
             if(locationGps!= null && locationNetwork!= null){
                 if(locationGps!!.accuracy > locationNetwork!!.accuracy){
-                    tv_result.append("\nNetwork ")
-                    tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
-                    tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
+                    //tv_result.append("\nNetwork ")
+                    //tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
+                    //tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
                     Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
                     Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
                 }else{
-                    tv_result.append("\nGPS ")
-                    tv_result.append("\nLatitude : " + locationGps!!.latitude)
-                    tv_result.append("\nLongitude : " + locationGps!!.longitude)
+                    //tv_result.append("\nGPS ")
+                    //tv_result.append("\nLatitude : " + locationGps!!.latitude)
+                    //tv_result.append("\nLongitude : " + locationGps!!.longitude)
                     Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
                     Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
                 }
