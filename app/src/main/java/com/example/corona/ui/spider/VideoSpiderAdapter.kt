@@ -86,7 +86,7 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
                holder.source_item.setImageResource(R.drawable.gmail)
            }
 
-           holder.web_view.webViewClient= object :WebViewClient(){
+           /*holder.web_view.webViewClient= object :WebViewClient(){
                override fun shouldOverrideUrlLoading(
                    view: WebView?,
                    url: String
@@ -99,7 +99,7 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
                override fun onPageFinished(view: WebView?, url: String?) {
                    holder.progressBar_loading_spider.visibility=View.GONE
                }
-           }
+           }*/
            val map :Map<String,String> = mapOf(Pair("text/html","utf-8"))
            holder.web_view.loadUrl(currentSpiderItemList.url,map)
        }else{

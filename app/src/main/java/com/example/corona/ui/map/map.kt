@@ -91,6 +91,8 @@ class map : Fragment(){
         viewPager=activity!!.findViewById(R.id.view_pager_map)
         tabLayout=activity!!.findViewById(R.id.tab_layout_map)
 
+
+
         fragment_global_map= GlobalMap()
         fragment_local_map= LocalMap()
 
