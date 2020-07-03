@@ -82,8 +82,10 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
     fun xyz(){
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        var mutableList = mutableListOf(mutableListOf(36.7475576,3.8962801),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
-        var x = 36.49
+
+        var mutableList = mutableListOf(mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
+        //var x = 36.49
+
         var y = 2.85
 
         for(item in mutableList) {
@@ -155,7 +157,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             enableView()
         }
 
-/*
+
         val mainHandler = Handler(Looper.getMainLooper())
 
         mainHandler.post(object : Runnable {
@@ -164,15 +166,6 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                 mainHandler.postDelayed(this, 60000)
             }
         })
-
- */
-
-
-
-
-
-
-
 
 
         toolbar = findViewById(R.id.toolbar)
@@ -199,7 +192,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         NavigationUI.setupActionBarWithNavController(this, navController)
 
         bottom_bar=this.findViewById(R.id.bottom_bar)
-
+        bottom_bar.setActiveItem(2)
 
         bottom_bar.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {

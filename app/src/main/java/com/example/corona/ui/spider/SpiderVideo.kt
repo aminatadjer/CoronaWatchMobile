@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.net.URL
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class SpiderVideo : Fragment() {
 
     private lateinit var mtitel:TextView

@@ -95,7 +95,7 @@ class LocalMap : Fragment(), OnMapReadyCallback {
 
         var regionList: ArrayList<Region> = arrayListOf()
         val retrofit = Retrofit.Builder()
-            .baseUrl(Util.getProperty("baseUrl", context!!))
+            .baseUrl(Util.getProperty("baseUrl", context!!)!!)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create<Service>(Service::class.java)

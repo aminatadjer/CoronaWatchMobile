@@ -1,5 +1,6 @@
 package com.example.corona.ui.post
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +16,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.corona.R
+import com.example.corona.ui.Util
 import kotlinx.android.synthetic.main.post_item.view.*
 
-class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
+class ArticleAdapter(contextt: Context) : RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
 
     companion object{
         private var articleList:List<Article> =ArrayList()
         lateinit var listner:OnItemClickListner
     }
+     var context:Context = contextt
 
 
     class ArticleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -76,7 +79,7 @@ class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
                 url: String
             ): Boolean {
                 holder.progressBar_loading.visibility=View.VISIBLE
-                view!!.loadUrl("http://192.168.1.9:8000/"+currentArticle.url)
+                view!!.loadUrl(Util.getProperty("baseUrl2", context)+currentArticle.url)
                 return true
             }
 
@@ -90,7 +93,7 @@ class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
             holder.subTitle.text = currentArticle.date
             holder.coment.text = "38"
             holder.like.text = "12"
-            holder.web_view.loadUrl("http://192.168.1.9:8000/" + currentArticle.url)
+            holder.web_view.loadUrl(Util.getProperty("baseUrl2", context) + currentArticle.url)
 
 
 
