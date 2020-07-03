@@ -42,13 +42,9 @@ class SpiderVideo : Fragment() {
         return inflater.inflate(R.layout.fragment_spider_video, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getStart()
-    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-
         super.onActivityCreated(savedInstanceState)
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -76,12 +72,32 @@ class SpiderVideo : Fragment() {
                 // add here
 
                 adapter.setVideoSpider(ll)
+                val context = context // or getBaseContext(), or getApplicationContext()
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(Util.getProperty("baseUrl", context!!))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                val service = retrofit.create<Service>(Service::class.java)
+                service.getAll().enqueue(object: Callback<List<Publication>> {
+                    override fun onResponse(call: Call<List<Publication>>, response: retrofit2.Response<List<Publication>>?) {
+                        if ((response != null) && (response.code() == 200)) {
+                            val listBody:List<Publication>? = response.body()
+                            if (listBody != null) {
+                                ll.clear()
+                                ll.addAll(listBody)
+                                adapter.notifyDataSetChanged()
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<List<Publication>>, t: Throwable) {
+
+                    }
+                })
                 recyclerViewSpider.adapter = adapter
 
                 adapter.SetOnItemClickListner(object :
                     VideoSpiderAdapter.OnItemClickListner {
                     override fun onItemClick(spiderItem: Publication) {
-
                         val nextAction= SpiderVideoDirections.actionSpiderVideoFragmentToSpiderPageFragment()
                         nextAction.setUrl(spiderItem.url)
                         Navigation.findNavController(view!!).navigate(nextAction)
@@ -100,29 +116,6 @@ class SpiderVideo : Fragment() {
 
     }
 
-    fun getStart(){
-        val context = context // or getBaseContext(), or getApplicationContext()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Util.getProperty("baseUrl", context!!))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create<Service>(Service::class.java)
-        service.getAll().enqueue(object: Callback<List<Publication>> {
-            override fun onResponse(call: Call<List<Publication>>, response: retrofit2.Response<List<Publication>>?) {
-                if ((response != null) && (response.code() == 200)) {
-                    val listBody:List<Publication>? = response.body()
-                    if (listBody != null) {
-                        ll.clear()
-                        ll.addAll(listBody)
-                    }
-                }
-            }
-            override fun onFailure(call: Call<List<Publication>>, t: Throwable) {
-
-            }
-        })
-
-    }
 
 
 

@@ -76,7 +76,7 @@ class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
                 url: String
             ): Boolean {
                 holder.progressBar_loading.visibility=View.VISIBLE
-                view!!.loadUrl(currentArticle.url)
+                view!!.loadUrl("http://192.168.1.9:8000/"+currentArticle.url)
                 return true
             }
 
@@ -86,11 +86,11 @@ class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleHolder>() {
         }
 
 
-        holder.title.text=currentArticle.title
-        holder.subTitle.text=currentArticle.subTitle
-        holder.coment.text=currentArticle.comment.toString()
-        holder.like.text=currentArticle.likes.toString()
-        holder.web_view.loadUrl(currentArticle.url)
+            holder.title.text = currentArticle.titre
+            holder.subTitle.text = currentArticle.date
+            holder.coment.text = "38"
+            holder.like.text = "12"
+            holder.web_view.loadUrl("http://192.168.1.9:8000/" + currentArticle.url)
 
 
 
