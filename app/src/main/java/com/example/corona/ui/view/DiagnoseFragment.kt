@@ -61,7 +61,7 @@ class DiagnoseFragment : Fragment() {
 
 
         pickDateBtn.setOnClickListener {
-            var dpd = DatePickerDialog(this!!.activity!!, DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
+            var dpd = DatePickerDialog(this!!.activity!!, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
 
                 dateTv.setText(""+ mDay +"/"+ (mMonth+1) +"/"+ mYear)
 
