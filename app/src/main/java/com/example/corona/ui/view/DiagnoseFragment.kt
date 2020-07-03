@@ -1,19 +1,21 @@
 package com.example.corona.ui.view
 
+
 import android.app.DatePickerDialog
-import androidx.lifecycle.ViewModelProviders
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.SeekBar
-
-
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.example.corona.R
 import kotlinx.android.synthetic.main.diagnose_fragment.*
 import java.util.*
+
 
 class DiagnoseFragment : Fragment() {
 
@@ -23,10 +25,10 @@ class DiagnoseFragment : Fragment() {
     var day = c.get(Calendar.DAY_OF_MONTH)
     companion object {
         fun newInstance() = DiagnoseFragment()
-        const val TEMPERATURE_MIN = 30
+        const val TEMPERATURE_MIN = 35
         const val TEMPERATURE_MAX = 45
-        const val HEART_BEAT_MIN = 40
-        const val HEART_BEAT_MAX = 160
+        const val HEART_BEAT_MIN = 45
+        const val HEART_BEAT_MAX = 165
         const val WEIGHT_MIN = 20
         const val WEIGHT_MAX = 200
 
@@ -59,7 +61,7 @@ class DiagnoseFragment : Fragment() {
 
 
         pickDateBtn.setOnClickListener {
-            var dpd = DatePickerDialog(this!!.activity!!, DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
+            var dpd = DatePickerDialog(this!!.activity!!, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
 
                 dateTv.setText(""+ mDay +"/"+ (mMonth+1) +"/"+ mYear)
 
@@ -74,6 +76,12 @@ class DiagnoseFragment : Fragment() {
 
 
             dpd.show()
+
+            val ok: Button = dpd.getButton(DialogInterface.BUTTON_POSITIVE)
+            ok.setTextColor(Color.rgb(255, 0, 0))
+
+            val cancel: Button = dpd.getButton(DialogInterface.BUTTON_NEGATIVE)
+            cancel.setTextColor(Color.rgb(255, 0, 0))
         }
 
 
