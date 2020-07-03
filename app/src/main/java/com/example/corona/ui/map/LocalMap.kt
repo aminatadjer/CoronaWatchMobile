@@ -35,7 +35,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.bottom_sheet.*
+
+import kotlinx.android.synthetic.main.fragment_local_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -76,7 +77,7 @@ class LocalMap : Fragment(), OnMapReadyCallback {
 
 
         SetBottomSheetBehaivior()
-        bottom_sheet.visibility=View.GONE
+        bottom_sheet_local.visibility=View.GONE
 
         var mapViewBundle:Bundle?=null
         if(savedInstanceState!=null){
@@ -123,7 +124,7 @@ class LocalMap : Fragment(), OnMapReadyCallback {
     }
 
     fun SetBottomSheetBehaivior(){
-        val linearLayout= activity!!.findViewById<LinearLayout>(R.id.bottom_sheet)
+        val linearLayout= activity!!.findViewById<LinearLayout>(R.id.bottom_sheet_local)
         bottomSheetBehaivior=BottomSheetBehavior.from(linearLayout)
         bottomSheetBehaivior.setPeekHeight(150)
         bottomSheetBehaivior.setState(BottomSheetBehavior.STATE_EXPANDED)

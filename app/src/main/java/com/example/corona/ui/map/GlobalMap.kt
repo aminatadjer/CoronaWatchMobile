@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet.*
+import kotlinx.android.synthetic.main.fragment_global_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -75,7 +76,7 @@ class GlobalMap : Fragment(), OnMapReadyCallback {
 
 
         SetBottomSheetBehaivior()
-        bottom_sheet.visibility=View.GONE
+        bottom_sheet_global.visibility=View.GONE
 
         var mapViewBundle:Bundle?=null
         if(savedInstanceState!=null){
@@ -110,7 +111,7 @@ class GlobalMap : Fragment(), OnMapReadyCallback {
                     for (region in regionList){
                         val resId = context!!.resources.getIdentifier("raw/"+region.nom, null, context.packageName)
                         region.kmlResource=resId
-                        LatLang.latLangAlgeria.set( region.id.toString() , region)
+                        LatLang.latLangWorld.set( region.id.toString() , region)
                     }
                 }
             }
@@ -122,7 +123,7 @@ class GlobalMap : Fragment(), OnMapReadyCallback {
     }
 
     fun SetBottomSheetBehaivior(){
-        val linearLayout= activity!!.findViewById<LinearLayout>(R.id.bottom_sheet)
+        val linearLayout= activity!!.findViewById<LinearLayout>(R.id.bottom_sheet_global)
         bottomSheetBehaivior= BottomSheetBehavior.from(linearLayout)
         bottomSheetBehaivior.setPeekHeight(150)
         bottomSheetBehaivior.setState(BottomSheetBehavior.STATE_EXPANDED)
