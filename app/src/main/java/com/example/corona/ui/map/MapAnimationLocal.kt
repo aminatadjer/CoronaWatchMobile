@@ -32,7 +32,7 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MapAnimation(
+class MapAnimationLocal(
     var googleMap: GoogleMap,
     val context:Context,
 
@@ -45,26 +45,24 @@ class MapAnimation(
      var polylineManager : PolylineManager=PolylineManager(googleMap)
      var kmlPolylineLayer : KmlLayer=KmlLayer(googleMap,R.raw.dza1, context, markerManager, polygonManager, polylineManager, groundOverlayManager, null)
 
-    var layerGeoJson: GeoJsonLayer =  GeoJsonLayer(googleMap, R.raw.world,context,markerManager,polygonManager,polylineManager, groundOverlayManager)
-
     //First show
     var enterKml:Boolean=false
-    var enterGeoJson=false
+
 
     //Marker list
     var markerList=ArrayList<Marker>()
     var hospitals =ArrayList<com.example.corona.ui.map.Hospital>()
 
     //Bottom sheet items
-    var bottom_sheet:LinearLayout=activity.findViewById(R.id.bottom_sheet)
-    var region:TextView=activity.findViewById(R.id.region)
-    var state:TextView=activity.findViewById(R.id.state)
-    var nb_cases:TextView=activity.findViewById(R.id.nb_cases)
-    var nb_holder:TextView=activity.findViewById(R.id.nb_holder)
-    var nb_doubtful:TextView=activity.findViewById(R.id.nb_doubtful)
-    var nb_deaths:TextView=activity.findViewById(R.id.nb_deaths)
-    var nb_recovred:TextView=activity.findViewById(R.id.nb_recovred)
+    var bottom_sheet_local:LinearLayout=activity.findViewById(R.id.bottom_sheet_local)
 
+    var region_local:TextView=activity.findViewById(R.id.region_local)
+    var state_local:TextView=activity.findViewById(R.id.state_local)
+    var nb_cases_local:TextView=activity.findViewById(R.id.nb_cases_local)
+    var nb_holder_local:TextView=activity.findViewById(R.id.nb_holder_local)
+    var nb_doubtful_local:TextView=activity.findViewById(R.id.nb_doubtful_local)
+    var nb_deaths_local:TextView=activity.findViewById(R.id.nb_deaths_local)
+    var nb_recovred_local:TextView=activity.findViewById(R.id.nb_recovred_local)
 
     //create Markers and draw circle around it for each wilaya
     fun createMarkerList(){
@@ -83,7 +81,6 @@ class MapAnimation(
                     LatLang.latLangAlgeria[key]!!.lat, LatLang.latLangAlgeria[key]!!.lang,
                     ContextCompat.getColor(context, R.color.danger_lvl3),radius)
             }
-
             markerList.add(
                 googleMap.addMarker(
                     MarkerOptions()
@@ -93,17 +90,10 @@ class MapAnimation(
                         //.icon(BitmapDescriptorFactory.fromBitmap(getBitmap(latLangAlgeria[key]!!.lat, latLangAlgeria[key]!!.lang,googleMap)))
                         .alpha(0.0f)))
 
-        }
 
+        }
         kmlPolylineLayer.groundOverlays
         kmlPolylineLayer.addLayerToMap()
-
-        val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
-            //style.setFillColor(Color.MAGENTA)
-            style.setStrokeColor(Color.argb(90,60,40,120))
-            style.setStrokeWidth(4F)
-
-        layerGeoJson.addLayerToMap()
 
     }
 
@@ -125,11 +115,11 @@ class MapAnimation(
         googleMap.setOnMapLoadedCallback {
             googleMap.setOnMarkerClickListener {
                 kmlMapAnimation(it.title)
-                bottom_sheet.visibility= View.VISIBLE
 
+                bottom_sheet_local.visibility= View.VISIBLE
                 getCentreByRegion(  LatLang.latLangAlgeria[it.title]!!.id)
 
-                setInfoWindow(
+                setInfoWindowLocal(
                     LatLang.latLangAlgeria[it.title]!!.ArabicName,
                     LatLang.latLangAlgeria[it.title]!!.degre,
                     LatLang.latLangAlgeria[it.title]!!.confirme.toString(),
@@ -138,6 +128,7 @@ class MapAnimation(
                     LatLang.latLangAlgeria[it.title]!!.mort.toString(),
                     LatLang.latLangAlgeria[it.title]!!.guerie.toString(),
                     hospitals)
+
                 true
             }
         }
@@ -168,51 +159,35 @@ class MapAnimation(
 
     fun SetRegionOnClickListner(){
 
-        kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
-            override fun onFeatureClick(feature: Feature?) {
-                val property="name"
-                kmlMapAnimation(feature!!.getProperty(property))
-                bottom_sheet.visibility=View.VISIBLE
 
-                getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.id)
+                kmlPolylineLayer.setOnFeatureClickListener(object : Layer.OnFeatureClickListener{
+                    override fun onFeatureClick(feature: Feature?) {
 
-                //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
-                setInfoWindow(
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.ArabicName,
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.degre,
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.confirme.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.critique.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.suspect.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.mort.toString(),
-                    LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.guerie.toString(),
-                    hospitals)
+                        val property="name"
+                        kmlMapAnimation(feature!!.getProperty(property))
+                        bottom_sheet_local.visibility=View.VISIBLE
 
-            } })
+                        getCentreByRegion(LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.id)
 
-        layerGeoJson.setOnFeatureClickListener(object: GeoJsonLayer.GeoJsonOnFeatureClickListener {
-            override fun onFeatureClick(feature: Feature?) {
+                        //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
+                        setInfoWindowLocal(
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.ArabicName,
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.degre,
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.confirme.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.critique.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.suspect.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.mort.toString(),
+                            LatLang.latLangAlgeria[feature!!.getProperty(property)]!!.guerie.toString(),
+                            hospitals)
 
-                val property=feature!!.id
-                GeoJsonMapAnimation(property)
-                bottom_sheet.visibility=View.VISIBLE
+                    } })
 
-                /*getCentreByRegion(LatLang.latLangAlgeria[property]!!.id)
 
-                //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
-                setInfoWindow(
-                    LatLang.latLangAlgeria[property]!!.ArabicName,
-                    LatLang.latLangAlgeria[property]!!.degre,
-                    LatLang.latLangAlgeria[property]!!.confirme.toString(),
-                    LatLang.latLangAlgeria[property]!!.critique.toString(),
-                    LatLang.latLangAlgeria[property]!!.suspect.toString(),
-                    LatLang.latLangAlgeria[property]!!.mort.toString(),
-                    LatLang.latLangAlgeria[property]!!.guerie.toString(),
-                    hospitals)*/
-            }
-        })
+
+
     }
 
-    fun setInfoWindow(region_:String,
+    fun setInfoWindowLocal(region_:String,
                       state_:Int,
                       nb_cases_:String,
                       nb_holder_:String,
@@ -220,30 +195,30 @@ class MapAnimation(
                       nb_deaths_:String,
                       nb_recovred_:String,
                       hospitals:MutableList<Hospital>){
-        val recycler_view:RecyclerView=activity.findViewById(R.id.recycler_view)
+        val recycler_view_local:RecyclerView=activity.findViewById(R.id.recycler_view_local)
         var etat:String=""
-        region.text=region_
+        region_local.text=region_
         when(state_){
             0->{etat=context.getString(R.string.danger_lvl1)
-                state.setTextColor(Color.parseColor(Util.getProperty("dangerLvl1Color", context!!)))
+                state_local.setTextColor(Color.parseColor(Util.getProperty("dangerLvl1Color", context!!)))
             }
             1->{etat=context.getString(R.string.danger_lvl2)
-                state.setTextColor(Color.parseColor(Util.getProperty("dangerLvl2Color", context!!)))
+                state_local.setTextColor(Color.parseColor(Util.getProperty("dangerLvl2Color", context!!)))
             }
             2->{etat=context.getString(R.string.danger_lvl3)
-                state.setTextColor(Color.parseColor(Util.getProperty("dangerLvl3Color", context!!)));
+                state_local.setTextColor(Color.parseColor(Util.getProperty("dangerLvl3Color", context!!)));
             }
         }
-        state.text=etat
-        nb_cases.text=nb_cases_
-        nb_holder.text=nb_holder_
-        nb_doubtful.text=nb_doubtful_
-        nb_deaths.text=nb_deaths_
-        nb_recovred.text=nb_recovred_
+        state_local.text=etat
+        nb_cases_local.text=nb_cases_
+        nb_holder_local.text=nb_holder_
+        nb_doubtful_local.text=nb_doubtful_
+        nb_deaths_local.text=nb_deaths_
+        nb_recovred_local.text=nb_recovred_
 
 
 
-        val recyclerView: RecyclerView = recycler_view
+        val recyclerView: RecyclerView = recycler_view_local
         recyclerView.layoutManager= LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
@@ -253,6 +228,9 @@ class MapAnimation(
         recyclerView.adapter=adapter
         adapter.setHospital(hospitals)
     }
+
+
+
 
 
     fun kmlMapAnimation(Property:String){
@@ -265,17 +243,6 @@ class MapAnimation(
 
     }
 
-    fun GeoJsonMapAnimation(Property:String){
-        //markerList[latLangAlgeria.keys.indexOf(Property)].showInfoWindow()
-        if(enterGeoJson){ layerGeoJson.removeLayerFromMap()
-        }else{ enterGeoJson=true}
-        layerGeoJson= GeoJsonLayer(googleMap, LatLang.latLangAlgeria[Property]!!.kmlResource,context,markerManager,polygonManager,polylineManager, groundOverlayManager)
-        val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
-        style.setStrokeColor(Color.argb(130,60,40,120))
-        style.setStrokeWidth(9F)
-        layerGeoJson.addLayerToMap()
-
-    }
 
 
 }

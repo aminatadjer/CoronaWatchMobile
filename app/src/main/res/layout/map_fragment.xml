@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    tools:context=".ui.map.map"
+    android:id="@+id/mapFragment">
 
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/progressBar_loading"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading"
-        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/orange"
+            app:tabIndicatorHeight="4dp"
+            app:tabMinWidth="100dp"
+            app:tabMaxWidth="100dp"
+            app:tabSelectedTextColor="@color/orange"
+            app:tabTextColor="@color/grey_lite">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        </com.google.android.material.tabs.TabLayout>
 
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <include layout="@layout/bottom_sheet"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+    </LinearLayout>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

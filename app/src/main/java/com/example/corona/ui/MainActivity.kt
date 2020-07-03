@@ -206,14 +206,37 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
         bottom_bar.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {
+
                 when(pos){
-                    0->navController.navigate(R.id.mapFragment)
-                    1->navController.navigate(R.id.reportFragment)
-                    2->navController.navigate(R.id.postFragment)
-                    3->navController.navigate(R.id.videoFragment)
-                    4->navController.navigate(R.id.viewFragment)
+                    0->{
+
+                        navController.navigate(R.id.mapFragment)
+
+
+                    }
+                    1->{
+
+                        navController.navigate(R.id.reportFragment)
+
+                    }
+                    2->{
+
+                        navController.navigate(R.id.postFragment)
+
+                    }
+                    3->{
+
+                        navController.navigate(R.id.spiderVideoFragment)
+
+                    }
+                    4->{
+
+                        navController.navigate(R.id.userVideoFragment)
+
+                    }
                     else -> "Number too high"
                 }
+                Runtime.getRuntime().gc()
             }
         })
     }
@@ -368,30 +391,40 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_map -> {
+            R.id.mapFragment -> {
+
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
+
             }
-            R.id.nav_public -> {
+            R.id.postFragment -> {
+
                 navController.navigate(R.id.reportFragment)
                 bottom_bar.setActiveItem(1)
+
             }
-            R.id.nav_warnings -> {
+            R.id.loginFragment -> {
+
                 navController.navigate(R.id.postFragment)
                 bottom_bar.setActiveItem(2)
+
             }
-            R.id.nav_video -> {
-                navController.navigate(R.id.videoFragment)
+            R.id.spiderVideoFragment -> {
+
+                navController.navigate(R.id.spiderVideoFragment)
                 bottom_bar.setActiveItem(3)
+
             }
-            R.id.nav_view -> {
-                navController.navigate(R.id.viewFragment)
+            R.id.userVideoFragment -> {
+
+                navController.navigate(R.id.userVideoFragment)
                 bottom_bar.setActiveItem(4)
 
             }
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)
+        Runtime.getRuntime().gc()
         return true
     }
 
@@ -402,16 +435,20 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         if(item.itemId==android.R.id.home){
             navController.addOnDestinationChangedListener { controller, destination, arguments ->
                 when(destination.label){
-                    "view"->bottom_bar.setActiveItem(4)
-                    "video"->bottom_bar.setActiveItem(3)
+                    "fragment_user_video"->bottom_bar.setActiveItem(4)
+                    "fragment_spider_video"->bottom_bar.setActiveItem(3)
                     "post"->bottom_bar.setActiveItem(2)
                     "report"->bottom_bar.setActiveItem(1)
-                    "map"->bottom_bar.setActiveItem(0)
+                    "map"->{
+
+                        bottom_bar.setActiveItem(0)
+                    }
                 }
+                Runtime.getRuntime().gc()
 
             }
 
-            //Toast.makeText(this,navController.,Toast.LENGTH_LONG).show()
+            //Toast.makeText(this,"here",Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -426,7 +463,16 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         super.onBackPressed()
         //navController.navigate(R.id.mapFragment)
         //bottom_bar.setActiveItem(0)
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.label){
+                "fragment_user_video"->bottom_bar.setActiveItem(4)
+                "fragment_spider_video"->bottom_bar.setActiveItem(3)
+                "post"->bottom_bar.setActiveItem(2)
+                "report"->bottom_bar.setActiveItem(1)
+                "map"->bottom_bar.setActiveItem(0)
+            }
 
+        }
         Runtime.getRuntime().gc()
     }
 

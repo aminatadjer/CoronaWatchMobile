@@ -19,12 +19,12 @@
         android:title=""
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/videoFragment"
+        android:id="@+id/spiderVideoFragment"
         android:icon="@drawable/ic_video"
         android:title=""
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/viewFragment"
+        android:id="@+id/userVideoFragment"
         android:icon="@drawable/ic_today"
         android:title=""
         app:showAsAction="ifRoom"/>

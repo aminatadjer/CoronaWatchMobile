@@ -1,4 +1,4 @@
-package com.example.corona.ui.video
+package com.example.corona.ui.spider
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
-import android.webkit.WebSettings
 import android.webkit.WebViewClient
 
 import com.example.corona.R
-import com.example.corona.ui.post.ArticlePage
+
 import kotlinx.android.synthetic.main.spider_page_fragment.*
 
 class SpiderPage : Fragment() {
@@ -18,7 +17,7 @@ class SpiderPage : Fragment() {
     companion object {
         fun newInstance() = SpiderPage()
     }
-    private lateinit var sfeArgs:SpiderPageArgs
+    private lateinit var sfeArgs: SpiderPageArgs
 
 
     override fun onCreateView(
@@ -33,7 +32,8 @@ class SpiderPage : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        sfeArgs=SpiderPageArgs.fromBundle(arguments!!)
+        sfeArgs=
+            SpiderPageArgs.fromBundle(arguments!!)
 
         if(sfeArgs.url!="null"){
             web_view_page_spider.webViewClient= WebViewClient()

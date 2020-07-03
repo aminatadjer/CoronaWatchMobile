@@ -68,7 +68,6 @@ class takenvideo : Fragment(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
-
             try {
                 videoUri= data!!.data
 
@@ -79,7 +78,6 @@ class takenvideo : Fragment(){
                  videoDuriationSecond=time.toLong()/1000
                 retriever.release()
                 //Toast.makeText(context!!,videoDuriationSecond.toString(),Toast.LENGTH_LONG).show()
-
 
                 video_view.setVideoURI(videoUri)
 

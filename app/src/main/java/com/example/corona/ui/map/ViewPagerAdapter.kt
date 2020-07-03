@@ -1,4 +1,4 @@
-package com.example.corona.ui.video
+package com.example.corona.ui.map
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
