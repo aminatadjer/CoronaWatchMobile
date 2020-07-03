@@ -82,13 +82,12 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
     fun xyz(){
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        var mutableList = mutableListOf(mutableListOf(36.49,2.85),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
+        var mutableList = mutableListOf(mutableListOf(36.7475576,3.8962801),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
         var x = 36.49
         var y = 2.85
 
         for(item in mutableList) {
             if (distance(item[0],item[1],locationNetwork!!.latitude,locationNetwork!!.longitude)<1.0) {
-
                 val intent = Intent(this, MainActivity::class.java)
                 val pendingIntent =
                     PendingIntent.getActivity(
@@ -145,8 +144,6 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
@@ -475,8 +472,5 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         }
         Runtime.getRuntime().gc()
     }
-
-
-
 
 }
