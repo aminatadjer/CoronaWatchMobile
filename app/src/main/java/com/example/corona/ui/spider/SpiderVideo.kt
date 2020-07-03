@@ -14,24 +14,41 @@ import com.example.corona.R
 import com.example.corona.ui.post.NetworkConnection
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.example.corona.ui.Util
+import com.example.corona.ui.map.LatLang
+
+import com.example.corona.ui.spider.Service
 
 import kotlinx.android.synthetic.main.fragment_spider_video.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.net.URL
 
 
 class SpiderVideo : Fragment() {
 
     private lateinit var mtitel:TextView
+    var ll: MutableList<Publication> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_spider_video, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getStart()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         super.onActivityCreated(savedInstanceState)
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -55,44 +72,15 @@ class SpiderVideo : Fragment() {
 
                 //required setUrl
 
-                var ll: MutableList<SpiderItem> = ArrayList()
-                ll.add(
-                    SpiderItem(
-                        setUrl("https://www.youtube.com/watch?v=z44CLCafepA&fbclid=IwAR2DxFgiPcs-BVnIt2fInAmhza41hIedEwU5SWjQ8d8Y_yUQ6rWfrlRu6Oc"),
-                        "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                        "المصدر: دبي - العربية.نت"
-                    )
-                )
 
-                ll.add(
-                    SpiderItem(
-                        setUrl("https://twitter.com/CDCgov/status/1276254982782832644"),
-                        "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                        "المصدر: دبي - العربية.نت"
-                    )
-                )
-
-                ll.add(
-                    SpiderItem(
-                        setUrl("https://twitter.com/marcomh20/status/1275547023865831424?ref_src=twsrc%5Etfw"),
-                        "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                        "المصدر: دبي - العربية.نت"
-                    )
-                )
-                ll.add(
-                    SpiderItem(
-                        setUrl("https://www.youtube.com/watch?v=svdq1BWl4r8"),
-                        "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                        "المصدر: دبي - العربية.نت"
-                    )
-                )
+                // add here
 
                 adapter.setVideoSpider(ll)
                 recyclerViewSpider.adapter = adapter
 
                 adapter.SetOnItemClickListner(object :
                     VideoSpiderAdapter.OnItemClickListner {
-                    override fun onItemClick(spiderItem: SpiderItem) {
+                    override fun onItemClick(spiderItem: Publication) {
 
                         val nextAction= SpiderVideoDirections.actionSpiderVideoFragmentToSpiderPageFragment()
                         nextAction.setUrl(spiderItem.url)
@@ -112,38 +100,31 @@ class SpiderVideo : Fragment() {
 
     }
 
-
-
-    fun setUrl(url:String): String {
-        if(url.contains("www.youtube")){
-            return "https://www.youtube.com/embed/"+extractYoutubeId(url)
-        }
-        else{
-            return url
-        }
-    }
-
-     fun extractYoutubeId(url: String): String? {
-        var id: String? = null
-        try {
-            val query: String = URL(url).getQuery()
-            if (query != null) {
-                val param = query.split("&").toTypedArray()
-                for (row in param) {
-                    val param1 = row.split("=").toTypedArray()
-                    if (param1[0] == "v") {
-                        id = param1[1]
+    fun getStart(){
+        val context = context // or getBaseContext(), or getApplicationContext()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Util.getProperty("baseUrl", context!!))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create<Service>(Service::class.java)
+        service.getAll().enqueue(object: Callback<List<Publication>> {
+            override fun onResponse(call: Call<List<Publication>>, response: retrofit2.Response<List<Publication>>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val listBody:List<Publication>? = response.body()
+                    if (listBody != null) {
+                        ll.clear()
+                        ll.addAll(listBody)
                     }
                 }
-            } else {
-                if (url.contains("embed")) {
-                    id = url.substring(url.lastIndexOf("/") + 1)
-                }
             }
-        } catch (ex: Exception) {
-            Log.e("Exception", ex.toString())
-        }
-        return id
+            override fun onFailure(call: Call<List<Publication>>, t: Throwable) {
+
+            }
+        })
+
     }
+
+
+
 
 }
