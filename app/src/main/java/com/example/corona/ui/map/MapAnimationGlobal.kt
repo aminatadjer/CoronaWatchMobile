@@ -94,12 +94,7 @@ val activity: FragmentActivity) {
                         .alpha(0.0f)))
 
 
-            val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
-            //style.setFillColor(Color.MAGENTA)
-            style.setStrokeColor(Color.argb(90,60,40,120))
-            style.setStrokeWidth(4F)
 
-            layerGeoJson.addLayerToMap()
 
 
         }
@@ -168,6 +163,11 @@ val activity: FragmentActivity) {
     }
 
     fun SetRegionOnClickListner(){
+        val style: GeoJsonPolygonStyle = layerGeoJson.getDefaultPolygonStyle()
+        //style.setFillColor(Color.MAGENTA)
+        style.setStrokeColor(Color.argb(90,60,40,120))
+        style.setStrokeWidth(4F)
+        layerGeoJson.addLayerToMap()
         layerGeoJson.setOnFeatureClickListener(object: GeoJsonLayer.GeoJsonOnFeatureClickListener {
             override fun onFeatureClick(feature: Feature?) {
 

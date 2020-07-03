@@ -18,8 +18,8 @@ class MapViewModel : ViewModel() {
 
     fun setGlobalMap(googleMap: GoogleMap,context: Context,activity: FragmentActivity){
         val mapAnimation=MapAnimationGlobal(googleMap,context,activity)
-        mapAnimation.createMarkerList()
-        mapAnimation.SetMarkerOnClickListner()
+        //mapAnimation.createMarkerList()
+        //mapAnimation.SetMarkerOnClickListner()
         mapAnimation.SetRegionOnClickListner()
     }
 

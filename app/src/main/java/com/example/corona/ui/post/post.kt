@@ -2,6 +2,7 @@ package com.example.corona.ui.post
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -99,7 +100,7 @@ class post : Fragment()/*,FacebookListener*/ {
                 val recyclerView: RecyclerView = recycler_view as RecyclerView
                 recyclerView.layoutManager = LinearLayoutManager(activity)
                 recyclerView.setHasFixedSize(true)
-                val adapter = ArticleAdapter()
+                val adapter = ArticleAdapter(context!!)
                 recyclerView.adapter = adapter
                 adapter.setArticle(ll)
                 val retrofit = Retrofit.Builder()
@@ -129,7 +130,7 @@ class post : Fragment()/*,FacebookListener*/ {
                     override fun onItemClick(article: Article) {
 
                         val nextAction=postDirections.actionPostFragmentToArticlePageFragment()
-                        nextAction.setUrl("http://192.168.1.9:8000/"+article.url)
+                        nextAction.setUrl(Util.getProperty("baseUrl2", context!!)+article.url)
                         Navigation.findNavController(view!!).navigate(nextAction)
                     }
 
