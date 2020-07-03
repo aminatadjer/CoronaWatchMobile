@@ -19,7 +19,7 @@ import com.example.corona.R
 class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHolder>() {
 
     companion object{
-        private var spiderItemList:List<SpiderItem> =ArrayList()
+        private var spiderItemList:List<Publication> =ArrayList()
         lateinit var listner: OnItemClickListner
     }
 
@@ -68,7 +68,7 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
         return spiderItemList.size
     }
 
-    fun setVideoSpider(spiderItemListt:List<SpiderItem>)
+    fun setVideoSpider(spiderItemListt:List<Publication>)
     {
         spiderItemList =spiderItemListt
         notifyDataSetChanged()
@@ -77,7 +77,7 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
    // @SuppressLint("SetJavaScriptEnabled")
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: VideoSpiderHolder, position: Int) {
-        val currentSpiderItemList: SpiderItem = spiderItemList.get(position)
+        val currentSpiderItemList: Publication = spiderItemList.get(position)
 
        if(!currentSpiderItemList.url.contains("twitter.com")){
            if(currentSpiderItemList.url.contains("www.youtube")){
@@ -124,13 +124,13 @@ class VideoSpiderAdapter: RecyclerView.Adapter<VideoSpiderAdapter.VideoSpiderHol
 
 
 
-       holder.title_spider.text=currentSpiderItemList.title
+       holder.title_spider.text=currentSpiderItemList.titre
        holder.subTitle_spider.text=currentSpiderItemList.description
     }
 
 
     interface OnItemClickListner{
-        fun onItemClick(spiderItem: SpiderItem)
+        fun onItemClick(spiderItem: Publication)
     }
 
     fun SetOnItemClickListner(listnerr: OnItemClickListner){

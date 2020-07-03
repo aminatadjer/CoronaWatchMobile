@@ -45,8 +45,13 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.example.corona.ui.Util
+import com.example.corona.ui.post.services.Service
 import kotlinx.android.synthetic.main.post_item.*
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class post : Fragment()/*,FacebookListener*/ {
 
@@ -61,6 +66,8 @@ class post : Fragment()/*,FacebookListener*/ {
     //private lateinit var mFacebook:FacebookHelper
 
     private lateinit var viewModel: PostViewModel
+    var articleList: MutableList<Article> = ArrayList()
+    var ll: MutableList<Article> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +80,7 @@ class post : Fragment()/*,FacebookListener*/ {
 
     @SuppressLint("ResourceAsColor")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
 
@@ -81,6 +89,7 @@ class post : Fragment()/*,FacebookListener*/ {
         mtitel.text= getString(R.string.postTitle)
 
         val networkConnection=NetworkConnection(context!!)
+
         networkConnection.observe(this, Observer {isConnected->
             if (isConnected){
                 recycler_view.visibility=View.VISIBLE
@@ -90,39 +99,37 @@ class post : Fragment()/*,FacebookListener*/ {
                 val recyclerView: RecyclerView = recycler_view as RecyclerView
                 recyclerView.layoutManager = LinearLayoutManager(activity)
                 recyclerView.setHasFixedSize(true)
-
                 val adapter = ArticleAdapter()
                 recyclerView.adapter = adapter
-
-
-                var ll: MutableList<Article> = ArrayList()
-                ll.add(Article("https://www.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-landscape-407021107",
-                    "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                    "المصدر: دبي - العربية.نت",
-                    146,
-                    85))
-
-                ll.add(Article("https://www.bbc.com/arabic/world-52665698",
-                    "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                    "المصدر: دبي - العربية.نت",
-                    146,
-                    85))
-
-                ll.add(Article("https://www.bbc.com/arabic/world-52665698",
-                    "فيروس كورونا: كيف يفحص مطار هونغ كونغ الركاب القادمين ويتابعهم؟",
-                    "المصدر: دبي - العربية.نت",
-                    146,
-                    85))
-
-
-
                 adapter.setArticle(ll)
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(Util.getProperty("baseUrl", context!!))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+
+                val service = retrofit.create<Service>(Service::class.java)
+                service.getAllArticles().enqueue(object: Callback<List<Article>> {
+                    override fun onResponse(call: Call<List<Article>> , response: retrofit2.Response<List<Article>>?) {
+                        if ((response != null) && (response.code() == 200)) {
+                            val listBody:List<Article>? = response.body()
+                            if (listBody != null) {
+                                ll.clear()
+                                ll.addAll(listBody)
+                                adapter.notifyDataSetChanged()
+                            }
+
+                        }
+                    }
+                    override fun onFailure(call: Call<List<Article>> , t: Throwable) {
+                        Toast.makeText(activity!!.applicationContext, "Echec", Toast.LENGTH_LONG).show()
+                    }
+                })
 
                 adapter.SetOnItemClickListner(object : ArticleAdapter.OnItemClickListner {
                     override fun onItemClick(article: Article) {
 
                         val nextAction=postDirections.actionPostFragmentToArticlePageFragment()
-                        nextAction.setUrl(article.url)
+                        nextAction.setUrl("http://192.168.1.9:8000/"+article.url)
                         Navigation.findNavController(view!!).navigate(nextAction)
                     }
 

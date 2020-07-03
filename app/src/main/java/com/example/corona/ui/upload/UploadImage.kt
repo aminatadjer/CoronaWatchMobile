@@ -29,7 +29,7 @@ class UploadImage(
     fun uploadImage(path: String,comment:String) {
 
         val map = HashMap<String, String>()
-        map.put("url", "http://192.168.1.8:8000/api/casSignaler/show_list/")
+        map.put("url", "http://192.168.1.9:8000/api/casSignaler/show_list/")
         map.put("media", path)
         map.put("commentaire", comment)
 
