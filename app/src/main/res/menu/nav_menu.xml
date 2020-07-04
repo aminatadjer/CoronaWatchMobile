@@ -5,29 +5,29 @@
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
-            android:title="الخريطة"/>
+            android:title="@string/mapTitle"/>
         <item
             android:id="@+id/nav_public"
             android:icon="@drawable/ic_warning"
-            android:title="الابلاغ"/>
+            android:title="@string/reportTitle"/>
         <item
             android:id="@+id/nav_warnings"
             android:icon="@drawable/ic_public"
-            android:title="الاخبار"/>
+            android:title="@string/postTitle"/>
 
         <item
             android:id="@+id/nav_video"
             android:icon="@drawable/ic_video"
-            android:title="الفيديوهات"/>
+            android:title="@string/videoTitle"/>
         <item
         android:id="@+id/nav_view"
         android:icon="@drawable/ic_today"
-        android:title="الحالة الصحية"/>
+        android:title="@string/userVideoTitle"/>
 
         <item
             android:id="@+id/nav_sante"
             android:icon="@drawable/ic_today"
-            android:title="الحالة الصحية"/>
+            android:title="@string/santeTitle"/>
     </group>
 
 

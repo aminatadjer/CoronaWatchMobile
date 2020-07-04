@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.corona.R
@@ -18,6 +19,7 @@ import java.util.*
 
 
 class DiagnoseFragment : Fragment() {
+    private lateinit var mtitel: TextView
 
     var c = Calendar.getInstance()
     var year = c.get(Calendar.YEAR)
@@ -56,6 +58,9 @@ class DiagnoseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DiagnoseViewModel::class.java)
 
+        val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= getString(R.string.santeTitle)
 
 
 

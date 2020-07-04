@@ -143,6 +143,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
 
@@ -198,32 +199,11 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             override fun onItemSelect(pos: Int) {
 
                 when(pos){
-                    0->{
-
-                        navController.navigate(R.id.mapFragment)
-
-
-                    }
-                    1->{
-
-                        navController.navigate(R.id.reportFragment)
-
-                    }
-                    2->{
-
-                        navController.navigate(R.id.postFragment)
-
-                    }
-                    3->{
-
-                        navController.navigate(R.id.spiderVideoFragment)
-
-                    }
-                    4->{
-
-                        navController.navigate(R.id.userVideoFragment)
-
-                    }
+                    0-> navController.navigate(R.id.mapFragment)
+                    1->navController.navigate(R.id.reportFragment)
+                    2->navController.navigate(R.id.postFragment)
+                    3->navController.navigate(R.id.spiderVideoFragment)
+                    4->navController.navigate(R.id.userVideoFragment)
                     else -> "Number too high"
                 }
 
@@ -236,7 +216,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     private fun enableView() {
 
         getLocation()
-        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")
@@ -383,33 +363,28 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         //Toast.makeText(this,"item",Toast.LENGTH_LONG).show()
         when (item.itemId) {
             R.id.nav_map -> {
-
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
-
             }
             R.id.nav_public -> {
-
                 navController.navigate(R.id.reportFragment)
                 bottom_bar.setActiveItem(1)
-
             }
             R.id.nav_warnings -> {
-
                 navController.navigate(R.id.postFragment)
                 bottom_bar.setActiveItem(2)
-
             }
             R.id.nav_video -> {
-
                 navController.navigate(R.id.spiderVideoFragment)
                 bottom_bar.setActiveItem(3)
-
             }
             R.id.nav_view -> {
-
                 navController.navigate(R.id.userVideoFragment)
                 bottom_bar.setActiveItem(4)
+            }
+
+            R.id.nav_sante -> {
+                navController.navigate(R.id.diagnose_fragment)
 
             }
 
@@ -434,8 +409,6 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                         bottom_bar.setActiveItem(0)
                     }
                 }
-
-
             }
 
             //Toast.makeText(this,"here",Toast.LENGTH_LONG).show()

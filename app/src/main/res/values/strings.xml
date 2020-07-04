@@ -25,7 +25,9 @@
     <string name="mapTitle">الخريطة</string>
     <string name="reportTitle">الابلاغ عن حالة مرض</string>
     <string name="videoTitle">فيديوهات</string>
+    <string name="userVideoTitle">فيديوهات المستخدمين</string>
     <string name="viewtTitle">الحالة الصحية</string>
+    <string name="santeTitle">الحالة الصحية</string>
 
     <string name="MapViewBundleKey">MapViewBundleKey</string>
 
@@ -40,6 +42,7 @@
     <string name="danger_lvl1">لا يوجد خطر</string>
     <string name="danger_lvl2">خطر متوسط</string>
     <string name="danger_lvl3">خطير جدا</string>
+
 
 
 </resources>
