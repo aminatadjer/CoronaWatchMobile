@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.corona.R
+import com.example.corona.ui.Util
 import com.example.corona.ui.upload.UploadImage
 
 import com.google.android.gms.tasks.TaskCompletionSource
@@ -225,7 +226,7 @@ class report : Fragment() {
                               File.separator , Toast.LENGTH_SHORT).show()
                       d!!.path?.let { it1 -> uploader.uploadImage(
                           Environment.getExternalStorageDirectory().toString() +
-                              File.separator +it1,a)}
+                              File.separator +it1,a,  Util.getProperty("urlReport", context!!))}
                   }
 
               }

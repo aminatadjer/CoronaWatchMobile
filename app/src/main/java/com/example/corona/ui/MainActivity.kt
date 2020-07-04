@@ -61,11 +61,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
-
     lateinit var navController: NavController
     lateinit var   bottom_bar: SmoothBottomBar
-
-
     lateinit var locationManager: LocationManager
     private var hasGps = false
     private var hasNetwork = false

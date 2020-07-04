@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.corona.R
+import com.example.corona.ui.Util
 
 import com.example.corona.ui.upload.UploadImage
 import kotlinx.android.synthetic.main.activity_main.*
@@ -76,7 +77,8 @@ class galery : Fragment() {
                     {
                         if (contentURI != null) {
                             Toast.makeText(activity!!.applicationContext, path.toString(), Toast.LENGTH_SHORT).show()
-                            uploader.uploadImage(path.toString(),commentaire)
+                            uploader.uploadImage(path.toString(),commentaire,
+                                Util.getProperty("urlReport", context!!))
                         }
                     }
                     catch (e: IOException) {
