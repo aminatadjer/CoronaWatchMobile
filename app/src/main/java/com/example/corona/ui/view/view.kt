@@ -31,7 +31,8 @@ class view : Fragment() {
         // TODO: Use the ViewModel
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= "الحالة الصحية"
+        mtitel.text= getString(R.string.santeTitle)
+        tolb.visibility=View.VISIBLE
     }
 
 }

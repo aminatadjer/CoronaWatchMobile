@@ -109,7 +109,7 @@ class report : Fragment() {
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.reportTitle)
         end.visibility=View.GONE
-
+        tolb.visibility=View.VISIBLE
         start.visibility=View.VISIBLE
         previewView.visibility=View.VISIBLE
 

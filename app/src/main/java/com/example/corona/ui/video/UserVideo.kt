@@ -55,8 +55,8 @@ class UserVideo : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.mapTitle)
-
+        mtitel.text= getString(R.string.userVideoTitle)
+        tolb.visibility=View.VISIBLE
 
 
         val networkConnection= NetworkConnection(context!!)

@@ -55,8 +55,8 @@ class SpiderVideo : Fragment() {
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.mapTitle)
-
+        mtitel.text= getString(R.string.videoTitle)
+        tolb.visibility=View.VISIBLE
         val networkConnection= NetworkConnection(context!!)
                 networkConnection.observe(this, Observer {isConnected->
                     if (isConnected){

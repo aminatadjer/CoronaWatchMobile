@@ -98,7 +98,7 @@ class post : Fragment()/*,FacebookListener*/ {
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.postTitle)
-
+        tolb.visibility=View.VISIBLE
         val networkConnection=NetworkConnection(context!!)
 
         networkConnection.observe(this, Observer {isConnected->
