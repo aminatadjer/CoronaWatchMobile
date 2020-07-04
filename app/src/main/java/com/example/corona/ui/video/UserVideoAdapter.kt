@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.corona.R
+import com.example.corona.ui.Util
 import com.example.corona.ui.spider.Publication
 
 
@@ -69,10 +70,8 @@ class UserVideoAdapter: RecyclerView.Adapter<UserVideoAdapter.UserVideorHolder>(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: UserVideorHolder, position: Int) {
         val currentSpiderItemList: Video = userItemList.get(position)
-
-
         val map :Map<String,String> = mapOf(Pair("text/html","utf-8"))
-        holder.web_view.loadUrl(currentSpiderItemList.url,map)
+        holder.web_view.loadUrl("http://192.168.1.9:8000"+currentSpiderItemList.media,map)
         holder.title.text=currentSpiderItemList.commentaire
         holder.date.text=currentSpiderItemList.date
 

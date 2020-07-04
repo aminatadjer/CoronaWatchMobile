@@ -20,12 +20,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.corona.R
+import com.example.corona.ui.Util
 import com.example.corona.ui.post.NetworkConnection
 import com.example.corona.ui.report.photo.reportDirections
-import com.example.corona.ui.spider.VideoSpiderAdapter
+
+import com.example.corona.ui.video.Service
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_spider_video.*
 import kotlinx.android.synthetic.main.fragment_user_video.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 import kotlin.collections.ArrayList
@@ -69,11 +76,28 @@ class UserVideo : Fragment() {
 
                 //required setUrl
 
-                ll.add(Video(1,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4","How to add an item to an ArrayList in Kotlin?","1-1-2020"))
-                ll.add(Video(2,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4","How to add an item to an ArrayList in Kotlin?","1-1-2020"))
-                ll.add(Video(3,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4","How to add an item to an ArrayList in Kotlin?","1-1-2020"))
-
                 adapter.setUserVideo(ll)
+                val context = context // or getBaseContext(), or getApplicationContext()
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(Util.getProperty("baseUrl", context!!))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                val service = retrofit.create<Service>(Service::class.java)
+                service.getAll().enqueue(object: Callback<List<Video>> {
+                    override fun onResponse(call: Call<List<Video>>, response: retrofit2.Response<List<Video>>?) {
+                        if ((response != null) && (response.code() == 200)) {
+                            val listBody:List<Video>? = response.body()
+                            if (listBody != null) {
+                                ll.clear()
+                                ll.addAll(listBody)
+                                adapter.notifyDataSetChanged()
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<List<Video>>, t: Throwable) {
+
+                    }
+                })
                 recyclerViewUser.adapter = adapter
             }else{
                 recycler_view_user_video.visibility=View.GONE
