@@ -2,6 +2,7 @@ package com.example.corona.ui.video
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,14 +12,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.corona.R
+import com.example.corona.ui.post.NetworkConnection
 import com.example.corona.ui.report.photo.reportDirections
+import com.example.corona.ui.spider.VideoSpiderAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_spider_video.*
+import kotlinx.android.synthetic.main.fragment_user_video.*
 
 
 import kotlin.collections.ArrayList
@@ -26,9 +33,7 @@ import kotlin.collections.ArrayList
 
 class UserVideo : Fragment() {
 
-     var  mRecyclerView:VideoPlayerRecyclerView?=null
-
-
+    var ll: MutableList<Video> = ArrayList()
     private lateinit var mtitel: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +50,38 @@ class UserVideo : Fragment() {
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.mapTitle)
 
-        mRecyclerView = activity!!.findViewById(R.id.recycler_view_user_video);
 
-        initRecyclerView()
+
+        val networkConnection= NetworkConnection(context!!)
+        networkConnection.observe(this, Observer {isConnected->
+            if (isConnected) {
+                recycler_view_user_video.visibility = View.VISIBLE
+                disconected_view_user_video.visibility = View.GONE
+                userVideoFragment.setBackgroundColor(Color.parseColor("#59CFCCCC"))
+
+                val recyclerViewUser: RecyclerView = recycler_view_user_video as RecyclerView
+                recyclerViewUser.setHasFixedSize(true)
+                recyclerViewUser.layoutManager = LinearLayoutManager(activity)
+                recyclerViewUser.setHasFixedSize(true)
+
+                val adapter = UserVideoAdapter()
+
+
+                //required setUrl
+
+                ll.add(Video(1,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"))
+                ll.add(Video(2,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"))
+                ll.add(Video(3,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"))
+
+                adapter.setUserVideo(ll)
+                recyclerViewUser.adapter = adapter
+            }else{
+                recycler_view_user_video.visibility=View.GONE
+                disconected_view_user_video.visibility=View.VISIBLE
+                userVideoFragment.setBackgroundColor(Color.WHITE)
+            }
+
+        })
 
         val add_video=activity!!.findViewById<FloatingActionButton>(R.id.add_video)
 
@@ -62,33 +96,9 @@ class UserVideo : Fragment() {
 
 
 
-    private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(context)
-        mRecyclerView!!.layoutManager = layoutManager
-        val itemDecorator = VerticalSpacingItemDecorator(10)
-        mRecyclerView!!.addItemDecoration(itemDecorator)
-        val mediaObjects: ArrayList<MediaObject> = arrayListOf()
-        for(item in Resources.MEDIA_OBJECTS){
-            mediaObjects.add(item)
-        }
 
-        mRecyclerView!!.setMediaObjects(mediaObjects)
-        val adapter =
-            VideoPlayerRecyclerAdapter(mediaObjects, initGlide()!!)
-        mRecyclerView!!.adapter = adapter
-    }
 
-    private fun initGlide(): RequestManager? {
-        val options: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.white_background)
-            .error(R.drawable.white_background)
-        return Glide.with(this)
-            .setDefaultRequestOptions(options)
-    }
 
-     override fun onDestroy() {
-        if (mRecyclerView != null) mRecyclerView!!.releasePlayer()
-        super.onDestroy()
 
-    }
+
 }

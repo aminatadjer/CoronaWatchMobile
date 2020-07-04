@@ -9,13 +9,31 @@
     android:id="@+id/userVideoFragment">
 
 
-        <com.example.corona.ui.video.VideoPlayerRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_user_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view_user_video"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteY="96dp"
+        tools:listitem="@layout/video_user_item" />
 
-    </com.example.corona.ui.video.VideoPlayerRecyclerView>
+    <LinearLayout
+        android:id="@+id/disconected_view_user_video"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+
+        >
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_rawRes="@raw/disconnection"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_video"

@@ -58,26 +58,26 @@ class SpiderVideo : Fragment() {
         mtitel.text= getString(R.string.mapTitle)
 
         val networkConnection= NetworkConnection(context!!)
-        networkConnection.observe(this, Observer {isConnected->
-            if (isConnected){
-                recycler_view_spider.visibility=View.VISIBLE
-                disconected_view_spider.visibility=View.GONE
-                spiderVideoFragment.setBackgroundColor(Color.parseColor("#59CFCCCC"))
+                networkConnection.observe(this, Observer {isConnected->
+                    if (isConnected){
+                        recycler_view_spider.visibility=View.VISIBLE
+                        disconected_view_spider.visibility=View.GONE
+                        spiderVideoFragment.setBackgroundColor(Color.parseColor("#59CFCCCC"))
 
-                val recyclerViewSpider: RecyclerView = recycler_view_spider as RecyclerView
-                recyclerViewSpider.setHasFixedSize(true)
-                recyclerViewSpider.layoutManager = LinearLayoutManager(activity)
-                recyclerViewSpider.setHasFixedSize(true)
+                        val recyclerViewSpider: RecyclerView = recycler_view_spider as RecyclerView
+                        recyclerViewSpider.setHasFixedSize(true)
+                        recyclerViewSpider.layoutManager = LinearLayoutManager(activity)
+                        recyclerViewSpider.setHasFixedSize(true)
 
-                val adapter = VideoSpiderAdapter()
-
-
-                //required setUrl
+                        val adapter = VideoSpiderAdapter()
 
 
-                // add here
+                        //required setUrl
 
-                adapter.setVideoSpider(ll)
+
+                        // add here
+
+                        adapter.setVideoSpider(ll)
                 val context = context // or getBaseContext(), or getApplicationContext()
                 val retrofit = Retrofit.Builder()
                     .baseUrl(Util.getProperty("baseUrl", context!!))
