@@ -69,9 +69,9 @@ class UserVideo : Fragment() {
 
                 //required setUrl
 
-                ll.add(Video(1,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"))
-                ll.add(Video(2,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"))
-                ll.add(Video(3,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"))
+                ll.add(Video(1,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4","How to add an item to an ArrayList in Kotlin?","1-1-2020"))
+                ll.add(Video(2,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4","How to add an item to an ArrayList in Kotlin?","1-1-2020"))
+                ll.add(Video(3,"https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4","How to add an item to an ArrayList in Kotlin?","1-1-2020"))
 
                 adapter.setUserVideo(ll)
                 recyclerViewUser.adapter = adapter

@@ -32,7 +32,28 @@
 
         </WebView>
 
+        <TextView
+            android:id="@+id/title_user_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="How to add an item to an ArrayList in Kotlin?"
+            android:textColor="@color/dark"
+            android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/date_user_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How to add an item"
+
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"/>
 
     </LinearLayout>
 

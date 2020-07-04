@@ -48,6 +48,7 @@ import android.os.Looper
 //import android.support.v7.app.AppCompatActivity
 //import android.os.Bundle
 import android.widget.RemoteViews
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Math.abs
 
@@ -144,6 +145,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
                 enableView()
@@ -224,7 +226,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     }
                     else -> "Number too high"
                 }
-                Runtime.getRuntime().gc()
+
             }
         })
     }
@@ -378,32 +380,33 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        //Toast.makeText(this,"item",Toast.LENGTH_LONG).show()
         when (item.itemId) {
-            R.id.mapFragment -> {
+            R.id.nav_map -> {
 
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
 
             }
-            R.id.postFragment -> {
+            R.id.nav_public -> {
 
                 navController.navigate(R.id.reportFragment)
                 bottom_bar.setActiveItem(1)
 
             }
-            R.id.loginFragment -> {
+            R.id.nav_warnings -> {
 
                 navController.navigate(R.id.postFragment)
                 bottom_bar.setActiveItem(2)
 
             }
-            R.id.spiderVideoFragment -> {
+            R.id.nav_video -> {
 
                 navController.navigate(R.id.spiderVideoFragment)
                 bottom_bar.setActiveItem(3)
 
             }
-            R.id.userVideoFragment -> {
+            R.id.nav_view -> {
 
                 navController.navigate(R.id.userVideoFragment)
                 bottom_bar.setActiveItem(4)
@@ -412,7 +415,6 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)
-        Runtime.getRuntime().gc()
         return true
     }
 
@@ -432,7 +434,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                         bottom_bar.setActiveItem(0)
                     }
                 }
-                Runtime.getRuntime().gc()
+
 
             }
 

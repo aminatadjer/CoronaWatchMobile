@@ -48,6 +48,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.corona.ui.Util
 import com.example.corona.ui.post.services.Service
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.post_item.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -84,6 +85,15 @@ class post : Fragment()/*,FacebookListener*/ {
 
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
+
+
+       /* val sante=activity!!.findViewById<FloatingActionButton>(R.id.sante)
+        sante.setOnClickListener {
+
+            val takenvideoAction =postDirections.actionPostFragmentToDiagnoseFragment()
+            Navigation.findNavController(it).navigate(takenvideoAction)
+        }*/
+
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
