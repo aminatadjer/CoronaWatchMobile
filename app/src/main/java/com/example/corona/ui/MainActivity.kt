@@ -60,7 +60,10 @@ private const val PERMISSION_REQUEST = 10
 
 class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var button:Button
+    var isFragmentOneLoaded = true
+    val manager = supportFragmentManager
+
+    //lateinit var button:Button
     lateinit var notificationCounter:NotificationCounter
     lateinit var textView_notification:TextView
     lateinit var imageView_notification:ImageView
@@ -157,19 +160,26 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button = findViewById(R.id.button)
-        notificationCounter = NotificationCounter(findViewById(R.id.bell))
+        imageView_notification = findViewById(R.id.notificationIcon)
+        textView_notification = findViewById(R.id.notificationNumber)
 
+
+
+        //button = findViewById(R.id.button)
+        notificationCounter = NotificationCounter(findViewById(R.id.bell))
+/*
         button.setOnClickListener {
             notificationCounter.increaseNumber()
         }
 
-        imageView_notification = findViewById(R.id.notificationIcon)
-        textView_notification = findViewById(R.id.notificationNumber)
+ */
+
+
 
         imageView_notification.setOnClickListener {
             textView_notification.setText("0")
             notificationCounter.notification_number_counter=0
+            navController.navigate(R.id.list_videos_fragment)
         }
 
     /*    button.setOnClickListener(View.onClickListener(){
@@ -265,6 +275,29 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             }
         })
     }
+/*
+    fun ShowFragmentOne() {
+        val transaction = manager.beginTransaction()
+        val fragment = ListVideosFragment()
+        transaction.replace(R.id.postFragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+        isFragmentOneLoaded = true
+    }
+
+ */
+/*
+    fun ShowFragmentTwo() {
+        val transaction = manager.beginTransaction()
+        val fragment = post()
+        transaction.replace(R.id.nav_host_fragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+        isFragmentOneLoaded = false
+    }
+ */
+
+
 
 
 
@@ -319,9 +352,9 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     override fun onLocationChanged(location: Location?) {
                         if (location != null) {
                             locationNetwork = location
-                            tv_result.append("\nNetwork ")
-                            tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
-                            tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
+                            //tv_result.append("\nNetwork ")
+                            //tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
+                            //tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
                             Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
                             Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
                         }
@@ -420,6 +453,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
+
 
             }
             R.id.postFragment -> {
