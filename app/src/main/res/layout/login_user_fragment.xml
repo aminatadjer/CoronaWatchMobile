@@ -5,40 +5,146 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/loginFragmentGmail"
+    android:background="@color/post_layout"
     tools:context=".ui.login.LoginUser">
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/google_login_btn"
+        <com.google.android.material.card.MaterialCardView
+
+            android:id="@+id/catrd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            android:elevation="4dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/stroke_color"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                >
+
+                <Button
+                    android:id="@+id/tty"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:paddingLeft="10dp"
+                    android:text="تسجيل الدخول عبر فايسبوك"
+                    android:textAllCaps="false"
+                    android:textColor="@color/whit"
+                    android:textSize="24sp"
+                    app:backgroundTint="@color/facebook"
+                    app:icon="@drawable/facebook"
+                    app:iconTint="#ffffff" />
+
+                <Button
+                    android:id="@+id/tt"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="تسجيل الخروج من فايسبوك"
+                    android:textAllCaps="false"
+                    android:textColor="@color/whit"
+                    android:textSize="24sp"
+                    app:backgroundTint="@color/facebook"
+                    app:icon="@drawable/facebook"
+                    app:iconTint="#ffffff" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+
+            android:id="@+id/cardy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            android:elevation="4dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/stroke_color"
+            app:cardElevation="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                >
+
+                <Button
+                    android:id="@+id/google_login_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:paddingLeft="25dp"
+                    android:text="تسجيل الدخول عبر قوقل"
+                    android:textAllCaps="false"
+                    android:textColor="@color/whit"
+                    android:textSize="24sp"
+                    app:backgroundTint="@color/gmail"
+                    app:icon="@drawable/gmail"
+                    app:iconTint="#ffffff" />
+
+                <Button
+                    android:id="@+id/google_logout_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="تسجيل الخروج من قوقل"
+                    android:textAllCaps="false"
+                    android:textColor="@color/whit"
+                    android:textSize="24sp"
+                    app:backgroundTint="@color/gmail"
+                    app:icon="@drawable/gmail"
+                    app:iconTint="#ffffff" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="Sign in with Google"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="يمكنك تسجيل الدخول"
+        android:textSize="24sp"
+        android:textColor="@color/dark"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/google_logout_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="Sign off"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639"
-        tools:ignore="MissingConstraints" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

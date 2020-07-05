@@ -108,7 +108,7 @@ class report : Fragment() {
 
         super.onActivityCreated(savedInstanceState)
         if (!conected){
-            Toast.makeText(context,"not conected",Toast.LENGTH_LONG).show()
+            Toast.makeText(context,"يرجى تسجيل الدخول",Toast.LENGTH_SHORT).show()
             navController.navigate(R.id.loginFragmentGmail)
         }
         else{
