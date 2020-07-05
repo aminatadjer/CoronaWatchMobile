@@ -147,7 +147,7 @@ class DiagnoseFragment : Fragment() {
         add_photo_diagno.setOnClickListener {
 
 
-            dispatchGalleryPictureIntent()
+
         }
 
         pickDateBtn.setOnClickListener {
