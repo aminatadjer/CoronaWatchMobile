@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.example.corona.R
 import com.example.corona.ui.MainActivity.Companion.conected
@@ -61,6 +62,7 @@ class LoginUser : Fragment() {
 
         google_logout_btn.setOnClickListener{
             signOut()
+            Toast.makeText(context,"تم الخروج بنجاح",Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -80,6 +82,9 @@ class LoginUser : Fragment() {
                 GoogleSignIn.getSignedInAccountFromIntent(data)
             conected=handleSignInResult(task)
 
+            if(conected){
+                Toast.makeText(context,"تم التسجيل بنجاح",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
