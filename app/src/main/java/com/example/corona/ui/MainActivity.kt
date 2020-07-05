@@ -44,6 +44,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
+import android.widget.TextView
+import android.widget.ImageView
 //import android.os.Build
 //import android.support.v7.app.AppCompatActivity
 //import android.os.Bundle
@@ -57,6 +60,15 @@ private const val PERMISSION_REQUEST = 10
 
 
 class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelectedListener {
+
+    var isFragmentOneLoaded = true
+    val manager = supportFragmentManager
+
+    //lateinit var button:Button
+    lateinit var notificationCounter:NotificationCounter
+    lateinit var textView_notification:TextView
+    lateinit var imageView_notification:ImageView
+
 
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
@@ -81,13 +93,14 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     fun xyz(){
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        var mutableList = mutableListOf(mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
+        var mutableList = mutableListOf(mutableListOf(36.49,2.86),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
         //var x = 36.49
 
         var y = 2.85
 
         for(item in mutableList) {
             if (distance(item[0],item[1],locationNetwork!!.latitude,locationNetwork!!.longitude)<1.0) {
+                notificationCounter.increaseNumber()
                 val intent = Intent(this, MainActivity::class.java)
                 val pendingIntent =
                     PendingIntent.getActivity(
@@ -145,6 +158,38 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+
+        imageView_notification = findViewById(R.id.notificationIcon)
+        textView_notification = findViewById(R.id.notificationNumber)
+
+
+
+        //button = findViewById(R.id.button)
+        notificationCounter = NotificationCounter(findViewById(R.id.bell))
+/*
+        button.setOnClickListener {
+            notificationCounter.increaseNumber()
+        }
+
+ */
+
+
+
+        imageView_notification.setOnClickListener {
+            textView_notification.setText("0")
+            notificationCounter.notification_number_counter=0
+            navController.navigate(R.id.list_videos_fragment)
+        }
+
+    /*    button.setOnClickListener(View.onClickListener(){
+            @Override
+            fun onClick(view:View){
+                notificationCounter.increaseNumber()
+            }
+        })
+        */
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -210,6 +255,29 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             }
         })
     }
+/*
+    fun ShowFragmentOne() {
+        val transaction = manager.beginTransaction()
+        val fragment = ListVideosFragment()
+        transaction.replace(R.id.postFragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+        isFragmentOneLoaded = true
+    }
+
+ */
+/*
+    fun ShowFragmentTwo() {
+        val transaction = manager.beginTransaction()
+        val fragment = post()
+        transaction.replace(R.id.nav_host_fragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+        isFragmentOneLoaded = false
+    }
+ */
+
+
 
 
 
@@ -365,6 +433,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             R.id.nav_map -> {
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
+
             }
             R.id.nav_public -> {
                 navController.navigate(R.id.reportFragment)
