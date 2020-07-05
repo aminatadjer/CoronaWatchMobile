@@ -51,8 +51,15 @@ import android.widget.ImageView
 //import android.support.v7.app.AppCompatActivity
 //import android.os.Bundle
 import android.widget.RemoteViews
+import com.example.corona.ui.map.LatLang
+import com.example.corona.ui.map.Region
+import com.example.corona.ui.map.Service
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Math.abs
 
 
@@ -77,9 +84,14 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     lateinit var navController: NavController
     lateinit var   bottom_bar: SmoothBottomBar
     lateinit var locationManager: LocationManager
-    private var hasGps = false
+
     private var hasNetwork = false
-    private var locationGps: Location? = null
+    var i=0
+    var morts=0
+    var malades=0
+    var name=""
+    var regionList: ArrayList<Region> = arrayListOf()
+    var danger:Boolean=false
     private var locationNetwork: Location? = null
 
     private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -95,13 +107,45 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
         var mutableList = mutableListOf(mutableListOf(36.49,2.86),mutableListOf(46.49,4.85),mutableListOf(56.49,6.85))
         //var x = 36.49
+        val context = this // or getBaseContext(), or getApplicationContext()
+
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Util.getProperty("baseUrl", context!!)!!)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create<Service>(Service::class.java)
+        service.getRisked().enqueue(object: Callback<List<Region>> {
+            override fun onResponse(call: Call<List<Region>>, response: retrofit2.Response<List<Region>>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val listBody:List<Region>? = response.body()
+                    if (listBody != null) {
+
+                        regionList.addAll(listBody)
+                        for (region in regionList){
+                            if (region.id==15) {
+                                morts = region.mort
+                                danger = true
+                                malades = region.confirme
+                                name = region.ArabicName
+                            }
+                        }
+                    }
+
+                }
+            }
+            override fun onFailure(call: Call<List<Region>>, t: Throwable) {
+                Toast.makeText(getApplicationContext(),"no",Toast.LENGTH_SHORT).show();
+
+            }
+        })
 
         var y = 2.85
 
-        for(item in mutableList) {
-            if (distance(item[0],item[1],locationNetwork!!.latitude,locationNetwork!!.longitude)<1.0) {
-                notificationCounter.increaseNumber()
-                openDialog()
+            if (danger) {
+                i++
+                if(i==1){
+                openDialog()}
                 val intent = Intent(this, MainActivity::class.java)
                 val pendingIntent =
                     PendingIntent.getActivity(
@@ -112,8 +156,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     )
 
                 val contentView = RemoteViews(packageName, R.layout.notification_layout)
-                contentView.setTextViewText(R.id.tv_title, "تنبيه")
-                contentView.setTextViewText(R.id.tv_content, "حذار لقد دخلت منطقة خطرة عليك توخ الحذر")
+                contentView.setTextViewText(R.id.tv_title, " تنبيه حذار لقد دخلت منطقة خطرة عليك توخ الحذر")
+                contentView.setTextViewText(R.id.tv_content,name+ " وفيات"+morts+"حالات"+malades )
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = NotificationChannel(
@@ -152,7 +196,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                 notificationManager.notify(1234, builder.build())
             }
         }
-    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -209,7 +253,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         mainHandler.post(object : Runnable {
             override fun run() {
                 xyz()
-                mainHandler.postDelayed(this, 600000)
+                mainHandler.postDelayed(this, 60000)
             }
         })
 
@@ -294,42 +338,11 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+
         hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        if (hasGps || hasNetwork) {
+        if ( hasNetwork) {
 
-            if (hasGps) {
-                Log.d("CodeAndroidLocation", "hasGps")
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0F, object : LocationListener {
-                    override fun onLocationChanged(location: Location?) {
-                        if (location != null) {
-                            locationGps = location
-                            //tv_result.append("\nGPS ")
-                            //tv_result.append("\nLatitude : " + locationGps!!.latitude)
-                            //tv_result.append("\nLongitude : " + locationGps!!.longitude)
-                            Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
-                            Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
-                        }
-                    }
 
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-
-                    }
-
-                    override fun onProviderEnabled(provider: String?) {
-
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-
-                    }
-
-                })
-
-                val localGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                if (localGpsLocation != null)
-                    locationGps = localGpsLocation
-            }
             if (hasNetwork) {
                 Log.d("CodeAndroidLocation", "hasGps")
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0F, object : LocationListener {
@@ -363,20 +376,14 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     locationNetwork = localNetworkLocation
             }
 
-            if(locationGps!= null && locationNetwork!= null){
-                if(locationGps!!.accuracy > locationNetwork!!.accuracy){
+            if(locationNetwork!= null){
+
                     //tv_result.append("\nNetwork ")
                     //tv_result.append("\nLatitude : " + locationNetwork!!.latitude)
                     //tv_result.append("\nLongitude : " + locationNetwork!!.longitude)
                     Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
                     Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
-                }else{
-                    //tv_result.append("\nGPS ")
-                    //tv_result.append("\nLatitude : " + locationGps!!.latitude)
-                    //tv_result.append("\nLongitude : " + locationGps!!.longitude)
-                    Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
-                    Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
-                }
+
             }
 
         } else {

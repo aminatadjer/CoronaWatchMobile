@@ -9,4 +9,7 @@ interface Service {
 
     @GET("centre/{region}/getByRegion/")
     fun getCentreByRegion(@Path("region") region: Int): Call<List<Hospital>>
+
+    @GET("region/getRiskedZones/")
+    fun getRisked(): Call<List<Region>>
 }
