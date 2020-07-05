@@ -56,14 +56,14 @@ val activity: FragmentActivity) {
     //Bottom sheet items
     var bottom_sheet_global: LinearLayout =activity.findViewById(R.id.bottom_sheet_global)
 
-    var region_global: TextView =activity.findViewById(R.id.region_global)
-    var state_global: TextView =activity.findViewById(R.id.state_global)
-    var nb_cases_global: TextView =activity.findViewById(R.id.nb_cases_global)
-    var nb_holder_global: TextView =activity.findViewById(R.id.nb_holder_global)
-    var nb_doubtful_global: TextView =activity.findViewById(R.id.nb_doubtful_global)
-    var nb_deaths_global: TextView =activity.findViewById(R.id.nb_deaths_global)
-    var nb_recovred_global: TextView =activity.findViewById(R.id.nb_recovred_global)
-
+    var Country_global: TextView =activity.findViewById(R.id.region_global)
+    var NewConfirmed_global: TextView =activity.findViewById(R.id.global_NewConfirmed)
+    var TotalConfirmed_global: TextView =activity.findViewById(R.id.global_TotalConfirmed)
+    var NewDeaths_global: TextView =activity.findViewById(R.id.global_NewDeaths)
+    var TotalDeaths_global: TextView =activity.findViewById(R.id.lobal_TotalDeaths)
+    var NewRecovered_global: TextView =activity.findViewById(R.id.global_NewRecovered)
+    var TotalRecovered_global: TextView =activity.findViewById(R.id.global_TotalRecovered)
+    var Date_global: TextView =activity.findViewById(R.id.global_date)
 
 
     //create Markers and draw circle around it for each wilaya
@@ -125,7 +125,7 @@ val activity: FragmentActivity) {
                 getCentreByRegion(  LatLang.latLangWorld[it.title]!!.id)
 
                 setInfoWindowGlobal(
-                    LatLang.latLangWorld[it.title]!!.ArabicName,
+                    LatLang.latLangWorld[it.title]!!.nom!!,
                     LatLang.latLangWorld[it.title]!!.degre,
                     LatLang.latLangWorld[it.title]!!.confirme.toString(),
                     LatLang.latLangWorld[it.title]!!.critique.toString(),
@@ -180,7 +180,7 @@ val activity: FragmentActivity) {
 
                 //set info window by KEY of HASHMAP  "latLangAlgeria[KEY]!!"
                 setInfoWindowGlobal(
-                    LatLang.latLangWorld[property]!!.ArabicName,
+                    LatLang.latLangWorld[property]!!.nom!!,
                     LatLang.latLangWorld[property]!!.degre,
                     LatLang.latLangWorld[property]!!.confirme.toString(),
                     LatLang.latLangWorld[property]!!.critique.toString(),
@@ -204,38 +204,19 @@ val activity: FragmentActivity) {
                             nb_deaths_:String,
                             nb_recovred_:String,
                             hospitals:MutableList<Hospital>){
-        val recycler_view_global: RecyclerView =activity.findViewById(R.id.recycler_view_global)
-        var etat:String=""
-        region_global.text=region_
-        when(state_){
-            0->{etat=context.getString(R.string.danger_lvl1)
-                state_global.setTextColor(Color.parseColor(Util.getProperty("dangerLvl1Color", context!!)))
-            }
-            1->{etat=context.getString(R.string.danger_lvl2)
-                state_global.setTextColor(Color.parseColor(Util.getProperty("dangerLvl2Color", context!!)))
-            }
-            2->{etat=context.getString(R.string.danger_lvl3)
-                state_global.setTextColor(Color.parseColor(Util.getProperty("dangerLvl3Color", context!!)));
-            }
-        }
-        state_global.text=etat
-        nb_cases_global.text=nb_cases_
-        nb_holder_global.text=nb_holder_
-        nb_doubtful_global.text=nb_doubtful_
-        nb_deaths_global.text=nb_deaths_
-        nb_recovred_global.text=nb_recovred_
+
+        Country_global.text=region_
+        NewConfirmed_global.text=nb_doubtful_
+        TotalConfirmed_global.text=nb_cases_
+        NewDeaths_global.text=nb_holder_
+        TotalDeaths_global.text=nb_deaths_
+        NewRecovered_global.text=nb_recovred_
+        TotalRecovered_global.text=state_.toString()
+        Date_global.text="2020-07-05"
 
 
 
-        val recyclerView: RecyclerView = recycler_view_global
-        recyclerView.layoutManager= LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
 
-
-
-        val adapter= HospitalAdapter()
-        recyclerView.adapter=adapter
-        adapter.setHospital(hospitals)
     }
 
 

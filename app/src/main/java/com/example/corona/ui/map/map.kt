@@ -105,8 +105,8 @@ class map : Fragment(){
         tabLayout.setupWithViewPager(viewPager)
 
         val viewPagerAdapter=ViewPagerAdapter(childFragmentManager,0)
-        viewPagerAdapter.addFragment(fragment_local_map,"local")
-        viewPagerAdapter.addFragment(fragment_global_map,"global")
+        viewPagerAdapter.addFragment(fragment_local_map,"الخريطة المحلية")
+        viewPagerAdapter.addFragment(fragment_global_map,"الخريطة العالمية")
 
         viewPager.adapter=viewPagerAdapter
 

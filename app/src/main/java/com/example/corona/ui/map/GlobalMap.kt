@@ -26,6 +26,8 @@ import androidx.lifecycle.ViewModelProviders
 
 import com.example.corona.R
 import com.example.corona.ui.Util
+import com.example.corona.ui.map.LatLang.latLangCountry
+import com.example.corona.ui.map.LatLang.latLangWorld
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,8 +37,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_global_map.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -69,6 +74,36 @@ class GlobalMap : Fragment(), OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_global_map, container, false)
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        val obj  =  JSONObject(LatLang.loadJSONFromAsset(context!!)!!)
+        for(i in 0..185){
+            val jArray = obj.getJSONArray("Countries").get(i)
+
+            var iid=""
+            iid = jArray.toString()
+
+            val jsonParser =  JsonParser()
+            val gson =  Gson();
+            val responseModel = gson.fromJson(jsonParser.parse(iid),Country::class.java)
+            latLangCountry.put(responseModel.Country!!,responseModel)
+        }
+
+
+        for (key in latLangWorld.keys){
+            latLangWorld[key]!!.kmlResource=context!!.resources.getIdentifier("raw/"+key.toLowerCase(), null, context!!.packageName)
+            if(latLangWorld[key]!!.nom!! in latLangCountry.keys){
+                latLangWorld[key]!!.suspect=latLangCountry[latLangWorld[key]!!.nom!!]!!.NewConfirmed
+                latLangWorld[key]!!.confirme=latLangCountry[latLangWorld[key]!!.nom!!]!!.TotalConfirmed
+                latLangWorld[key]!!.critique=latLangCountry[latLangWorld[key]!!.nom!!]!!.NewDeaths
+                latLangWorld[key]!!.mort=latLangCountry[latLangWorld[key]!!.nom!!]!!.TotalDeaths
+                latLangWorld[key]!!.guerie=latLangCountry[latLangWorld[key]!!.nom!!]!!.NewRecovered
+                latLangWorld[key]!!.degre=latLangCountry[latLangWorld[key]!!.nom!!]!!.TotalRecovered
+
+            }
+        }
+
+
+
         getStart()
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
