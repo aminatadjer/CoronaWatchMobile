@@ -5,7 +5,7 @@
     android:id="@+id/postFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.post.post"
+    tools:context=".ui.post.post.post"
     android:background="@color/post_layout">
 
     <androidx.recyclerview.widget.RecyclerView

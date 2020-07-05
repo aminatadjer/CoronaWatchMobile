@@ -10,7 +10,7 @@
 
         <item
             android:id="@+id/nav_sante"
-            android:icon="@drawable/ic_today"
+            android:icon="@drawable/ic_good"
             android:title="@string/santeTitle"/>
     </group>
 

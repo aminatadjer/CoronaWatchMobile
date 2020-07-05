@@ -15,17 +15,17 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_public"
+        android:icon="@drawable/ic_postt"
         android:title=""
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/spiderVideoFragment"
-        android:icon="@drawable/ic_video"
+        android:icon="@drawable/ic_post"
         android:title=""
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/userVideoFragment"
-        android:icon="@drawable/ic_today"
+        android:icon="@drawable/ic_video"
         android:title=""
         app:showAsAction="ifRoom"/>
 

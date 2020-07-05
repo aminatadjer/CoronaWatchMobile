@@ -1,4 +1,6 @@
 package com.example.corona.ui.map
+import com.example.corona.ui.map.local.Hospital
+import com.example.corona.ui.map.local.Region
 import retrofit2.Call
 import retrofit2.http.*
 

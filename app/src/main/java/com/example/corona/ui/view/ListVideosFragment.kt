@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.corona.R
 import com.example.corona.ui.Util
+import com.example.corona.ui.view.adapter.VideoAdapter
+import com.example.corona.ui.view.entity.Video
 import kotlinx.android.synthetic.main.list_videos_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,11 +40,16 @@ class ListVideosFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= "اشعارات"
+        tolb.visibility=View.VISIBLE
 
         val recyclerView: RecyclerView = list_video as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
-        adapter = VideoAdapter(requireActivity())
+        adapter =
+            VideoAdapter(requireActivity())
         recyclerView.adapter = adapter
 /*
         var video1 = Video("1","1","1")

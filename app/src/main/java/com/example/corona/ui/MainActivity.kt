@@ -13,10 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.example.corona.R
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.OnItemSelectedListener
 import me.ibrahimsn.lib.SmoothBottomBar
 //import java.util.jar.Manifest
@@ -35,7 +33,6 @@ import android.os.Build
 import android.provider.Settings
 import android.util.Log
 //import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
 
 import android.app.*
 //import android.content.Context
@@ -44,23 +41,18 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
-import android.widget.Button
 import android.widget.TextView
 import android.widget.ImageView
 //import android.os.Build
 //import android.support.v7.app.AppCompatActivity
 //import android.os.Bundle
 import android.widget.RemoteViews
-import com.example.corona.ui.map.LatLang
-import com.example.corona.ui.map.Region
+import com.example.corona.ui.map.local.Region
 import com.example.corona.ui.map.Service
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Math.abs
 
 
 private const val PERMISSION_REQUEST = 10

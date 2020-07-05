@@ -1,11 +1,8 @@
 package com.example.corona.ui.video
 
-import com.example.corona.ui.Util
-import com.example.corona.ui.map.Hospital
-import com.example.corona.ui.map.Region
+import com.example.corona.ui.video.entity.Video
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 interface Service {
 

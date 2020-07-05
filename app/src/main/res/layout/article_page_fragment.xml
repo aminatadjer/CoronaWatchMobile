@@ -4,7 +4,7 @@
     android:id="@+id/articlePageFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.post.ArticlePage">
+    tools:context=".ui.post.page.ArticlePage">
 
     <WebView
         android:id="@+id/web_view_page"

@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.corona.ui.map.map"
+        android:name="com.example.corona.ui.map.manager.map"
 
         android:label="map"
         tools:layout="@layout/map_fragment"
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.example.corona.ui.post.post"
+        android:name="com.example.corona.ui.post.post.post"
         android:label="post"
         tools:layout="@layout/post_fragment"
 
@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/articlePageFragment"
-        android:name="com.example.corona.ui.post.ArticlePage"
+        android:name="com.example.corona.ui.post.page.ArticlePage"
 
         tools:layout="@layout/article_page_fragment"
 
@@ -124,7 +124,7 @@
 
     <fragment
         android:id="@+id/userVideoFragment"
-        android:name="com.example.corona.ui.video.UserVideo"
+        android:name="com.example.corona.ui.video.video.UserVideo"
         android:label="fragment_user_video"
         tools:layout="@layout/fragment_user_video" >
         <action
@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/spiderVideoFragment"
-        android:name="com.example.corona.ui.spider.SpiderVideo"
+        android:name="com.example.corona.ui.spider.spider.SpiderVideo"
         android:label="fragment_spider_video"
         tools:layout="@layout/fragment_spider_video" >
         <action
@@ -142,7 +142,7 @@
     </fragment>
     <fragment
         android:id="@+id/spiderPageFragment"
-        android:name="com.example.corona.ui.spider.SpiderPage"
+        android:name="com.example.corona.ui.spider.page.SpiderPage"
         tools:layout="@layout/spider_page_fragment">
         <argument
             android:name="url"
@@ -174,7 +174,7 @@
 
     <fragment
         android:id="@+id/galleryVideo"
-        android:name="com.example.corona.ui.video.GalleryVideo"
+        android:name="com.example.corona.ui.video.video.GalleryVideo"
         android:label="fragment_gallery_video"
         tools:layout="@layout/fragment_gallery_video" >
         <action

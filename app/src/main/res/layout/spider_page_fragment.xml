@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.spider.SpiderPage"
+    tools:context=".ui.spider.page.SpiderPage"
     android:name="androidx.navigation.fragment.NavHostFragment"
     android:id="@+id/spiderPageFragment">
 
