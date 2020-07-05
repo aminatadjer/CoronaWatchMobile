@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.corona.R
+import me.ibrahimsn.lib.SmoothBottomBar
 
 class view : Fragment() {
 
@@ -17,7 +18,7 @@ class view : Fragment() {
     }
 
     private lateinit var viewModel: ViewViewModel
-
+    lateinit var toolbar: SmoothBottomBar
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

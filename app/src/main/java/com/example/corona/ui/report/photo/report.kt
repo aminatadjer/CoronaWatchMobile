@@ -27,6 +27,7 @@ import com.example.corona.ui.upload.UploadImage
 import com.google.android.gms.tasks.TaskCompletionSource
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.report_fragment.*
+import me.ibrahimsn.lib.SmoothBottomBar
 import java.io.File
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -35,6 +36,8 @@ import java.util.concurrent.Executors
 class report : Fragment() {
 
     lateinit var uploader: UploadImage
+
+    lateinit var toolbar: SmoothBottomBar
     companion object {
         fun newInstance() = report()
 
@@ -103,7 +106,8 @@ class report : Fragment() {
         //requireActivity().onBackPressedDispatcher.addCallback
 
 
-
+        toolbar = activity!!.findViewById(R.id.bottom_bar)
+        toolbar.visibility=View.VISIBLE
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)

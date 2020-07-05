@@ -156,6 +156,9 @@
         android:name="com.example.corona.ui.view.DiagnoseFragment"
         tools:layout="@layout/diagnose_fragment">
 
+        <action
+            android:id="@+id/action_diagnose_fragment_to_galleryPhoto"
+            app:destination="@id/galleryPhoto" />
     </fragment>
     <fragment
         android:id="@+id/galleryVideo"
@@ -166,5 +169,10 @@
             android:id="@+id/action_galleryVideo_to_userVideoFragment"
             app:destination="@id/userVideoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/galleryPhoto"
+        android:name="com.example.corona.ui.view.GalleryPhoto"
+        android:label="fragment_gallery_photo"
+        tools:layout="@layout/fragment_gallery_photo" />
 
 </navigation>

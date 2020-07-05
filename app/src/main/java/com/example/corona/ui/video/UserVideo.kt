@@ -29,6 +29,7 @@ import com.example.corona.ui.video.Service
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_spider_video.*
 import kotlinx.android.synthetic.main.fragment_user_video.*
+import me.ibrahimsn.lib.SmoothBottomBar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -40,6 +41,7 @@ import kotlin.collections.ArrayList
 
 class UserVideo : Fragment() {
 
+    lateinit var toolbar: SmoothBottomBar
     var ll: MutableList<Video> = ArrayList()
     private lateinit var mtitel: TextView
     override fun onCreateView(
@@ -57,6 +59,10 @@ class UserVideo : Fragment() {
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.userVideoTitle)
         tolb.visibility=View.VISIBLE
+
+        toolbar = activity!!.findViewById(R.id.bottom_bar)
+        toolbar.visibility=View.VISIBLE
+
 
 
         val networkConnection= NetworkConnection(context!!)
