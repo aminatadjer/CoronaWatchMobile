@@ -15,21 +15,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageView_sidebare"
             android:layout_width="130dp"
             android:layout_height="114dp"
             android:layout_marginBottom="15dp"
             app:srcCompat="@drawable/coronawatch" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/sante"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/orange"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </LinearLayout>
 

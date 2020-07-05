@@ -182,10 +182,9 @@
             app:destination="@id/userVideoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/galleryPhoto"
-        android:name="com.example.corona.ui.view.GalleryPhoto"
-        android:label="fragment_gallery_photo"
-        tools:layout="@layout/fragment_gallery_photo" />
+        android:id="@+id/loginFragmentGmail"
+        android:name="com.example.corona.ui.login.LoginUser"
+        tools:layout="@layout/login_user_fragment" />
 
 
 </navigation>

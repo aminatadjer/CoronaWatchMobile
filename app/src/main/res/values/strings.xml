@@ -42,6 +42,7 @@
     <string name="danger_lvl1">لا يوجد خطر</string>
     <string name="danger_lvl2">خطر متوسط</string>
     <string name="danger_lvl3">خطير جدا</string>
+    <string name="loginTitle">تسجيل الدخول</string>
 
 
 </resources>
