@@ -23,6 +23,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.corona.R
+import com.example.corona.ui.view.UploadEtat
+import com.example.corona.ui.upload.UploadImage
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.diagnose_fragment.*
@@ -34,7 +36,7 @@ import java.util.*
 class DiagnoseFragment : Fragment() {
     private lateinit var mtitel: TextView
     lateinit var toolbar: SmoothBottomBar
-
+    lateinit var uploader: UploadEtat
     val CAMERA_REQUEST = 2
     private var selctedPhoto: Uri?=null
 
@@ -97,7 +99,26 @@ class DiagnoseFragment : Fragment() {
 
 
                 diagnose_button.setOnClickListener {
+                    if (data != null)
+                    {   uploader= com.example.corona.ui.view.UploadEtat(activity!!)
+                        val contentURI = selctedPhoto
+                        val temperature:String=temperature_seek_bar.getProgress().toString()
+                        val rythmeCardiaque=heart_beat_seek_bar.getProgress().toString()
+                        val poids=weight_number_piker.getValue().toString()
+                        val path: kotlin.String? = contentURI?.let { it1 -> uploader.getRealPathFromURI(it1) }
+                        try
+                        {
+                            if (contentURI != null) {
+                                android.widget.Toast.makeText(activity!!.applicationContext, "تم تحميل صورتك بنجاح", android.widget.Toast.LENGTH_SHORT).show()
+                                uploader.uploadEtat(path.toString(),poids,temperature,rythmeCardiaque, "2020-07-05T00:00:00","http://192.168.1.9:8000/api/etatSante/")
+                            }
+                        }
+                        catch (e: java.io.IOException) {
+                            e.printStackTrace()
+                            android.widget.Toast.makeText(activity!!.applicationContext, "Failed!", android.widget.Toast.LENGTH_SHORT).show()
+                        }
 
+                    }
                 }
 
 
@@ -126,7 +147,7 @@ class DiagnoseFragment : Fragment() {
         add_photo_diagno.setOnClickListener {
 
 
-            dispatchGalleryPictureIntent()
+
         }
 
         pickDateBtn.setOnClickListener {
