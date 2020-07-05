@@ -21,6 +21,7 @@ import com.example.corona.ui.map.LatLang
 import com.example.corona.ui.spider.Service
 
 import kotlinx.android.synthetic.main.fragment_spider_video.*
+import me.ibrahimsn.lib.SmoothBottomBar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -31,6 +32,7 @@ import java.net.URL
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class SpiderVideo : Fragment() {
 
+    lateinit var toolbar: SmoothBottomBar
     private lateinit var mtitel:TextView
     var ll: MutableList<Publication> = ArrayList()
 
@@ -52,32 +54,34 @@ class SpiderVideo : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        toolbar = activity!!.findViewById(R.id.bottom_bar)
+        toolbar.visibility=View.VISIBLE
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.mapTitle)
-
+        mtitel.text= getString(R.string.videoTitle)
+        tolb.visibility=View.VISIBLE
         val networkConnection= NetworkConnection(context!!)
-        networkConnection.observe(this, Observer {isConnected->
-            if (isConnected){
-                recycler_view_spider.visibility=View.VISIBLE
-                disconected_view_spider.visibility=View.GONE
-                spiderVideoFragment.setBackgroundColor(Color.parseColor("#59CFCCCC"))
+                networkConnection.observe(this, Observer {isConnected->
+                    if (isConnected){
+                        recycler_view_spider.visibility=View.VISIBLE
+                        disconected_view_spider.visibility=View.GONE
+                        spiderVideoFragment.setBackgroundColor(Color.parseColor("#59CFCCCC"))
 
-                val recyclerViewSpider: RecyclerView = recycler_view_spider as RecyclerView
-                recyclerViewSpider.setHasFixedSize(true)
-                recyclerViewSpider.layoutManager = LinearLayoutManager(activity)
-                recyclerViewSpider.setHasFixedSize(true)
+                        val recyclerViewSpider: RecyclerView = recycler_view_spider as RecyclerView
+                        recyclerViewSpider.setHasFixedSize(true)
+                        recyclerViewSpider.layoutManager = LinearLayoutManager(activity)
+                        recyclerViewSpider.setHasFixedSize(true)
 
-                val adapter = VideoSpiderAdapter()
-
-
-                //required setUrl
+                        val adapter = VideoSpiderAdapter()
 
 
-                // add here
+                        //required setUrl
 
-                adapter.setVideoSpider(ll)
+
+                        // add here
+
+                        adapter.setVideoSpider(ll)
                 val context = context // or getBaseContext(), or getApplicationContext()
                 val retrofit = Retrofit.Builder()
                     .baseUrl(Util.getProperty("baseUrl", context!!))

@@ -51,6 +51,7 @@ import com.google.maps.android.data.kml.KmlLineString
 import com.google.maps.android.data.kml.KmlPoint
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.map_fragment.*
+import me.ibrahimsn.lib.SmoothBottomBar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -67,6 +68,7 @@ class map : Fragment(){
         fun newInstance() = map()
     }
 
+    lateinit var toolbar: SmoothBottomBar
 
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
@@ -84,6 +86,8 @@ class map : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        toolbar = activity!!.findViewById(R.id.bottom_bar)
+        toolbar.visibility=View.VISIBLE
 
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)

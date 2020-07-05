@@ -48,7 +48,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.corona.ui.Util
 import com.example.corona.ui.post.services.Service
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.post_item.*
+import me.ibrahimsn.lib.SmoothBottomBar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -63,6 +65,7 @@ class post : Fragment()/*,FacebookListener*/ {
 
     }
 
+    lateinit var toolbar: SmoothBottomBar
 
     //private lateinit var mFacebook:FacebookHelper
 
@@ -85,10 +88,21 @@ class post : Fragment()/*,FacebookListener*/ {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
 
+
+       /* val sante=activity!!.findViewById<FloatingActionButton>(R.id.sante)
+        sante.setOnClickListener {
+
+            val takenvideoAction =postDirections.actionPostFragmentToDiagnoseFragment()
+            Navigation.findNavController(it).navigate(takenvideoAction)
+        }*/
+
+        toolbar = activity!!.findViewById(R.id.bottom_bar)
+        toolbar.visibility=View.VISIBLE
+
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.postTitle)
-
+        tolb.visibility=View.VISIBLE
         val networkConnection=NetworkConnection(context!!)
 
         networkConnection.observe(this, Observer {isConnected->

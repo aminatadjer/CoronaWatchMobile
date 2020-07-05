@@ -51,6 +51,7 @@ import android.widget.ImageView
 //import android.support.v7.app.AppCompatActivity
 //import android.os.Bundle
 import android.widget.RemoteViews
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Math.abs
 
@@ -73,11 +74,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
-
     lateinit var navController: NavController
     lateinit var   bottom_bar: SmoothBottomBar
-
-
     lateinit var locationManager: LocationManager
     private var hasGps = false
     private var hasNetwork = false
@@ -158,7 +156,9 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+
 
         imageView_notification = findViewById(R.id.notificationIcon)
         textView_notification = findViewById(R.id.notificationNumber)
@@ -189,6 +189,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             }
         })
         */
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -243,35 +244,14 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             override fun onItemSelect(pos: Int) {
 
                 when(pos){
-                    0->{
-
-                        navController.navigate(R.id.mapFragment)
-
-
-                    }
-                    1->{
-
-                        navController.navigate(R.id.reportFragment)
-
-                    }
-                    2->{
-
-                        navController.navigate(R.id.postFragment)
-
-                    }
-                    3->{
-
-                        navController.navigate(R.id.spiderVideoFragment)
-
-                    }
-                    4->{
-
-                        navController.navigate(R.id.userVideoFragment)
-
-                    }
+                    0-> navController.navigate(R.id.mapFragment)
+                    1->navController.navigate(R.id.reportFragment)
+                    2->navController.navigate(R.id.postFragment)
+                    3->navController.navigate(R.id.spiderVideoFragment)
+                    4->navController.navigate(R.id.userVideoFragment)
                     else -> "Number too high"
                 }
-                Runtime.getRuntime().gc()
+
             }
         })
     }
@@ -304,7 +284,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     private fun enableView() {
 
         getLocation()
-        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")
@@ -448,42 +428,37 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        //Toast.makeText(this,"item",Toast.LENGTH_LONG).show()
         when (item.itemId) {
-            R.id.mapFragment -> {
-
+            R.id.nav_map -> {
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
 
-
             }
-            R.id.postFragment -> {
-
+            R.id.nav_public -> {
                 navController.navigate(R.id.reportFragment)
                 bottom_bar.setActiveItem(1)
-
             }
-            R.id.loginFragment -> {
-
+            R.id.nav_warnings -> {
                 navController.navigate(R.id.postFragment)
                 bottom_bar.setActiveItem(2)
-
             }
-            R.id.spiderVideoFragment -> {
-
+            R.id.nav_video -> {
                 navController.navigate(R.id.spiderVideoFragment)
                 bottom_bar.setActiveItem(3)
-
             }
-            R.id.userVideoFragment -> {
-
+            R.id.nav_view -> {
                 navController.navigate(R.id.userVideoFragment)
                 bottom_bar.setActiveItem(4)
+            }
+
+            R.id.nav_sante -> {
+                navController.navigate(R.id.diagnose_fragment)
 
             }
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)
-        Runtime.getRuntime().gc()
         return true
     }
 
@@ -503,8 +478,6 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                         bottom_bar.setActiveItem(0)
                     }
                 }
-                Runtime.getRuntime().gc()
-
             }
 
             //Toast.makeText(this,"here",Toast.LENGTH_LONG).show()

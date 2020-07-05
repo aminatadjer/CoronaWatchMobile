@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.corona.R
+import me.ibrahimsn.lib.SmoothBottomBar
 
 class view : Fragment() {
 
@@ -17,7 +18,7 @@ class view : Fragment() {
     }
 
     private lateinit var viewModel: ViewViewModel
-
+    lateinit var toolbar: SmoothBottomBar
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +32,8 @@ class view : Fragment() {
         // TODO: Use the ViewModel
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= "الحالة الصحية"
+        mtitel.text= getString(R.string.santeTitle)
+        tolb.visibility=View.VISIBLE
     }
 
 }

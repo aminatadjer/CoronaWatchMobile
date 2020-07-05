@@ -26,14 +26,15 @@ class UploadImage(
         }
         return result
     }
-    fun uploadImage(path: String,comment:String) {
+    fun uploadImage(path: String,comment:String, url:String?) {
 
         val map = HashMap<String, String>()
-        map.put("url", "http://192.168.1.9:8000/api/casSignaler/show_list/")
+        if(url!=null){
+        map.put("url", url)
         map.put("media", path)
         map.put("commentaire", comment)
 
-        activity?.let { MultiPartRequester(it, map, this) }
+        activity?.let { MultiPartRequester(it, map, this) }}
     }
 
     override fun onTaskCompleted(response: String) {

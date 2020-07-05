@@ -10,14 +10,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.corona.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.diagnose_fragment.*
+import me.ibrahimsn.lib.SmoothBottomBar
 import java.util.*
 
 
 class DiagnoseFragment : Fragment() {
+    private lateinit var mtitel: TextView
+    lateinit var toolbar: SmoothBottomBar
 
     var c = Calendar.getInstance()
     var year = c.get(Calendar.YEAR)
@@ -56,9 +64,21 @@ class DiagnoseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DiagnoseViewModel::class.java)
 
+        val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+        mtitel.text= getString(R.string.santeTitle)
+
+        toolbar = activity!!.findViewById(R.id.bottom_bar)
+        toolbar.visibility=View.GONE
 
 
+        val add_photo_diagno=activity!!.findViewById<FloatingActionButton>(R.id.add_photo_diagno)
 
+        add_photo_diagno.setOnClickListener {
+
+            val takenvideoAction =DiagnoseFragmentDirections.actionDiagnoseFragmentToGalleryPhoto()
+            Navigation.findNavController(it).navigate(takenvideoAction)
+        }
 
         pickDateBtn.setOnClickListener {
             var dpd = DatePickerDialog(this!!.activity!!, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
