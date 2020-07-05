@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -20,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.corona.R
+import com.example.corona.ui.MainActivity
 import com.example.corona.ui.Util
 import com.example.corona.ui.post.NetworkConnection
 import com.example.corona.ui.report.photo.reportDirections
@@ -55,6 +57,12 @@ class UserVideo : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if (!MainActivity.conected){
+            Toast.makeText(context,"not conected", Toast.LENGTH_LONG).show()
+            MainActivity.navController.navigate(R.id.loginFragmentGmail)
+        }
+        else{
+
         val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
         mtitel.text= getString(R.string.userVideoTitle)
@@ -122,7 +130,7 @@ class UserVideo : Fragment() {
         }
     }
 
-
+    }
 
 
 

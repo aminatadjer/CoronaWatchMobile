@@ -61,6 +61,10 @@ private const val PERMISSION_REQUEST = 10
 
 class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelectedListener {
 
+    companion object{
+        var conected=false
+        lateinit var navController: NavController
+    }
     var isFragmentOneLoaded = true
     val manager = supportFragmentManager
 
@@ -70,11 +74,12 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     lateinit var imageView_notification:ImageView
 
 
+
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
-    lateinit var navController: NavController
+
     lateinit var   bottom_bar: SmoothBottomBar
     lateinit var locationManager: LocationManager
     private var hasGps = false
@@ -255,6 +260,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             }
         })
     }
+
+
 /*
     fun ShowFragmentOne() {
         val transaction = manager.beginTransaction()
@@ -380,6 +387,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         }
     }
 
+
     private fun distance(lat1:Double, lon1:Double, lat2:Double, lon2:Double):Double {
         var theta:Double = lon1 - lon2
         var dist:Double = Math.sin(deg2rad(lat1))* Math.sin(deg2rad(lat2))+ Math.cos(deg2rad(lat1))* Math.cos(deg2rad(lat2))* Math.cos(deg2rad(theta))
@@ -430,7 +438,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         //Toast.makeText(this,"item",Toast.LENGTH_LONG).show()
         when (item.itemId) {
-            R.id.nav_map -> {
+            /*R.id.nav_map -> {
                 navController.navigate(R.id.mapFragment)
                 bottom_bar.setActiveItem(0)
 
@@ -446,14 +454,14 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
             R.id.nav_video -> {
                 navController.navigate(R.id.spiderVideoFragment)
                 bottom_bar.setActiveItem(3)
-            }
+            }*/
             R.id.nav_view -> {
                 navController.navigate(R.id.userVideoFragment)
                 bottom_bar.setActiveItem(4)
             }
 
             R.id.nav_sante -> {
-                navController.navigate(R.id.diagnose_fragment)
+                navController.navigate(R.id.loginFragmentGmail)
 
             }
 

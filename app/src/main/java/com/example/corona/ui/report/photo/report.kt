@@ -2,11 +2,15 @@ package com.example.corona.ui.report.photo
 
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.Surface
 import android.view.View
@@ -21,6 +25,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.corona.R
+import com.example.corona.ui.MainActivity.Companion.conected
+import com.example.corona.ui.MainActivity.Companion.navController
 import com.example.corona.ui.Util
 import com.example.corona.ui.upload.UploadImage
 
@@ -74,6 +80,7 @@ class report : Fragment() {
 
 
 
+
            // activity!!.bottom_bar.visibility = View.GONE
 
 
@@ -96,62 +103,36 @@ class report : Fragment() {
 
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         super.onActivityCreated(savedInstanceState)
-
-
-
-
-        //requireActivity().onBackPressedDispatcher.addCallback
-
-
-        toolbar = activity!!.findViewById(R.id.bottom_bar)
-        toolbar.visibility=View.VISIBLE
-
-        val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
-        mtitel.text= getString(R.string.reportTitle)
-        end.visibility=View.GONE
-        tolb.visibility=View.VISIBLE
-        start.visibility=View.VISIBLE
-        previewView.visibility=View.VISIBLE
-
-
-
-
-
-        try {
-            enableActions()
-            setClickListeners()
-            requestPermissions()
-        }catch (e:ConcurrentModificationException)
-        {
-            Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
+        if (!conected){
+            Toast.makeText(context,"not conected",Toast.LENGTH_LONG).show()
+            navController.navigate(R.id.loginFragmentGmail)
         }
+        else{
+
+            //requireActivity().onBackPressedDispatcher.addCallback
 
 
+            toolbar = activity!!.findViewById(R.id.bottom_bar)
+            toolbar.visibility=View.VISIBLE
 
-
-
-
-        img_pick_btn.setOnClickListener {
-
-            val galleryAction =
-                reportDirections.galleryAction()
-            Navigation.findNavController(it).navigate(galleryAction)
-            //dispatchGalleryPictureIntent()
-
-
-        }
-
-        img_photo_btn.setOnClickListener {
-
+            val tolb=activity!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+            val mtitel=tolb.findViewById<TextView>(R.id.toolbar_title)
+            mtitel.text= getString(R.string.reportTitle)
             end.visibility=View.GONE
-
+            tolb.visibility=View.VISIBLE
             start.visibility=View.VISIBLE
             previewView.visibility=View.VISIBLE
+
+
+
+
+
             try {
+                enableActions()
                 setClickListeners()
                 requestPermissions()
             }catch (e:ConcurrentModificationException)
@@ -159,19 +140,52 @@ class report : Fragment() {
                 Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
             }
 
+
+
+
+
+
+            img_pick_btn.setOnClickListener {
+
+                val galleryAction =
+                    reportDirections.galleryAction()
+                Navigation.findNavController(it).navigate(galleryAction)
+                //dispatchGalleryPictureIntent()
+
+
+            }
+
+            img_photo_btn.setOnClickListener {
+
+                end.visibility=View.GONE
+
+                start.visibility=View.VISIBLE
+                previewView.visibility=View.VISIBLE
+                try {
+                    setClickListeners()
+                    requestPermissions()
+                }catch (e:ConcurrentModificationException)
+                {
+                    Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+            img_video_btn.setOnClickListener {
+                val takenvideoAction =
+                    reportDirections.takenVideoAction()
+                Navigation.findNavController(it).navigate(takenvideoAction)
+
+                //dispatchTakeVideoIntent()
+
+            }
+            viewModel = ViewModelProviders.of(this).get(ReportViewModel::class.java)
+
+            // TODO: Use the ViewModel
         }
 
-        img_video_btn.setOnClickListener {
-            val takenvideoAction =
-                reportDirections.takenVideoAction()
-            Navigation.findNavController(it).navigate(takenvideoAction)
 
-            //dispatchTakeVideoIntent()
 
-        }
-        viewModel = ViewModelProviders.of(this).get(ReportViewModel::class.java)
-
-        // TODO: Use the ViewModel
     }
 
 

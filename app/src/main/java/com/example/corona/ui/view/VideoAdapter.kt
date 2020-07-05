@@ -32,9 +32,9 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
 
 
         when(currentVideo.type){
-            0->holder.videoIconView.setImageResource(R.drawable.ic_twitter)
-            1->holder.videoIconView.setImageResource(R.drawable.ic_youtube)
-            2->holder.videoIconView.setImageResource(R.drawable.gmail)
+            0->holder.videoIconView.setImageResource(R.drawable.ic_new)
+            1->holder.videoIconView.setImageResource(R.drawable.ic_validate)
+            2->holder.videoIconView.setImageResource(R.drawable.ic_danger)
         }
 
 
