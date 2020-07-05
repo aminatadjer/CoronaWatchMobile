@@ -29,7 +29,14 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
         holder.videoTitleView.text = currentVideo.title
         holder.videoDescriptionView.text = currentVideo.description
         holder.videoDateView.text = currentVideo.date
-        holder.videoHeureView.text = currentVideo.heure
+
+
+        when(currentVideo.type){
+            0->holder.videoIconView.setImageResource(R.drawable.ic_twitter)
+            1->holder.videoIconView.setImageResource(R.drawable.ic_youtube)
+            2->holder.videoIconView.setImageResource(R.drawable.gmail)
+        }
+
 
 
     }
@@ -46,10 +53,10 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
 
     inner class VideoHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        internal val videoTitleView: TextView = itemView.findViewById(R.id.video_title)
-        internal val videoDescriptionView: TextView = itemView.findViewById(R.id.video_description)
-        internal val videoDateView: TextView = itemView.findViewById(R.id.video_date)
-        internal val videoHeureView: TextView = itemView.findViewById(R.id.video_heure)
+        internal val videoTitleView: TextView = itemView.findViewById(R.id.notif_title)
+        internal val videoDescriptionView: TextView = itemView.findViewById(R.id.notif_description)
+        internal val videoDateView: TextView = itemView.findViewById(R.id.notif_date)
+        internal val videoIconView: ImageView = itemView.findViewById(R.id.notif_type)
 
 
     }
