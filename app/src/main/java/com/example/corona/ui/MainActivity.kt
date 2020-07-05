@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         mainHandler.post(object : Runnable {
             override fun run() {
                 xyz()
-                mainHandler.postDelayed(this, 60000)
+                mainHandler.postDelayed(this, 600000)
             }
         })
 
