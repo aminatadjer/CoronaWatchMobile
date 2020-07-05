@@ -12,7 +12,7 @@ class Video(
     var title : String,
     var description : String,
     var date : String,
-    var heure : String
+    var type:Int
 
 
 )

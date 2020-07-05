@@ -48,11 +48,13 @@ class ListVideosFragment : Fragment() {
         adapter.setVideos(videos)
  */
 
-        var video1 = Video("titre1", "description1", "date1", "heure1")
-        var video2 = Video("titre2", "description2", "date2", "heure2")
-        var video3 = Video("titre3", "description3", "date3", "heure3")
-        var video4 = Video("titre4", "description4", "date4", "heure4")
-        var video5 = Video("titre5", "description5", "date5", "heure5")
+        var video1 = Video("قناة العربية", "بث حي ومباشر لقناة سكاي نيوز عربية مجانا عبر الإنترنت ومتوفر على جميع المنصات والأجهزة. شاهد البث أينما كنت على مدار", "1-1-2020", 0)
+        var video2 = Video("قناة العربية", "بث حي ومباشر لقناة سكاي نيوز عربية مجانا عبر الإنترنت ومتوفر على جميع المنصات والأجهزة. شاهد البث أينما كنت على مدار", "1-1-2020", 1)
+        var video3 = Video("قناة العربية", "بث حي ومباشر لقناة سكاي نيوز عربية مجانا عبر الإنترنت ومتوفر على جميع المنصات والأجهزة. شاهد البث أينما كنت على مدار", "1-1-2020", 2)
+        var video4 = Video("قناة العربية", "بث حي ومباشر لقناة سكاي نيوز عربية مجانا عبر الإنترنت ومتوفر على جميع المنصات والأجهزة. شاهد البث أينما كنت على مدار", "1-1-2020", 0)
+        var video5 = Video("قناة العربية", "بث حي ومباشر لقناة سكاي نيوز عربية مجانا عبر الإنترنت ومتوفر على جميع المنصات والأجهزة. شاهد البث أينما كنت على مدار", "1-1-2020", 1)
+
+
 
         val arrayList = ArrayList<Video>()
         arrayList.add(video1)

@@ -94,7 +94,7 @@ class DiagnoseFragment : Fragment() {
             try {
                 selctedPhoto= getImageUri(context!!,data!!.extras!!.get("data") as Bitmap)
 
-                
+
 
                 diagnose_button.setOnClickListener {
 
