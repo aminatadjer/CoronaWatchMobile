@@ -158,20 +158,13 @@
     <fragment
         android:id="@+id/diagnose_fragment"
         android:name="com.example.corona.ui.view.DiagnoseFragment"
-        tools:layout="@layout/diagnose_fragment">
-    </fragment>
+        tools:layout="@layout/diagnose_fragment"/>
 
 
     <fragment
         android:id="@+id/test_fragment"
         android:name="com.example.corona.ui.view.TestFragment"
-        tools:layout="@layout/test_fragment">
-
-        <action
-            android:id="@+id/action_diagnose_fragment_to_galleryPhoto"
-            app:destination="@id/galleryPhoto" />
-
-    </fragment>
+        tools:layout="@layout/test_fragment"/>
 
     <fragment
         android:id="@+id/list_videos_fragment"
@@ -193,5 +186,6 @@
         android:name="com.example.corona.ui.view.GalleryPhoto"
         android:label="fragment_gallery_photo"
         tools:layout="@layout/fragment_gallery_photo" />
+
 
 </navigation>

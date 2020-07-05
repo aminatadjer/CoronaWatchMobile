@@ -45,7 +45,6 @@
                 android:textSize="10sp" />
 
             <SeekBar
-                android:thumbTint="@color/orange"
                 android:id="@+id/temperature_seek_bar"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
@@ -54,7 +53,8 @@
                 android:layout_marginEnd="20dp"
                 android:layout_toStartOf="@id/temperature_text_view"
                 android:layoutDirection="rtl"
-                android:progress="1" />
+                android:progress="1"
+                android:thumbTint="@color/orange" />
 
             <TextView
                 android:id="@+id/temperature_text_view"
@@ -78,7 +78,6 @@
                 android:textSize="10sp" />
 
             <SeekBar
-                android:thumbTint="@color/orange"
                 android:id="@+id/heart_beat_seek_bar"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
@@ -87,7 +86,8 @@
                 android:layout_marginEnd="20dp"
                 android:layout_toStartOf="@id/heart_beat_text_view"
                 android:layoutDirection="rtl"
-                android:progress="1" />
+                android:progress="1"
+                android:thumbTint="@color/orange" />
 
             <TextView
                 android:id="@+id/heart_beat_text_view"
@@ -100,14 +100,14 @@
                 android:textSize="20sp" />
 
             <NumberPicker
-                android:background="@drawable/drawablenp"
                 android:id="@+id/weight_number_piker"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_below="@id/heart_beat_text_view"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="64dp"
-                android:layout_toStartOf="@id/weight_text_view" />
+                android:layout_toStartOf="@id/weight_text_view"
+                android:background="@drawable/drawablenp" />
 
             <TextView
                 android:id="@+id/dateTv"
@@ -138,7 +138,7 @@
                 android:layout_below="@id/dateTv"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="75dp"
-                android:layout_marginEnd="154dp"
+                android:layout_marginEnd="130dp"
 
                 android:text="@string/diagnose_button"
                 app:backgroundTint="@color/orange" />
@@ -153,7 +153,6 @@
 
                 android:text="@string/date_button"
                 app:backgroundTint="@color/orange" />
-
 
 
 

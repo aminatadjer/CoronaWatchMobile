@@ -29,7 +29,8 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="31dp" />
+                tools:layout_editor_absoluteX="31dp"
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

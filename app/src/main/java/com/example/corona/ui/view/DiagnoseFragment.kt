@@ -1,16 +1,23 @@
 package com.example.corona.ui.view
 
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -20,12 +27,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.diagnose_fragment.*
 import me.ibrahimsn.lib.SmoothBottomBar
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 
 class DiagnoseFragment : Fragment() {
     private lateinit var mtitel: TextView
     lateinit var toolbar: SmoothBottomBar
+
+    val CAMERA_REQUEST = 2
+    private var selctedPhoto: Uri?=null
 
     var c = Calendar.getInstance()
     var year = c.get(Calendar.YEAR)
@@ -59,7 +70,45 @@ class DiagnoseFragment : Fragment() {
         return inflater.inflate(R.layout.diagnose_fragment, container, false)
     }
 
+    fun dispatchGalleryPictureIntent() {
+        val galleryIntent = Intent(
+            MediaStore.ACTION_IMAGE_CAPTURE)
 
+
+        startActivityForResult(galleryIntent, CAMERA_REQUEST)
+    }
+    private fun getImageUri(context: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            context.getContentResolver(),
+            inImage,
+            "Title",
+            null
+        )
+        return Uri.parse(path)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            try {
+                selctedPhoto= getImageUri(context!!,data!!.extras!!.get("data") as Bitmap)
+
+                
+
+                diagnose_button.setOnClickListener {
+
+                }
+
+
+            }catch (e:Exception)
+            {
+                Toast.makeText(context!!,"اعد المحاولة", Toast.LENGTH_LONG).show()
+            }
+
+        }
+
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DiagnoseViewModel::class.java)
@@ -76,8 +125,8 @@ class DiagnoseFragment : Fragment() {
 
         add_photo_diagno.setOnClickListener {
 
-            val takenvideoAction =DiagnoseFragmentDirections.actionDiagnoseFragmentToGalleryPhoto()
-            Navigation.findNavController(it).navigate(takenvideoAction)
+
+            dispatchGalleryPictureIntent()
         }
 
         pickDateBtn.setOnClickListener {
