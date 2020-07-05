@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
         for(item in mutableList) {
             if (distance(item[0],item[1],locationNetwork!!.latitude,locationNetwork!!.longitude)<1.0) {
                 notificationCounter.increaseNumber()
+                openDialog()
                 val intent = Intent(this, MainActivity::class.java)
                 val pendingIntent =
                     PendingIntent.getActivity(
@@ -111,8 +112,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     )
 
                 val contentView = RemoteViews(packageName, R.layout.notification_layout)
-                contentView.setTextViewText(R.id.tv_title, "coronawatch notification")
-                contentView.setTextViewText(R.id.tv_content, "zone de risque")
+                contentView.setTextViewText(R.id.tv_title, "تنبيه")
+                contentView.setTextViewText(R.id.tv_content, "حذار لقد دخلت منطقة خطرة عليك توخ الحذر")
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = NotificationChannel(
@@ -279,7 +280,10 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
 
 
-
+    fun openDialog() {
+        var exampleDialog : ExampleDialog = ExampleDialog()
+        exampleDialog.show(getSupportFragmentManager(), "This is a Dialog")
+    }
 
     private fun enableView() {
 
