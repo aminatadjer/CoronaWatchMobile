@@ -460,12 +460,11 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                 bottom_bar.setActiveItem(3)
             }*/
             R.id.nav_view -> {
-                navController.navigate(R.id.userVideoFragment)
-                bottom_bar.setActiveItem(4)
+                navController.navigate(R.id.loginFragmentGmail)
             }
 
             R.id.nav_sante -> {
-                navController.navigate(R.id.loginFragmentGmail)
+                navController.navigate(R.id.diagnose_fragment)
 
             }
 
