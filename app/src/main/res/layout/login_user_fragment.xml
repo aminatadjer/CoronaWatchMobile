@@ -23,7 +23,13 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/userlogin" />
         <com.google.android.material.card.MaterialCardView
             android:background="@color/post_layout"
             android:id="@+id/catrd"
@@ -48,7 +54,7 @@
                     android:id="@+id/tty"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="50dp"
                     android:paddingLeft="10dp"
                     android:text="تسجيل الدخول عبر فايسبوك"
                     android:textAllCaps="false"
@@ -61,9 +67,9 @@
                 <Button
                     android:id="@+id/tt"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:text="تسجيل الخروج من فايسبوك"
@@ -101,7 +107,7 @@
                     android:id="@+id/google_login_btn"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="50dp"
                     android:paddingLeft="25dp"
                     android:text="تسجيل الدخول عبر قوقل"
                     android:textAllCaps="false"
@@ -114,9 +120,9 @@
                 <Button
                     android:id="@+id/google_logout_btn"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="25dp"
                     android:text="تسجيل الخروج من قوقل"
@@ -134,17 +140,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="يمكنك تسجيل الدخول"
-        android:textSize="24sp"
-        android:textColor="@color/dark"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 
 
