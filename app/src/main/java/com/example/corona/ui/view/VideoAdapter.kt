@@ -26,12 +26,12 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
     override fun onBindViewHolder(@NonNull holder: VideoHolder, position: Int) {
         val currentVideo: Video = videos[position]
         //set video title
-        holder.videoTitleView.text = currentVideo.title
+        holder.videoTitleView.text = currentVideo.titre
         holder.videoDescriptionView.text = currentVideo.description
         holder.videoDateView.text = currentVideo.date
 
 
-        when(currentVideo.type){
+        when(currentVideo.typeNotif){
             0->holder.videoIconView.setImageResource(R.drawable.ic_new)
             1->holder.videoIconView.setImageResource(R.drawable.ic_validate)
             2->holder.videoIconView.setImageResource(R.drawable.ic_danger)

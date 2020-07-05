@@ -9,10 +9,11 @@ class Video(
 
 
 
-    var title : String,
+    var titre : String,
     var description : String,
     var date : String,
-    var type:Int
+    var typeNotif:Int,
+    var vu:Boolean
 
 
 )

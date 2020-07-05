@@ -47,7 +47,7 @@ class LoginUser : Fragment() {
         mtitel.text= "تسجيل الدخول"
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("541173380554-ep11doaqlree6agfivf4qvrb0kl1n9a1.apps.googleusercontent.com")
+            .requestIdToken("839072134047-vr0vqc4sjkavga6b5qp5649ltk6kgvq3.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
