@@ -122,13 +122,13 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
                         regionList.addAll(listBody)
                         for (region in regionList){
-                            if (region.id==15) {
+
                                 morts = region.mort
                                 if(region.degre==2)
                                 {danger = true}
                                 malades = region.confirme
                                 name = region.ArabicName
-                            }
+
                         }
                     }
 
