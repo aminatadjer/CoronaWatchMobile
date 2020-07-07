@@ -38,6 +38,6 @@ class UploadImage(
     }
 
     override fun onTaskCompleted(response: String) {
-        Toast.makeText(activity,"completed" , Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity,"تم الارسال بنجاح" , Toast.LENGTH_SHORT).show()
     }
 }

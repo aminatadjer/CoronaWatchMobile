@@ -102,7 +102,7 @@ class takenvideo : Fragment(){
                         try
                         {
                             if (contentURI != null) {
-                                android.widget.Toast.makeText(activity!!.applicationContext, path.toString(), android.widget.Toast.LENGTH_SHORT).show()
+                                android.widget.Toast.makeText(activity!!.applicationContext, "تم تحميل المحتوى", android.widget.Toast.LENGTH_SHORT).show()
                                 uploader.uploadImage(path.toString(),commentaire, com.example.corona.ui.Util.getProperty("urlReport", context!!))
                             }
                         }

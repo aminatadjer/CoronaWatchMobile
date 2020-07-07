@@ -76,7 +76,7 @@ class galery : Fragment() {
                     try
                     {
                         if (contentURI != null) {
-                            Toast.makeText(activity!!.applicationContext, path.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity!!.applicationContext, "تم تحميل المحتوى", Toast.LENGTH_SHORT).show()
                             uploader.uploadImage(path.toString(),commentaire,
                                 Util.getProperty("urlReport", context!!))
                         }

@@ -240,8 +240,7 @@ class report : Fragment() {
                   Toast.makeText(context,d!!.path.toString() , Toast.LENGTH_SHORT).show()
                   sendImage.setOnClickListener{
                       var a:String=textFieldImageReport.editText?.text.toString()
-                      Toast.makeText(context, Environment.getExternalStorageDirectory().toString() +
-                              File.separator , Toast.LENGTH_SHORT).show()
+                      Toast.makeText(context, "تم تحميل المحتوى", Toast.LENGTH_SHORT).show()
                       d!!.path?.let { it1 -> uploader.uploadImage(
                           Environment.getExternalStorageDirectory().toString() +
                               File.separator +it1,a,  Util.getProperty("urlReport", context!!))}
