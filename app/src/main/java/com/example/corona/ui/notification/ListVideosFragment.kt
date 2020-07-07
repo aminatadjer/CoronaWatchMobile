@@ -1,4 +1,4 @@
-package com.example.corona.ui.view
+package com.example.corona.ui.notification
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.corona.R
 import com.example.corona.ui.Util
-import com.example.corona.ui.view.adapter.VideoAdapter
-import com.example.corona.ui.view.entity.Video
+import com.example.corona.ui.notification.adapter.NotifAdapter
+import com.example.corona.ui.notification.entity.Notif
 import kotlinx.android.synthetic.main.list_videos_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +27,7 @@ class ListVideosFragment : Fragment() {
     }
 
 
-    private lateinit var adapter: VideoAdapter
+    private lateinit var adapter: NotifAdapter
 
 
 
@@ -49,17 +49,10 @@ class ListVideosFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         adapter =
-            VideoAdapter(requireActivity())
+            NotifAdapter(requireActivity())
         recyclerView.adapter = adapter
-/*
-        var video1 = Video("1","1","1")
-        var video2 = Video("2","2","2")
-        var video3 = Video("3","3","3")
 
-        var videos = ArrayList<Video>(video1,video2,video3)
-        adapter.setVideos(videos)
- */
-        val ll = ArrayList<Video>()
+        val ll = ArrayList<Notif>()
         adapter.setVideos(ll)
         val context = context // or getBaseContext(), or getApplicationContext()
         val retrofit = Retrofit.Builder()
@@ -67,10 +60,10 @@ class ListVideosFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create<Service>(Service::class.java)
-        service.getAll().enqueue(object: Callback<List<Video>> {
-            override fun onResponse(call: Call<List<Video>>, response: retrofit2.Response<List<Video>>?) {
+        service.getAll().enqueue(object: Callback<List<Notif>> {
+            override fun onResponse(call: Call<List<Notif>>, response: retrofit2.Response<List<Notif>>?) {
                 if ((response != null) && (response.code() == 200)) {
-                    val listBody:List<Video>? = response.body()
+                    val listBody:List<Notif>? = response.body()
                     if (listBody != null) {
                         ll.clear()
                         ll.addAll(listBody)
@@ -78,7 +71,7 @@ class ListVideosFragment : Fragment() {
                     }
                 }
             }
-            override fun onFailure(call: Call<List<Video>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Notif>>, t: Throwable) {
 
             }
         })

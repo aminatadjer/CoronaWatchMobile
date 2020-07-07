@@ -65,8 +65,8 @@ class map : Fragment(){
                 childFragmentManager,
                 0
             )
-        viewPagerAdapter.addFragment(fragment_local_map,"الخريطة المحلية")
-        viewPagerAdapter.addFragment(fragment_global_map,"الخريطة العالمية")
+        viewPagerAdapter.addFragment(fragment_local_map,getString(R.string.localMap))
+        viewPagerAdapter.addFragment(fragment_global_map,getString(R.string.globalMap))
 
         viewPager.adapter=viewPagerAdapter
 

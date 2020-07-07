@@ -27,7 +27,7 @@ class galery : Fragment() {
 
     companion object {
         fun newInstance() = galery()
-        val IMAGE_DIRECTORY = "/coronawatch"
+
     }
     val REQUEST_GALLERY_CAPTURE = 2
     lateinit var uploader: UploadImage
@@ -76,14 +76,14 @@ class galery : Fragment() {
                     try
                     {
                         if (contentURI != null) {
-                            Toast.makeText(activity!!.applicationContext, "تم تحميل المحتوى", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity!!.applicationContext, getString(R.string.correctMsg), Toast.LENGTH_SHORT).show()
                             uploader.uploadImage(path.toString(),commentaire,
                                 Util.getProperty("urlReport", context!!))
                         }
                     }
                     catch (e: IOException) {
                         e.printStackTrace()
-                        Toast.makeText(activity!!.applicationContext, "Failed!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity!!.applicationContext, getString(R.string.faildMsg), Toast.LENGTH_SHORT).show()
                     }
 
                 }

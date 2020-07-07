@@ -50,7 +50,7 @@ class UserVideo : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (!MainActivity.conected){
-            Toast.makeText(context,"يرجى تسجيل الدخول",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,getString(R.string.loginMsg),Toast.LENGTH_SHORT).show()
             MainActivity.navController.navigate(R.id.loginFragmentGmail)
         }
         else{

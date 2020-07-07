@@ -43,6 +43,29 @@
     <string name="danger_lvl2">خطر متوسط</string>
     <string name="danger_lvl3">خطير جدا</string>
     <string name="loginTitle">تسجيل الدخول</string>
+    <string name="outMsg">تم الخروج بنجاح</string>
+    <string name="inMsg">تم التسجيل بنجاح</string>
+    <string name="GoogleID">Google ID</string>
+    <string name="GoogleFirstName">Google First Name</string>
+    <string name="GoogleLastName">Google Last Name</string>
+    <string name="GoogleEmail">Google Email</string>
+    <string name="GoogleProfilePicURL">Google Profile Pic URL</string>
+    <string name="GoogleIDToken">Google ID Token</string>
+    <string name="failedCode">failed code=</string>
+    <string name="Countries">Countries</string>
+    <string name="onActivityResultMsg">onActivityResult: called.</string>
+    <string name="localMap">الخريطة المحلية</string>
+    <string name="globalMap">الخريطة العالمية</string>
+    <string name="errorMsg">Error</string>
+    <string name="correctMsg">تم تحميل المحتوى</string>
+    <string name="faildMsg">Failed!</string>
+    <string name="loginMsg">يرجى تسجيل الدخول</string>
+    <string name="reMsg">اعد المحاولة</string>
+    <string name="postPackage">com.example.corona.ui.post</string>
+    <string name="dangerMsg">حذار لقد دخلت منطقة خطرة عليك توخ الحذر</string>
+    <string name="danger">تنبيه</string>
+    <string name="PermissionDeniedMsg">Permission denied</string>
+    <string name="settingsEnableMsg">Go to settings and enable the permission</string>
 
 
 </resources>

@@ -75,40 +75,14 @@ class report : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
-
-
-           // activity!!.bottom_bar.visibility = View.GONE
-
-
-
-        //activity!!.toolbar.visibility = View.GONE
-
-
-
-
-
-
         return inflater.inflate(com.example.corona.R.layout.report_fragment, container, false)
     }
-
-
-
-
-
-
-
-
-
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         super.onActivityCreated(savedInstanceState)
         if (!conected){
-            Toast.makeText(context,"يرجى تسجيل الدخول",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,getString(R.string.loginMsg),Toast.LENGTH_SHORT).show()
             navController.navigate(R.id.loginFragmentGmail)
         }
         else{
@@ -137,7 +111,7 @@ class report : Fragment() {
                 requestPermissions()
             }catch (e:ConcurrentModificationException)
             {
-                Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
+                Toast.makeText(context!!,getString(R.string.reMsg),Toast.LENGTH_LONG).show()
             }
 
 
@@ -166,7 +140,7 @@ class report : Fragment() {
                     requestPermissions()
                 }catch (e:ConcurrentModificationException)
                 {
-                    Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
+                    Toast.makeText(context!!,getString(R.string.reMsg),Toast.LENGTH_LONG).show()
                 }
 
             }
@@ -193,12 +167,7 @@ class report : Fragment() {
 
         toggleCameraLens.setOnClickListener { toggleFrontBackCamera() }
         takePhoto.setOnClickListener {
-
             takePicture()
-
-
-
-
         }
 
     }
@@ -225,12 +194,7 @@ class report : Fragment() {
         //disableActions()
 
 
-
-
-
         savePictureToFile()
-
-
 
 
         tcs.task.addOnSuccessListener {
@@ -240,7 +204,7 @@ class report : Fragment() {
                   Toast.makeText(context,d!!.path.toString() , Toast.LENGTH_SHORT).show()
                   sendImage.setOnClickListener{
                       var a:String=textFieldImageReport.editText?.text.toString()
-                      Toast.makeText(context, "تم تحميل المحتوى", Toast.LENGTH_SHORT).show()
+                      Toast.makeText(context, getString(R.string.correctMsg), Toast.LENGTH_SHORT).show()
                       d!!.path?.let { it1 -> uploader.uploadImage(
                           Environment.getExternalStorageDirectory().toString() +
                               File.separator +it1,a,  Util.getProperty("urlReport", context!!))}
@@ -268,7 +232,7 @@ class report : Fragment() {
 
 
                         d=FileProvider.getUriForFile(context!!,
-                            "com.example.corona.ui.post",
+                            getString(R.string.postPackage),
                             file)
 
                         tcs.trySetResult(true)

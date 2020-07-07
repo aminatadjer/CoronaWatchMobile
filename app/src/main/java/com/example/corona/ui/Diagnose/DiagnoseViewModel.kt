@@ -1,8 +1,9 @@
-package com.example.corona.ui.view
+package com.example.corona.ui.Diagnose
 
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.example.corona.ui.Diagnose.DiagnoseFragment
 
 class DiagnoseViewModel : ViewModel() {
     var temperature: Int = DiagnoseFragment.TEMPERATURE_MIN

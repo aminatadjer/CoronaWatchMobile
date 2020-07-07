@@ -98,7 +98,7 @@ class GalleryVideo : Fragment() {
                 }
             }catch (e:ConcurrentModificationException)
             {
-                Toast.makeText(context!!,"اعد المحاولة",Toast.LENGTH_LONG).show()
+                Toast.makeText(context!!,getString(R.string.reMsg),Toast.LENGTH_LONG).show()
             }
 
         }

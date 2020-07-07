@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.example.corona.R
 import com.example.corona.ui.MainActivity.Companion.conected
+import com.example.corona.ui.Util
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -48,7 +49,7 @@ class LoginUser : Fragment() {
         mtitel.text= "تسجيل الدخول"
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("839072134047-vr0vqc4sjkavga6b5qp5649ltk6kgvq3.apps.googleusercontent.com")
+            .requestIdToken(Util.getProperty("gmailToken", context!!))
             .requestEmail()
             .build()
 
@@ -62,7 +63,7 @@ class LoginUser : Fragment() {
 
         google_logout_btn.setOnClickListener{
             signOut()
-            Toast.makeText(context,"تم الخروج بنجاح",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,getString(R.string.outMsg),Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -83,7 +84,7 @@ class LoginUser : Fragment() {
             conected=handleSignInResult(task)
 
             if(conected){
-                Toast.makeText(context,"تم التسجيل بنجاح",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.inMsg),Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -98,29 +99,29 @@ class LoginUser : Fragment() {
 
             // Signed in successfully
 
-            Log.i("Google ID",googleId)
+            Log.i(getString(R.string.GoogleID),googleId)
 
             val googleFirstName = account?.givenName ?: ""
-            Log.i("Google First Name", googleFirstName)
+            Log.i(getString(R.string.GoogleFirstName), googleFirstName)
 
             val googleLastName = account?.familyName ?: ""
-            Log.i("Google Last Name", googleLastName)
+            Log.i(getString(R.string.GoogleLastName), googleLastName)
 
             val googleEmail = account?.email ?: ""
-            Log.i("Google Email", googleEmail)
+            Log.i(getString(R.string.GoogleEmail), googleEmail)
 
             val googleProfilePicURL = account?.photoUrl.toString()
-            Log.i("Google Profile Pic URL", googleProfilePicURL)
+            Log.i(getString(R.string.GoogleProfilePicURL), googleProfilePicURL)
 
             val googleIdToken = account?.idToken ?: ""
-            Log.i("Google ID Token", googleIdToken)
+            Log.i(getString(R.string.GoogleIDToken), googleIdToken)
 
 
 
         } catch (e: ApiException) {
             // Sign in was unsuccessful
             Log.e(
-                "failed code=", e.statusCode.toString()
+                getString(R.string.failedCode), e.statusCode.toString()
             )
         }
         return googleId!=""

@@ -1,4 +1,4 @@
-package com.example.corona.ui.view.adapter
+package com.example.corona.ui.notification.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,11 +10,11 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.corona.R
 
-import com.example.corona.ui.view.entity.Video
+import com.example.corona.ui.notification.entity.Notif
 
 
-class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.VideoHolder>() {
-    private var videos: List<Video> = ArrayList()
+class NotifAdapter(val context: Context) : RecyclerView.Adapter<NotifAdapter.VideoHolder>() {
+    private var notifs: List<Notif> = ArrayList()
     private var listener: OnItemClickListener? = null
     @NonNull
     override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): VideoHolder {
@@ -24,14 +24,14 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
     }
 
     override fun onBindViewHolder(@NonNull holder: VideoHolder, position: Int) {
-        val currentVideo: Video = videos[position]
+        val currentNotif: Notif = notifs[position]
         //set video title
-        holder.videoTitleView.text = currentVideo.titre
-        holder.videoDescriptionView.text = currentVideo.description
-        holder.videoDateView.text = currentVideo.date
+        holder.videoTitleView.text = currentNotif.titre
+        holder.videoDescriptionView.text = currentNotif.description
+        holder.videoDateView.text = currentNotif.date
 
 
-        when(currentVideo.typeNotif){
+        when(currentNotif.typeNotif){
             0->holder.videoIconView.setImageResource(R.drawable.ic_new)
             1->holder.videoIconView.setImageResource(R.drawable.ic_validate)
             2->holder.videoIconView.setImageResource(R.drawable.ic_danger)
@@ -42,11 +42,11 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
     }
 
     override fun getItemCount(): Int {
-        return videos.size
+        return notifs.size
     }
 
-    fun setVideos(videos: List<Video>) {
-        this.videos = videos
+    fun setVideos(notifs: List<Notif>) {
+        this.notifs = notifs
         notifyDataSetChanged()
     }
 
@@ -62,7 +62,7 @@ class VideoAdapter(val context: Context) : RecyclerView.Adapter<VideoAdapter.Vid
     }
 
     interface OnItemClickListener {
-        fun onItemClick(video: Video)
+        fun onItemClick(notif: Notif)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener?) {

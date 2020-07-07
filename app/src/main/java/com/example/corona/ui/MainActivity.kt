@@ -49,6 +49,8 @@ import android.widget.ImageView
 import android.widget.RemoteViews
 import com.example.corona.ui.map.local.Region
 import com.example.corona.ui.map.Service
+import com.example.corona.ui.notification.ExampleDialog
+import com.example.corona.ui.notification.NotificationCounter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
     val manager = supportFragmentManager
 
     //lateinit var button:Button
-    lateinit var notificationCounter:NotificationCounter
+    lateinit var notificationCounter: NotificationCounter
     lateinit var textView_notification:TextView
     lateinit var imageView_notification:ImageView
 
@@ -209,7 +211,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
 
         //button = findViewById(R.id.button)
-        notificationCounter = NotificationCounter(findViewById(R.id.bell))
+        notificationCounter =
+            NotificationCounter(findViewById(R.id.bell))
 /*
         button.setOnClickListener {
             notificationCounter.increaseNumber()
@@ -221,6 +224,7 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
         imageView_notification.setOnClickListener {
             textView_notification.setText("0")
+
             notificationCounter.notification_number_counter=0
             navController.navigate(R.id.list_videos_fragment)
         }
@@ -325,7 +329,8 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
 
 
     fun openDialog() {
-        var exampleDialog : ExampleDialog = ExampleDialog()
+        var exampleDialog : ExampleDialog =
+            ExampleDialog()
         exampleDialog.show(getSupportFragmentManager(), "This is a Dialog")
     }
 
@@ -427,9 +432,9 @@ class MainActivity : AppCompatActivity (), NavigationView.OnNavigationItemSelect
                     allSuccess = false
                     val requestAgain = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && shouldShowRequestPermissionRationale(permissions[i])
                     if (requestAgain) {
-                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.PermissionDeniedMsg), Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this, "Go to settings and enable the permission", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.settingsEnableMsg), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

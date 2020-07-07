@@ -1,4 +1,4 @@
-package com.example.corona.ui.view
+package com.example.corona.ui.notification
 
 import android.database.Cursor
 import android.net.Uri

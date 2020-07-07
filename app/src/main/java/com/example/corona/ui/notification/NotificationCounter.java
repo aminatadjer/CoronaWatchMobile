@@ -1,4 +1,4 @@
-package com.example.corona.ui;
+package com.example.corona.ui.notification;
 
 import android.util.Log;
 import android.view.View;
@@ -8,10 +8,13 @@ import com.example.corona.R;
 
 public class NotificationCounter {
 
+
+
     private TextView notificationNumber;
 
-    final int MAX_NUMBER =99;
-    int notification_number_counter = 0;
+
+    public final int MAX_NUMBER =99;
+    public int notification_number_counter = 0;
 
     public NotificationCounter(View view){
         notificationNumber = view.findViewById(R.id.notificationNumber);

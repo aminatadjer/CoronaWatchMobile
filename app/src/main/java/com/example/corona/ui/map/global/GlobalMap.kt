@@ -82,7 +82,7 @@ class GlobalMap : Fragment(), OnMapReadyCallback {
                 context!!
             )!!)
         for(i in 0..185){
-            val jArray = obj.getJSONArray("Countries").get(i)
+            val jArray = obj.getJSONArray(getString(R.string.Countries)).get(i)
 
             var iid=""
             iid = jArray.toString()
@@ -360,7 +360,7 @@ class GlobalMap : Fragment(), OnMapReadyCallback {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(ContentValues.TAG, "onActivityResult: called.")
+        Log.d(ContentValues.TAG, getString(R.string.onActivityResultMsg))
         when (requestCode) {
             PERMISSIONS_REQUEST_ENABLE_GPS -> {
                 if (mLocationPermissionGranted) {

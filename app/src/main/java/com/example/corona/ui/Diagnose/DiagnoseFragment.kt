@@ -1,4 +1,4 @@
-package com.example.corona.ui.view
+package com.example.corona.ui.Diagnose
 
 
 import android.app.Activity
@@ -18,15 +18,11 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import com.example.corona.R
-import com.example.corona.ui.view.UploadEtat
-import com.example.corona.ui.upload.UploadImage
+import com.example.corona.ui.notification.UploadEtat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.diagnose_fragment.*
 import me.ibrahimsn.lib.SmoothBottomBar
 import java.io.ByteArrayOutputStream
@@ -54,9 +50,9 @@ class DiagnoseFragment : Fragment() {
         const val WEIGHT_MAX = 200
 
         var c = Calendar.getInstance()
-        var year=c.get(Calendar.YEAR)
-        var month=c.get(Calendar.MONTH)
-        var day=c.get(Calendar.DAY_OF_MONTH)
+        var year= c.get(Calendar.YEAR)
+        var month= c.get(Calendar.MONTH)
+        var day= c.get(Calendar.DAY_OF_MONTH)
 
     }
 
@@ -100,7 +96,8 @@ class DiagnoseFragment : Fragment() {
 
                 diagnose_button.setOnClickListener {
                     if (data != null)
-                    {   uploader= com.example.corona.ui.view.UploadEtat(activity!!)
+                    {   uploader=
+                        UploadEtat(activity!!)
                         val contentURI = selctedPhoto
                         val temperature:String=temperature_seek_bar.getProgress().toString()
                         val rythmeCardiaque=heart_beat_seek_bar.getProgress().toString()
@@ -214,9 +211,12 @@ class DiagnoseFragment : Fragment() {
         })
 
 
-        weight_number_piker.minValue = WEIGHT_MIN
-        weight_number_piker.maxValue = WEIGHT_MAX
-        weight_number_piker.value = WEIGHT_MIN
+        weight_number_piker.minValue =
+            WEIGHT_MIN
+        weight_number_piker.maxValue =
+            WEIGHT_MAX
+        weight_number_piker.value =
+            WEIGHT_MIN
         weight_number_piker.setOnValueChangedListener { _, _, newVal ->
             viewModel.weight = newVal
         }

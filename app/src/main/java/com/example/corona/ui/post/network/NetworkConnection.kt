@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.net.*
 import android.os.Build
 import androidx.lifecycle.LiveData
+import com.example.corona.R
 
 class NetworkConnection (private val context: Context) :LiveData<Boolean>(){
 
@@ -81,7 +82,7 @@ class NetworkConnection (private val context: Context) :LiveData<Boolean>(){
             }
             return networkCallback
         }else{
-            throw IllegalAccessError("Error")
+            throw IllegalAccessError(context.getString(R.string.errorMsg))
         }
     }
 

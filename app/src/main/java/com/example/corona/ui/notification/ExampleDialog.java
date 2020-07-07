@@ -1,4 +1,4 @@
-package com.example.corona.ui;
+package com.example.corona.ui.notification;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -20,8 +20,8 @@ public class ExampleDialog extends AppCompatDialogFragment {
         image.setImageResource(R.drawable.coronawatch);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("تنبيه")
-                .setMessage("حذار لقد دخلت منطقة خطرة عليك توخ الحذر")
+        builder.setTitle(R.string.danger)
+                .setMessage(R.string.dangerMsg)
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

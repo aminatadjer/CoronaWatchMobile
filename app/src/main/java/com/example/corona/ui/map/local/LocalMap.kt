@@ -323,7 +323,7 @@ class LocalMap : Fragment(), OnMapReadyCallback {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(ContentValues.TAG, "onActivityResult: called.")
+        Log.d(ContentValues.TAG, getString(R.string.onActivityResultMsg))
         when (requestCode) {
             PERMISSIONS_REQUEST_ENABLE_GPS -> {
                 if (mLocationPermissionGranted) {
